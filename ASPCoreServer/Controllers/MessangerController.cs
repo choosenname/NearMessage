@@ -7,7 +7,7 @@ namespace ASPCoreServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Messanger1Controller : ControllerBase
+    public class MessangerController : ControllerBase
     {
         static List<Message> ListOfMessages = new List<Message>();
 
