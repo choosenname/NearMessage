@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ConsoleClient
 {
-    internal class Message
+    [Serializable]
+    public class Message
     {
         public string UserName { get; set; }
         public string MessageText { get; set; }
@@ -26,6 +27,6 @@ namespace ConsoleClient
             TimeStamp = timeStamp;
         }
 
-        public override string ToString() => String.Format($"{UserName} <{MessageText}>: {TimeStamp}");
+        public override string ToString() => $"{UserName} <{MessageText}>: {TimeStamp}";
     }
 }
