@@ -1,8 +1,18 @@
-﻿namespace NearMessage.Domain.Entities;
+﻿using NearMessage.Domain.Primitives;
 
-public class Message
+namespace NearMessage.Domain.Entities;
+
+public class Message : Entity
 {
-    public Guid Id { get; set; }
+    public Message(Guid id, string content, DateTime sentAt, bool isRead, bool isDeleted)
+        : base(id)
+    {
+        Content = content;
+        SentAt = sentAt;
+        IsRead = isRead;
+        IsDeleted = isDeleted;
+    }
+
     public string Content { get; set; }
     public DateTime SentAt { get; set; }
 

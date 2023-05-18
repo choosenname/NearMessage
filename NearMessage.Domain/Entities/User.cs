@@ -1,12 +1,20 @@
-﻿namespace NearMessage.Domain.Entities;
+﻿using NearMessage.Domain.Primitives;
 
-public class User
+namespace NearMessage.Domain.Entities;
+
+public class User : Entity
 {
-    public Guid Id { get; set; }
+    public User(Guid id, string username, string email, DateTime createdAt, List<int> connections)
+        : base(id)
+    {
+        Username = username;
+        CreatedAt = createdAt;
+        Connections = connections;
+    }
+
     public string Username { get; set; }
-    public string Email { get; set; }
 
     public bool IsActive { get => Connections.Count > 0; }
     public DateTime CreatedAt { get; set; }
-    public List<Connection> Connections { get; set; }
+    public List<int> Connections { get; set; }
 }

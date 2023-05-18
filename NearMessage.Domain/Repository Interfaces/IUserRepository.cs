@@ -4,10 +4,16 @@ namespace NearMessage.Domain.Repository_Interfaces;
 
 public interface IUserRepository
 {
-    User GetById(int userId);
+    List<User> GetAllUsers();
+    Task<IEnumerable<User>> GetAllUsersAsync();
+
+    User GetById(Guid userId);
+    Task<User> GetByIdAsync(Guid userId);
+
     User GetByUsername(string username);
+    Task<User> GetByUsernameAsync(string username);
+
     void Create(User user);
     void Update(User user);
-    void Delete(int userId);
-    void SendMessage(Message message);
+    void Delete(Guid userId);
 }
