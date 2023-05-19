@@ -13,7 +13,9 @@ public interface IUserRepository
     User GetByUsername(string username);
     Task<User> GetByUsernameAsync(string username);
 
-    void Create(User user);
+    void CreateUser();
+    void CreateUserAsync(User user);
+
     void Update(User user);
     void Delete(Guid userId);
 }
