@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using NearMessage.Domain.Entities;
 
 namespace NearMessage.Application.Abstraction;
 
-internal class IApplicationDbContext
+public interface IApplicationDbContext
 {
+    public DbSet<User> Users { get; set; }
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

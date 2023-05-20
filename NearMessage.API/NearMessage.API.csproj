@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NearMessage.Application\NearMessage.Application.csproj" />
+    <ProjectReference Include="..\NearMessage.Infrastructure\NearMessage.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

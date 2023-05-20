@@ -1,11 +1,12 @@
 ﻿using NearMessage.Domain.Entities;
+using NearMessage.Domain.Shared;
 
 namespace NearMessage.Domain.Repository_Interfaces;
 
 public interface IUserRepository
 {
     List<User> GetAllUsers();
-    Task<IEnumerable<User>> GetAllUsersAsync();
+    Task<List<User>> GetAllUsersAsync();
 
     User GetById(Guid userId);
     Task<User> GetByIdAsync(Guid userId);
@@ -13,8 +14,8 @@ public interface IUserRepository
     User GetByUsername(string username);
     Task<User> GetByUsernameAsync(string username);
 
-    void CreateUser();
-    void CreateUserAsync(User user);
+    Result<User> CreateUser();
+    Task<Result<User>> CreateUserAsync(User user);
 
     void Update(User user);
     void Delete(Guid userId);

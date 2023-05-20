@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NearMessage.Domain.Repository_Interfaces
+namespace NearMessage.Domain.Repository_Interfaces;
+
+public interface ILogger
 {
-    internal interface ILogger
-    {
-        void LogInfo(string message);
-        void LogError(string message, Exception ex);
-    }
+    void LogInfo(string message);
+    void LogError(string message, Exception ex);
 }
