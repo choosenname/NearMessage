@@ -5,13 +5,15 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NearMessage.Domain", "NearMessage.Domain\NearMessage.Domain.csproj", "{E2901BCB-B7FB-4C92-B0FA-AC251984DE74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearMessage.Application", "NearMessage.Application\NearMessage.Application.csproj", "{95466735-3CB1-4ABB-AFC5-318292CB7DF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NearMessage.Application", "NearMessage.Application\NearMessage.Application.csproj", "{95466735-3CB1-4ABB-AFC5-318292CB7DF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearMessage.Infrastructure", "NearMessage.Infrastructure\NearMessage.Infrastructure.csproj", "{50AADF12-D211-4683-96ED-4014194DB88B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NearMessage.Infrastructure", "NearMessage.Infrastructure\NearMessage.Infrastructure.csproj", "{50AADF12-D211-4683-96ED-4014194DB88B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearMessage.API", "NearMessage.API\NearMessage.API.csproj", "{394097ED-422F-4F49-9C4E-FFFB8329A6F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NearMessage.API", "NearMessage.API\NearMessage.API.csproj", "{394097ED-422F-4F49-9C4E-FFFB8329A6F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearMessage.Presentation", "NearMessage.Presentation\NearMessage.Presentation.csproj", "{11BBB808-06F9-4835-B383-C8BA2C057BEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NearMessage.Presentation", "NearMessage.Presentation\NearMessage.Presentation.csproj", "{11BBB808-06F9-4835-B383-C8BA2C057BEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{94DFE863-EE47-41F3-9FB8-593A670F0A8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E2901BCB-B7FB-4C92-B0FA-AC251984DE74} = {94DFE863-EE47-41F3-9FB8-593A670F0A8F}
+		{95466735-3CB1-4ABB-AFC5-318292CB7DF9} = {94DFE863-EE47-41F3-9FB8-593A670F0A8F}
+		{50AADF12-D211-4683-96ED-4014194DB88B} = {94DFE863-EE47-41F3-9FB8-593A670F0A8F}
+		{394097ED-422F-4F49-9C4E-FFFB8329A6F0} = {94DFE863-EE47-41F3-9FB8-593A670F0A8F}
+		{11BBB808-06F9-4835-B383-C8BA2C057BEA} = {94DFE863-EE47-41F3-9FB8-593A670F0A8F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FF201BDA-0456-44A2-84FF-A36E65B79DB8}

@@ -18,7 +18,7 @@ public class RegistrationController : ApiController
             UserName: "Walfram",
             Password: "qwerty");
 
-        var result =  await Sender.Send(comand, cancellationToken);
+        var result = await Sender.Send(comand, cancellationToken);
 
         return result.IsSucceeded ? Ok() : BadRequest(result.Errors);
     }
