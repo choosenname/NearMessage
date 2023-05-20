@@ -1,25 +1,26 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using NearMessage.Application.Users.Commands.CreateUser;
-using Server.Controllers;
 
-namespace NearMessage.API.Controllers;
+namespace NearMessage.Presentation.Controllers;
 
-[Route("api/registration")]
-[ApiController]
-public class RegistrationController : ApiController
+public class RegistrationController : ApiControllerBase
 {
     public RegistrationController(ISender sender) : base(sender) { }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateUserAsync(CancellationToken cancellationToken)
+    public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        var comand = new CreateUserAsyncCommand(
-            UserName: "Walfram",
-            Password: "qwerty");
+        app.MapPost("/registration", async (CancellationToken cancellationToken) =>
+        {
+            var comand = new CreateUserCommand(
+                UserName: "Walfram",
+                Password: "qwerty");
 
-        var result = await Sender.Send(comand, cancellationToken);
+            var result = await Sender.Send(comand, cancellationToken);
 
-        return result.IsSucceeded ? Ok() : BadRequest(result.Errors);
+            return result.IsSucceeded ? Results.Ok() : Results.BadRequest(result.Errors);
+        });
     }
 }

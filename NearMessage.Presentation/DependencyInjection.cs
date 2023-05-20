@@ -1,12 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using NearMessage.Application.Abstraction.Messaging;
+﻿using Carter;
+using Microsoft.Extensions.DependencyInjection;
 using NearMessage.Application.Users.Commands.CreateUser;
+using NearMessage.Presentation.Controllers;
 
-namespace Infrastructure;
+namespace NearMessage.Presentation;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
 
         return services;

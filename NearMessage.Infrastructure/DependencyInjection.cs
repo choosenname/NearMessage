@@ -1,14 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NearMessage.Application.Abstraction;
+using NearMessage.Application.Users.Commands.CreateUser;
 using NearMessage.Domain.Repository_Interfaces;
 using NearMessage.Infrastructure.Persistence;
 using NearMessage.Infrastructure.Repositories;
-using NearMessage.Application.Users.Commands.CreateUser;
-using System.Reflection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
-namespace Infrastructure;
+namespace NearMessage.Infrastructure;
 
 public static class DependencyInjection
 {

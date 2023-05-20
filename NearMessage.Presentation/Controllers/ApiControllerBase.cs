@@ -1,13 +1,12 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Carter;
+using MediatR;
 
-namespace Server.Controllers;
+namespace NearMessage.Presentation.Controllers;
 
-[ApiController]
-public abstract class ApiController : ControllerBase
+public abstract class ApiControllerBase : CarterModule
 {
     protected readonly ISender Sender;
-    protected ApiController(ISender sender)
+    protected ApiControllerBase(ISender sender)
     {
         Sender = sender;
     }

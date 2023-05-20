@@ -6,7 +6,7 @@ using NearMessage.Domain.Shared;
 
 namespace NearMessage.Application.Users.Commands.CreateUser;
 
-public sealed class CreateUserAsyncCommandHandler : ICommandHandler<CreateUserAsyncCommand>
+public sealed class CreateUserAsyncCommandHandler : ICommandHandler<CreateUserCommand>
 {
     private readonly IUserRepository _userRepository;
     private readonly IApplicationDbContext _applicationDbContext;
@@ -19,7 +19,7 @@ public sealed class CreateUserAsyncCommandHandler : ICommandHandler<CreateUserAs
         _applicationDbContext = applicationDbContext;
     }
 
-    public async Task<Result> Handle(CreateUserAsyncCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var user = new User(
             Guid.NewGuid(),
