@@ -4,11 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace Server.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-public abstract class ApiControllerBase : ControllerBase
+public abstract class ApiController : ControllerBase
 {
     protected readonly ISender Sender;
-    protected ApiControllerBase(ISender sender)
+    protected ApiController(ISender sender)
     {
         Sender = sender;
     }

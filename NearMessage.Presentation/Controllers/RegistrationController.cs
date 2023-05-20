@@ -7,7 +7,7 @@ namespace NearMessage.API.Controllers;
 
 [Route("api/registration")]
 [ApiController]
-public class RegistrationController : ApiControllerBase
+public class RegistrationController : ApiController
 {
     public RegistrationController(ISender sender) : base(sender) { }
 
@@ -15,7 +15,6 @@ public class RegistrationController : ApiControllerBase
     public async Task<IActionResult> CreateUserAsync(CancellationToken cancellationToken)
     {
         var comand = new CreateUserAsyncCommand(
-            Id: Guid.NewGuid(),
             UserName: "Walfram",
             Password: "qwerty");
 

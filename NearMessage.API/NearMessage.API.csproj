@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NearMessage.Application\NearMessage.Application.csproj" />
     <ProjectReference Include="..\NearMessage.Infrastructure\NearMessage.Infrastructure.csproj" />
+    <ProjectReference Include="..\NearMessage.Presentation\NearMessage.Presentation.csproj" />
   </ItemGroup>
 
 </Project>
