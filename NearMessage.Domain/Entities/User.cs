@@ -4,15 +4,15 @@ namespace NearMessage.Domain.Entities;
 
 public class User : Entity
 {
-    public User(Guid id, string username, string password)
+    public User(Guid id, string userName, string password)
         : base(id)
     {
-        Username = username;
+        UserName = userName;
         Password = password;
         CreatedAt = DateTime.Now;
     }
 
-    public string Username { get; set; }
+    public string UserName { get; set; }
     public string Password { get; set; }
 
     public bool IsActive { get; }

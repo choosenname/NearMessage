@@ -16,11 +16,11 @@ public static class DependencyInjection
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddScoped<CreateUserAsyncCommandHandler>();
 
-        services.AddDbContext<ApplicationDbContext>(options =>
+        services.AddDbContext<NearMessageDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                builder => builder.MigrationsAssembly(typeof(NearMessageDbContext).Assembly.FullName)));
 
-        services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+        services.AddScoped<INearMessageDbContext>(provider => provider.GetRequiredService<NearMessageDbContext>());
 
         return services;
     }

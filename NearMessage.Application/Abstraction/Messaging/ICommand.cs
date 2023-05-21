@@ -4,4 +4,4 @@ using MediatR;
 namespace NearMessage.Application.Abstraction.Messaging;
 
 public interface ICommand : IRequest<Result> { }
-public interface ICommand<TResponce> : IRequest<Result<TResponce>> { }
+public interface ICommand<TResponse> : IRequest<Result<TResponse>> { }

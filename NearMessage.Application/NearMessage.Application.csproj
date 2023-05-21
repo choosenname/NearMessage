@@ -15,4 +15,8 @@
     <ProjectReference Include="..\NearMessage.Domain\NearMessage.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstraction\Messaging\" />
+  </ItemGroup>
+
 </Project>

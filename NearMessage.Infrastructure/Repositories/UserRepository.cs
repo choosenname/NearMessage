@@ -7,9 +7,9 @@ namespace NearMessage.Infrastructure.Repositories;
 
 internal class UserRepository : IUserRepository
 {
-    private readonly ApplicationDbContext _context;
+    private readonly NearMessageDbContext _context;
 
-    public UserRepository(ApplicationDbContext context)
+    public UserRepository(NearMessageDbContext context)
     {
         _context = context;
     }
@@ -52,12 +52,12 @@ internal class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public User GetByUsername(string username)
+    public User GetByUserName(string userName)
     {
         throw new NotImplementedException();
     }
 
-    public Task<User> GetByUsernameAsync(string username)
+    public Task<User> GetByUserNameAsync(string userName)
     {
         throw new NotImplementedException();
     }
