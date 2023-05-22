@@ -2,13 +2,18 @@
 using MediatR;
 using NearMessage.Application.Users.Commands.CreateUser;
 
-namespace NearMessage.Presentation.Controllers;
+namespace NearMessage.API.Modules;
 
-public static class RegistrationController 
+public class RegistrationModule : CarterModule
 {
-    public static void AddRoutes(this IEndpointRouteBuilder app)
+    public RegistrationModule()
+        :base("/registration")
     {
-        app.MapPost("/registration", async (ISender sender) =>
+    }
+
+    public override void AddRoutes(IEndpointRouteBuilder app)
+    {
+        app.MapPost("", async (ISender sender) =>
         {
             var comand = new CreateUserCommand(
                 UserName: "Walfram",
@@ -18,5 +23,5 @@ public static class RegistrationController
 
             return Results.Ok();
         });
-    }   
+    }
 }

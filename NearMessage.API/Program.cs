@@ -1,16 +1,13 @@
-using NearMessage.API.Hubs;
+using Carter;
 using NearMessage.Application;
 using NearMessage.Infrastructure;
-using NearMessage.Presentation.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-
-builder.Services.AddControllers();
-builder.Services.AddSignalR();
+builder.Services.AddCarter();
 
 // Add services to the container.
 
@@ -20,9 +17,6 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
-app.AddRoutes();
-
-app.MapHub<ChatHub>("/chat");
+app.MapCarter();
 
 app.Run();
