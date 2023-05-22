@@ -1,7 +1,7 @@
-﻿using NearMessage.Application.Abstraction.Messaging;
+﻿using MediatR;
 
 namespace NearMessage.Application.Users.Commands.CreateUser;
 
 public sealed record CreateUserCommand(
     string UserName,
-    string Password) : ICommand<Guid>;
+    string Password) : IRequest;
