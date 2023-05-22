@@ -1,27 +1,19 @@
 ﻿using MediatR;
 using NearMessage.Application.Abstraction;
-using NearMessage.Application.Abstraction.Messaging;
 using NearMessage.Domain.Entities;
-using NearMessage.Domain.Repository_Interfaces;
-using NearMessage.Domain.Shared;
 
 namespace NearMessage.Application.Users.Commands.CreateUser;
 
-public sealed class CreateUserAsyncCommandHandler 
-    : ICommandHandler<CreateUserCommand, Guid>
+public sealed class CreateUserAsyncCommandHandler : IRequestHandler<CreateUserCommand>
 {
-    private readonly IUserRepository _userRepository;
     private readonly INearMessageDbContext _nearMessageDbContext;
 
-    public CreateUserAsyncCommandHandler(
-        IUserRepository userRepository,
-        INearMessageDbContext nearMessageDbContext)
+    public CreateUserAsyncCommandHandler(INearMessageDbContext nearMessageDbContext)
     {
-        _userRepository = userRepository;
         _nearMessageDbContext = nearMessageDbContext;
     }
 
-    public async Task<Result<Guid>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var id = Guid.NewGuid();
 
@@ -30,10 +22,8 @@ public sealed class CreateUserAsyncCommandHandler
             request.UserName,
             request.Password);
 
-        await _userRepository.CreateUserAsync(user);
+        await _nearMessageDbContext.Users.AddAsync(user);
 
         await _nearMessageDbContext.SaveChangesAsync(cancellationToken);
-
-        return Result<Guid>.Success(id);
     }
 }
