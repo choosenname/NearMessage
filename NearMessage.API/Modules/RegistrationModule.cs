@@ -13,13 +13,13 @@ public class RegistrationModule : CarterModule
 
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("", async (ISender sender) =>
+        app.MapPost("", async (ISender sender, CancellationToken cancellationToken) =>
         {
             var comand = new CreateUserCommand(
                 UserName: "Walfram",
                 Password: "qwerty");
 
-            await sender.Send(comand);
+            await sender.Send(comand, cancellationToken);
 
             return Results.Ok();
         });

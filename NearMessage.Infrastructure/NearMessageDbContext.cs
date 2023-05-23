@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NearMessage.Application.Abstraction;
 using NearMessage.Domain.Entities;
-using NearMessage.Infrastructure.Persistence.EntityTypeConfigurations;
+using NearMessage.Persistence.EntityTypeConfigurations;
 using System.Reflection;
 
-namespace NearMessage.Infrastructure.Persistence;
+namespace NearMessage.Persistence;
 
 public class NearMessageDbContext : DbContext, INearMessageDbContext
 {

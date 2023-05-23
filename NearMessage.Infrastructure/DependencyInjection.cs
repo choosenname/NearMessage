@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NearMessage.Application.Abstraction;
-using NearMessage.Infrastructure.Persistence;
+using NearMessage.Persistence;
 
 namespace NearMessage.Infrastructure;
 

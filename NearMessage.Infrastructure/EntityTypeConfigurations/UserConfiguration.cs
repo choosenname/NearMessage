@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NearMessage.Domain.Entities;
 
-namespace NearMessage.Infrastructure.Persistence.EntityTypeConfigurations;
+namespace NearMessage.Persistence.EntityTypeConfigurations;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {
