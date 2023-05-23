@@ -15,7 +15,7 @@ public class RegistrationModule : CarterModule
     {
         app.MapPost("", async (ISender sender, CancellationToken cancellationToken) =>
         {
-            var comand = new CreateUserCommand(
+            var comand = new UserRegistrationCommand(
                 UserName: "Walfram",
                 Password: "qwerty");
 

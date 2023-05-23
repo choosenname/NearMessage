@@ -1,23 +1,27 @@
 ﻿using MediatR;
 using NearMessage.Application.Abstraction;
+using NearMessage.Common.Abstractions.Messaging;
+using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Entities;
 using NearMessage.Domain.Users;
+using System.Windows.Input;
 
 namespace NearMessage.Application.Users.Commands.CreateUser;
 
-public sealed class CreateUserAsyncCommandHandler : IRequestHandler<CreateUserCommand>
+public sealed class UserRegistrationAsyncCommandHandler 
+    : ICommandHandler<UserRegistrationCommand, Result>
 {
     private readonly INearMessageDbContext _nearMessageDbContext;
     private readonly IUserRepository _userRepository;
 
-    public CreateUserAsyncCommandHandler(INearMessageDbContext nearMessageDbContext
+    public UserRegistrationAsyncCommandHandler(INearMessageDbContext nearMessageDbContext
         , IUserRepository userRepository)
     {
         _nearMessageDbContext = nearMessageDbContext;
         _userRepository = userRepository;
     }
 
-    public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
     {
         var id = Guid.NewGuid();
 
@@ -26,8 +30,15 @@ public sealed class CreateUserAsyncCommandHandler : IRequestHandler<CreateUserCo
             request.UserName,
             request.Password);
 
-        await _userRepository.CreateUserAsync(user);
+        var result = await _userRepository.CreateUserAsync(user);
+
+        if (result.IsFailure)
+        {
+            return result;
+        }
 
         await _nearMessageDbContext.SaveChangesAsync(cancellationToken);
+
+        return Result.Success();
     }
 }
