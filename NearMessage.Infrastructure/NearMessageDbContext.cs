@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using NearMessage.Application.Abstraction;
 using NearMessage.Domain.Entities;
 using NearMessage.Persistence.EntityTypeConfigurations;
