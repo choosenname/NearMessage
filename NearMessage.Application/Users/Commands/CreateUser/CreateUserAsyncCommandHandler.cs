@@ -1,16 +1,20 @@
 ﻿using MediatR;
 using NearMessage.Application.Abstraction;
 using NearMessage.Domain.Entities;
+using NearMessage.Domain.Users;
 
 namespace NearMessage.Application.Users.Commands.CreateUser;
 
 public sealed class CreateUserAsyncCommandHandler : IRequestHandler<CreateUserCommand>
 {
     private readonly INearMessageDbContext _nearMessageDbContext;
+    private readonly IUserRepository _userRepository;
 
-    public CreateUserAsyncCommandHandler(INearMessageDbContext nearMessageDbContext)
+    public CreateUserAsyncCommandHandler(INearMessageDbContext nearMessageDbContext
+        , IUserRepository userRepository)
     {
         _nearMessageDbContext = nearMessageDbContext;
+        _userRepository = userRepository;
     }
 
     public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -22,7 +26,7 @@ public sealed class CreateUserAsyncCommandHandler : IRequestHandler<CreateUserCo
             request.UserName,
             request.Password);
 
-        await _nearMessageDbContext.Users.AddAsync(user);
+        await _userRepository.CreateUserAsync(user);
 
         await _nearMessageDbContext.SaveChangesAsync(cancellationToken);
     }

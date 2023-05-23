@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NearMessage.Domain.Entities;
+using NearMessage.Domain.Users;
 
 namespace NearMessage.Persistence.EntityTypeConfigurations;
 

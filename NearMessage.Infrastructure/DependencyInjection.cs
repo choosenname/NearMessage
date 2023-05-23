@@ -1,22 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using NearMessage.Application.Abstraction;
-using NearMessage.Persistence;
+﻿using Microsoft.Extensions.DependencyInjection;
+using NearMessage.Domain.Users;
+using NearMessage.Infrastructure.Repository;
 
-namespace NearMessage.Infrastructure;
+namespace NearMessage.Persistence;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-
-        services.AddDbContext<NearMessageDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                builder => builder.MigrationsAssembly(typeof(NearMessageDbContext).Assembly.FullName)));
-
-        services.AddScoped<INearMessageDbContext>(provider => provider.GetRequiredService<NearMessageDbContext>());
+        services.AddTransient<IUserRepository, UserRepository>();
 
         return services;
     }

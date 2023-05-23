@@ -12,7 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NearMessage.Application\NearMessage.Application.csproj" />
-    <ProjectReference Include="..\NearMessage.Infrastructure\NearMessage.Persistence.csproj" />
+    <ProjectReference Include="..\NearMessage.Infrastructure\NearMessage.Infrastructure.csproj" />
+    <ProjectReference Include="..\NearMessage.Persistence\NearMessage.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
