@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NearMessage.Common.Primitives\NearMessage.Common.Primitives.csproj" />
-  </ItemGroup>
-
 </Project>
