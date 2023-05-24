@@ -19,9 +19,9 @@ public class RegistrationModule : CarterModule
                 UserName: "Walfram",
                 Password: "qwerty");
 
-            await sender.Send(comand, cancellationToken);
+            var result = await sender.Send(comand, cancellationToken);
 
-            return Results.Ok();
+            return result.IsSuccess ? Results.Ok(result) : Results.BadRequest(result.Error);
         });
     }
 }

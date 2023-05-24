@@ -16,8 +16,4 @@
     <ProjectReference Include="..\NearMessage.Domain\NearMessage.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Users\Commands\UserAuthentication\" />
-  </ItemGroup>
-
 </Project>

@@ -2,15 +2,12 @@
 
 public sealed class Error : IEquatable<Error>
 {
-    public Error(string code, string message)
+    public Error(string message)
     {
-        Code = code;
         Message = message;
     }
 
-    public static Error None => new(string.Empty, string.Empty);
-
-    public string Code { get; }
+    public static Error None => new(string.Empty);
 
     public string Message { get; }
 
@@ -30,7 +27,7 @@ public sealed class Error : IEquatable<Error>
     }
     
     public bool Equals(Error? other)
-        => other is not null && Code == other.Code && Message == other.Message;
+        => other is not null && Message == other.Message;
 
     public static bool operator !=(Error a, Error b) => !(a == b);
 
@@ -49,5 +46,5 @@ public sealed class Error : IEquatable<Error>
         return Equals(error);
     }
 
-    public override int GetHashCode() => HashCode.Combine(Code, Message);
+    public override int GetHashCode() => HashCode.Combine(Message);
 }

@@ -30,7 +30,7 @@ public sealed class UserRegistrationAsyncCommandHandler
             request.UserName,
             request.Password);
 
-        var result = await _userRepository.CreateUserAsync(user);
+        var result = await _userRepository.CreateUserAsync(user, cancellationToken);
 
         if (result.IsFailure)
         {

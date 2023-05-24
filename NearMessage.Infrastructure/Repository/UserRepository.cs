@@ -1,4 +1,7 @@
-﻿using NearMessage.Application.Abstraction;
+﻿using Microsoft.EntityFrameworkCore;
+using NearMessage.Application.Abstraction;
+using NearMessage.Common.Primitives.Errors;
+using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Entities;
 using NearMessage.Domain.Users;
@@ -7,37 +10,25 @@ namespace NearMessage.Infrastructure.Repository;
 
 public class UserRepository : IUserRepository
 {
-    private readonly INearMessageDbContext _nearMessageDbContext;
+    private readonly INearMessageDbContext _context;
 
     public UserRepository(INearMessageDbContext nearMessageDbContext)
     {
-        _nearMessageDbContext = nearMessageDbContext;
+        _context = nearMessageDbContext;
     }
 
-    public Task<bool> AuthenticateUserAsync(string requestEmail, string requestPassword)
+    public async Task<Result<User>> CreateUserAsync(User user, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
-    }
-
-    public async Task<Result<User>> CreateUserAsync(User user)
-    {
-        await _nearMessageDbContext.Users.AddAsync(user);
+        await _context.Users.AddAsync(user, cancellationToken);
 
         return Result<User>.Success(user);
     }
 
-    public Task<IEnumerable<User>> GetAllUsersAsync()
+    public Task<Maybe<User>> GetUserByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public Task<User?> GetUserByIdAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<User?> GetUserByNameAsync(string userName)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<Maybe<User>> GetUserByNameAsync(string userName, CancellationToken cancellationToken) =>
+        await _context.Users.SingleOrDefaultAsync(i => i.UserName == userName, cancellationToken);
 }

@@ -18,4 +18,6 @@ public class User : Entity
     public bool IsActive { get; }
     public DateTime CreatedAt { get; set; }
     //public List<int> Connections { get; set; }
+
+    public bool VerifyPassword(string password) => password == Password;
 }
