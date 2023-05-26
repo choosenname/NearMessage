@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Client.Stores;
+using Client.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,6 +15,24 @@ namespace Client
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e) { }
+        private readonly NavigationStore _navigationStore;
+
+        public App()
+        {
+            _navigationStore = new NavigationStore();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            _navigationStore.CurrentViewModel = new RegistrationViewModel(_navigationStore);
+
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel(_navigationStore)
+            };
+            MainWindow.Show();
+
+            base.OnStartup(e);
+        }
     }
 }

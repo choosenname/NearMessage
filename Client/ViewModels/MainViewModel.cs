@@ -1,24 +1,23 @@
-﻿using System.Windows.Input;
+﻿using Client.Stores;
+using System.Windows.Input;
 
 namespace Client.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    private ViewModelBase _selectedViewModel;
-    public ViewModelBase SelectedViewModel
+    private readonly NavigationStore _navigationStore;
+
+    public MainViewModel(NavigationStore navigationStore)
     {
-        get { return _selectedViewModel; }
-        set
-        {
-            _selectedViewModel = value;
-            OnPropertyChanged(nameof(SelectedViewModel));
-        }
+        _navigationStore = navigationStore;
+
+        _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
     }
 
-    public ICommand UpdateViewCommand { get; set; }
-
-    public MainViewModel()
+    private void OnCurrentViewModelChanged()
     {
-        UpdateViewCommand = new UpdateViewCommand(this);
+        OnPropertyChanged(nameof(CurrentViewModel));
     }
+
+    public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 }
