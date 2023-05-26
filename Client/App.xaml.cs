@@ -13,15 +13,6 @@ namespace Client
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            MainWindow window = new()
-            {
-                //DataContext = new MainViewModel();
-            };
-            MainWindow.Show();
-
-            base.OnStartup(e);
-        }
+        protected override void OnStartup(StartupEventArgs e) { }
     }
 }
