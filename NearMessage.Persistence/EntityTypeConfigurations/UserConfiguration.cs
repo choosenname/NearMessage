@@ -12,8 +12,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(user => user.Id)
             .IsUnique();
 
-        builder.HasIndex(user => user.UserName).IsUnique();
-        builder.Property(user => user.UserName)
+        builder.HasIndex(user => user.Username).IsUnique();
+        builder.Property(user => user.Username)
             .IsRequired()
             .HasMaxLength(128);
 

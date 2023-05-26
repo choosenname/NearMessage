@@ -7,7 +7,7 @@ namespace NearMessage.API.Modules;
 public class AuthenticationModule : CarterModule
 {
     public AuthenticationModule()
-        : base("/registration")
+        : base("/authentication")
     {
     }
 

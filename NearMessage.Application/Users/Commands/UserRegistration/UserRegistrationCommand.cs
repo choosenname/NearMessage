@@ -4,5 +4,5 @@ using NearMessage.Common.Primitives.Result;
 namespace NearMessage.Application.Users.Commands.CreateUser;
 
 public sealed record UserRegistrationCommand(
-    string UserName,
+    string Username,
     string Password) : ICommand<Result>;

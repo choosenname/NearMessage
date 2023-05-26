@@ -8,7 +8,7 @@ namespace NearMessage.API.Modules;
 public class RegistrationModule : CarterModule
 {
     public RegistrationModule()
-        :base("/registration")
+        : base("/registration")
     {
     }
 

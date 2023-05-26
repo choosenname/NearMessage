@@ -30,5 +30,5 @@ public class UserRepository : IUserRepository
     }
 
     public async Task<Maybe<User>> GetUserByNameAsync(string userName, CancellationToken cancellationToken) =>
-        await _context.Users.SingleOrDefaultAsync(i => i.UserName == userName, cancellationToken);
+        await _context.Users.SingleOrDefaultAsync(i => i.Username == userName, cancellationToken);
 }

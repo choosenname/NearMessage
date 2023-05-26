@@ -27,7 +27,7 @@ public sealed class UserRegistrationAsyncCommandHandler
 
         var user = new User(
             id,
-            request.UserName,
+            request.Username,
             request.Password);
 
         var result = await _userRepository.CreateUserAsync(user, cancellationToken);
