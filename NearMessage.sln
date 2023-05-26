@@ -26,9 +26,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NearMessage.Common.Primitiv
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B2499938-2E59-4820-8AF9-D3FFFE9ED389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearMessage.Infrastructure", "NearMessage.Infrastructure\NearMessage.Infrastructure.csproj", "{CE63AABB-7B19-4D52-B408-D83440276F99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NearMessage.Infrastructure", "NearMessage.Infrastructure\NearMessage.Infrastructure.csproj", "{CE63AABB-7B19-4D52-B408-D83440276F99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearMessage.Persistence", "NearMessage.Persistence\NearMessage.Persistence.csproj", "{7F58A348-E698-4302-830B-668A195AEE1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NearMessage.Persistence", "NearMessage.Persistence\NearMessage.Persistence.csproj", "{7F58A348-E698-4302-830B-668A195AEE1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{B88B70D8-3161-4324-A2E3-DCE09CDDB03A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,10 @@ Global
 		{7F58A348-E698-4302-830B-668A195AEE1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F58A348-E698-4302-830B-668A195AEE1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F58A348-E698-4302-830B-668A195AEE1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B88B70D8-3161-4324-A2E3-DCE09CDDB03A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B88B70D8-3161-4324-A2E3-DCE09CDDB03A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B88B70D8-3161-4324-A2E3-DCE09CDDB03A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B88B70D8-3161-4324-A2E3-DCE09CDDB03A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

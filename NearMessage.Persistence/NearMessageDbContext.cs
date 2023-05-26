@@ -11,7 +11,10 @@ public class NearMessageDbContext : DbContext, INearMessageDbContext
     public DbSet<User> Users { get; set; }
 
     public NearMessageDbContext(DbContextOptions<NearMessageDbContext> options)
-        : base(options) { }
+        : base(options) 
+    {
+        Database.EnsureCreated();
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
