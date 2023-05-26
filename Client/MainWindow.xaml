@@ -3,7 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vms="clr-namespace:Client.ViewModels"
+        xmlns:views="clr-namespace:Client.Views"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d">
-    <Frame Content="{Binding NavigationService.CurrentView}" NavigationUIVisibility="Hidden"/>
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
+                <views:RegistrationView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:AuthenticationViewModel}">
+                <views:AuthenticationView/>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <ContentControl Content="{Binding CurrentViewModel}"/>
+
+    </Grid>
 </Window>
