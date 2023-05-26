@@ -12,9 +12,13 @@
         <TextBlock Text="Sing up" 
                    FontSize="30"/>
         
-        <TextBox Tag="Enter Name"/>
-        <TextBox Tag="Enter Password"/>
-        <Button Command="{Binding NavigateCommand}"
-            />
+        <TextBox Tag="Enter Name"
+                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <TextBox Tag="Enter Password"
+                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button Command="{Binding RegistrationCommand}"
+                Content="Sing Up"/>
     </StackPanel>
 </UserControl>

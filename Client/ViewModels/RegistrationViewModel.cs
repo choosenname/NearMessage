@@ -1,15 +1,40 @@
 ﻿using Client.Commands;
-using Client.Stores;
+using Client.Models;
+using System;
 using System.Windows.Input;
 
 namespace Client.ViewModels;
 
 public class RegistrationViewModel : ViewModelBase
 {
-    public ICommand NavigateCommand { get; }
+    private string _username;
+    private string _password;
 
-    public RegistrationViewModel(NavigationStore navigationStore)
+    public string Username
     {
-        NavigateCommand = new NavigateCommand(navigationStore);
+        get => _username;
+        set
+        {
+            _username = value;
+            OnPropertyChanged(nameof(Username));
+        }
+    }
+
+    public string Password
+    {
+        get => _password;
+        set
+        {
+            _password = value;
+            OnPropertyChanged(nameof(Password));
+        }
+    }
+
+
+    public ICommand RegistrationCommand { get; }
+
+    public RegistrationViewModel()
+    {
+        RegistrationCommand = new RegistrationCommand(this);
     }
 }
