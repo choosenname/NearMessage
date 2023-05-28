@@ -7,17 +7,14 @@
         xmlns:views="clr-namespace:Client.Views"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d">
-    <Grid>
-        <Grid.Resources>
-            <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
-                <views:RegistrationView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:AuthenticationViewModel}">
-                <views:AuthenticationView/>
-            </DataTemplate>
-        </Grid.Resources>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
+            <views:RegistrationView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:AuthenticationViewModel}">
+            <views:AuthenticationView/>
+        </DataTemplate>
+    </Window.Resources>
 
-        <ContentControl Content="{Binding CurrentViewModel}"/>
-
-    </Grid>
+    <ContentControl Content="{Binding CurrentViewModel}"/>
 </Window>

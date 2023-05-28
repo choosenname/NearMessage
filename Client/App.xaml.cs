@@ -35,7 +35,7 @@ namespace Client
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigationStore.CurrentViewModel = new RegistrationViewModel();
+            _navigationStore.CurrentViewModel = new RegistrationViewModel(_navigationStore);
 
             MainWindow = new MainWindow()
             {

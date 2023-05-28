@@ -3,11 +3,11 @@ using Client.ViewModels;
 
 namespace Client.Commands;
 
-public class NavigateCommand : CommandBase
+public class SingInNavigateCommand : CommandBase
 {
     private readonly NavigationStore _navigationStore;
 
-    public NavigateCommand(NavigationStore navigationStore)
+    public SingInNavigateCommand(NavigationStore navigationStore)
     {
         _navigationStore = navigationStore;
     }

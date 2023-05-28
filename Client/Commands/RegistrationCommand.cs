@@ -37,6 +37,8 @@ public class RegistrationCommand : CommandBase
 
     public async override void Execute(object? parameter)
     {
+        _registrationViewModel.IsLoading = true;
+
         UserModel user = new UserModel(
             _registrationViewModel.Username,
             _registrationViewModel.Password);
@@ -45,6 +47,9 @@ public class RegistrationCommand : CommandBase
             Encoding.UTF8, "application/json");
 
         var response = await App.HttpClient.PostAsync("/registration", content);
+
         response.EnsureSuccessStatusCode();
+
+        _registrationViewModel.IsLoading = false;
     }
 }

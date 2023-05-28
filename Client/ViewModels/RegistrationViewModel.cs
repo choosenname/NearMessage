@@ -1,5 +1,6 @@
 ﻿using Client.Commands;
 using Client.Models;
+using Client.Stores;
 using System;
 using System.Windows.Input;
 
@@ -7,8 +8,9 @@ namespace Client.ViewModels;
 
 public class RegistrationViewModel : ViewModelBase
 {
-    private string _username;
-    private string _password;
+    private string _username = String.Empty;
+    private string _password = String.Empty;
+    private bool _isLoading = false;
 
     public string Username
     {
@@ -30,11 +32,26 @@ public class RegistrationViewModel : ViewModelBase
         }
     }
 
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set
+        {
+            _isLoading = value;
+            OnPropertyChanged(nameof(IsLoading));
+        }
+    }
+
 
     public ICommand RegistrationCommand { get; }
+    public ICommand SingInNavigateCommand { get; }
 
-    public RegistrationViewModel()
+    public RegistrationViewModel(NavigationStore navigationStore)
     {
         RegistrationCommand = new RegistrationCommand(this);
+
+        SingInNavigateCommand = new SingInNavigateCommand(navigationStore);
     }
+
+
 }
