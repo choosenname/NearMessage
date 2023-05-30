@@ -18,7 +18,7 @@ public class AuthenticationViewModel : ViewModelBase
         set
         {
             _userStore.Username = value;
-            OnPropertyChanged(nameof(_userStore.Username));
+            OnPropertyChanged(nameof(Username));
         }
     }
 
@@ -28,7 +28,7 @@ public class AuthenticationViewModel : ViewModelBase
         set
         {
             _userStore.Password = value;
-            OnPropertyChanged(nameof(_userStore.Username));
+            OnPropertyChanged(nameof(Password));
         }
     }
 
@@ -43,14 +43,17 @@ public class AuthenticationViewModel : ViewModelBase
     }
 
     public ICommand NavigateCommand { get; }
+    public ICommand AuthenticationCommand { get; }
 
     public AuthenticationViewModel(HttpClient httpClient,
         UserStore userStore, NavigationStore navigationStore)
     {
         _userStore = userStore;
 
+        AuthenticationCommand = new AuthenticationCommand(this, httpClient, userStore, navigationStore);
+
         NavigateCommand = new NavigateCommand<RegistrationViewModel>(
             new NavigationService<RegistrationViewModel>(navigationStore,
-            () => new RegistrationViewModel(httpClient, _userStore, navigationStore)));
+            () => new RegistrationViewModel(httpClient, userStore, navigationStore)));
     }
 }

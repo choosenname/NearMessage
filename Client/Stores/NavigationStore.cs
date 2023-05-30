@@ -17,7 +17,7 @@ public class NavigationStore
         }
     }
 
-    public event Action CurrentViewModelChanged;
+    public event Action? CurrentViewModelChanged;
 
     private void OnCurrentViewModelChanged()
     {

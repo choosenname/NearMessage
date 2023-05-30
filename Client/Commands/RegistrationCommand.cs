@@ -21,13 +21,13 @@ public class RegistrationCommand : CommandBase
     {
         _registrationViewModel = registrationViewModel;
 
-        _registrationViewModel.PropertyChanged += RegistrationViewModel_PropertyChanged;
+        _registrationViewModel.PropertyChanged += OnPropertyChanged;
         _httpClient = httpClient;
 
         _userStore = userStore;
     }
 
-    private void RegistrationViewModel_PropertyChanged(object? sender,
+    private void OnPropertyChanged(object? sender,
         System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(RegistrationViewModel.Username) ||
