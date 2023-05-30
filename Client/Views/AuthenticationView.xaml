@@ -3,19 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:viewModel="clr-namespace:Client.ViewModels"
+             xmlns:viewModel="clr-namespace:Client.ViewModels" 
+             xmlns:converters="clr-namespace:Client.Converter" 
+             xmlns:custom="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+    </UserControl.Resources>
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        
-        <TextBlock Text="Sing In" 
+
+        <TextBlock Text="Authentication" 
                    FontSize="30"/>
-        
-        <TextBox Tag="Enter Name"/>
-        <TextBox Tag="Enter Password"/>
-        <Button Content="Sing In"/>
+
+        <Grid>
+            <custom:LoadingSpinner
+                IsLoading="{Binding IsLoading}"/>
+
+            <StackPanel
+            Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                <TextBox Tag="Enter Name"
+                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox Tag="Enter Password"
+                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </Grid>
+
+        <Button Command="{Binding AuthenticationCommand}"
+                Content="Authentication"/>
+
         <TextBlock HorizontalAlignment="Center">
             <Hyperlink Command="{Binding NavigateCommand}">
-                Sing In
+                Registration
             </Hyperlink>
         </TextBlock>
     </StackPanel>
