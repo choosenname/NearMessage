@@ -1,6 +1,7 @@
 ﻿using Carter;
 using MediatR;
 using NearMessage.Application.Users.Commands.UserAuthentication;
+using NearMessage.Common.Primitives.Result;
 
 namespace NearMessage.API.Modules;
 
@@ -16,9 +17,9 @@ public class AuthenticationModule : CarterModule
         app.MapPost("", async (UserAuthenticationCommand request,
             ISender sender, CancellationToken cancellationToken) =>
         {
-            var result = await sender.Send(request, cancellationToken);
+            Result<string> result = await sender.Send(request, cancellationToken);
 
-            return result.IsSuccess ? Results.Ok() : Results.BadRequest(result.Error);
+            return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
         });
     }
 }

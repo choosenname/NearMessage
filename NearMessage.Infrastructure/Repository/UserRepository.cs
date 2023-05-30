@@ -24,11 +24,11 @@ public class UserRepository : IUserRepository
         return Result<User>.Success(user);
     }
 
-    public Task<Maybe<User>> GetUserByIdAsync(Guid id, CancellationToken cancellationToken)
+    public Task<Maybe<User>> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Maybe<User>> GetUserByNameAsync(string userName, CancellationToken cancellationToken) =>
+    public async Task<Maybe<User>> GetByUsernameAsync(string userName, CancellationToken cancellationToken) =>
         await _context.Users.SingleOrDefaultAsync(i => i.Username == userName, cancellationToken);
 }
