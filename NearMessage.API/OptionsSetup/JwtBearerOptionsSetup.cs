@@ -6,27 +6,27 @@ using System.Text;
 
 namespace NearMessage.API.OptionsSetup;
 
-public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
+public sealed class JwtBearerOptionsSetup : IPostConfigureOptions<JwtBearerOptions>
 {
-    private readonly JwtOptions _jwtOptions;
+    private const string ConfigurationSectionName = "Authentication";
+    private readonly IConfiguration _configuration;
+    private readonly JwtOptions _options;
 
-    public JwtBearerOptionsSetup(JwtOptions jwtOptions)
+    public JwtBearerOptionsSetup(IConfiguration configuration, IOptions<JwtOptions> options)
     {
-        _jwtOptions = jwtOptions;
+        _configuration = configuration;
+        _options = options.Value;
     }
 
-    public void Configure(JwtBearerOptions options)
+    public void PostConfigure(string? name, JwtBearerOptions options)
     {
-        options.TokenValidationParameters = new()
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = _jwtOptions.Issuer,
-            ValidAudience = _jwtOptions.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_jwtOptions.SecretKey))
-        };
+        _configuration.GetSection(ConfigurationSectionName).Bind(options);
+
+        options.TokenValidationParameters.ValidIssuer = _options.Issuer;
+
+        options.TokenValidationParameters.ValidAudience = _options.Audience;
+
+        options.TokenValidationParameters.IssuerSigningKey = 
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecurityKey));
     }
 }

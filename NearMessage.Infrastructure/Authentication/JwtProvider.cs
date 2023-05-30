@@ -19,15 +19,15 @@ public sealed class JwtProvider : IJwtProvider
 
     public string Generate(User user)
     {
-        var claims = new Claim[] 
+        var claims = new Claim[]
         {
-            new Claim(JwtRegisteredClaimNames.Name, user.Username), 
+            new Claim(JwtRegisteredClaimNames.Name, user.Username),
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
         };
 
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_options.SecretKey)),
+                Encoding.UTF8.GetBytes(_options.SecurityKey)),
             SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
