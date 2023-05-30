@@ -1,20 +1,19 @@
 ﻿using Carter;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using NearMessage.Application.Users.Commands.CreateUser;
+using NearMessage.Application.Users.Commands.UserAuthentication;
 
 namespace NearMessage.API.Modules;
 
-public class RegistrationModule : CarterModule
+public class AuthenticationModule : CarterModule
 {
-    public RegistrationModule()
-        : base("/registration")
+    public AuthenticationModule()
+        : base("/authentication")
     {
     }
 
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("", async (UserRegistrationCommand request,
+        app.MapPost("", async (UserAuthenticationCommand request,
             ISender sender, CancellationToken cancellationToken) =>
         {
             var result = await sender.Send(request, cancellationToken);
