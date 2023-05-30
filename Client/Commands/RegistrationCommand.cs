@@ -12,12 +12,14 @@ namespace Client.Commands;
 public class RegistrationCommand : CommandBase
 {
     RegistrationViewModel _registrationViewModel;
+    HttpClient _httpClient;
 
-    public RegistrationCommand(RegistrationViewModel registrationViewModel)
+    public RegistrationCommand(RegistrationViewModel registrationViewModel, HttpClient httpClient)
     {
         _registrationViewModel = registrationViewModel;
 
         _registrationViewModel.PropertyChanged += RegistrationViewModel_PropertyChanged;
+        _httpClient = httpClient;
     }
 
     private void RegistrationViewModel_PropertyChanged(object? sender,
@@ -46,7 +48,7 @@ public class RegistrationCommand : CommandBase
         var content = new StringContent(JsonConvert.SerializeObject(user),
             Encoding.UTF8, "application/json");
 
-        var response = await App.HttpClient.PostAsync("/registration", content);
+        var response = await _httpClient.PostAsync("/registration", content);
 
         response.EnsureSuccessStatusCode();
 

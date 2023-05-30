@@ -34,8 +34,8 @@
                 Content="Sing Up"/>
 
         <TextBlock HorizontalAlignment="Center">
-            <Hyperlink Command="{Binding SingInNavigateCommand}">
-                SingIn
+            <Hyperlink Command="{Binding NavigationCommand}">
+                Sing In
             </Hyperlink>
         </TextBlock>
     </StackPanel>

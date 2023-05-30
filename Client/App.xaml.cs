@@ -1,12 +1,8 @@
-﻿using Client.Stores;
+﻿using Client.Commands;
+using Client.Stores;
 using Client.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Client
@@ -16,31 +12,21 @@ namespace Client
     /// </summary>
     public partial class App : Application
     {
-        private static HttpClient httpClient;
-
-        private readonly NavigationStore _navigationStore;
-
-        public static HttpClient HttpClient => httpClient;
+        private IServiceProvider _serviceProvider;
 
         public App()
         {
-            _navigationStore = new NavigationStore();
-
-            httpClient = new HttpClient()
-            {
-                Timeout = TimeSpan.FromMilliseconds(System.Threading.Timeout.Infinite),
-                BaseAddress = new Uri("https://localhost:7196")
-            };
+            _serviceProvider = Client.Startup.Configure();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigationStore.CurrentViewModel = new RegistrationViewModel(_navigationStore);
+            var registrationViewModel = _serviceProvider.GetRequiredService<RegistrationViewModel>();
 
-            MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel(_navigationStore)
-            };
+            var navigationStore = _serviceProvider.GetRequiredService<NavigationStore>();
+            navigationStore.CurrentViewModel = registrationViewModel;
+
+            MainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             MainWindow.Show();
 
             base.OnStartup(e);

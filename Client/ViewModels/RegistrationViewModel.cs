@@ -1,8 +1,11 @@
 ﻿using Client.Commands;
 using Client.Models;
+using Client.Services;
 using Client.Stores;
 using System;
+using System.Net.Http;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace Client.ViewModels;
 
@@ -44,14 +47,13 @@ public class RegistrationViewModel : ViewModelBase
 
 
     public ICommand RegistrationCommand { get; }
-    public ICommand SingInNavigateCommand { get; }
+    public ICommand NavigationCommand { get; }
 
-    public RegistrationViewModel(NavigationStore navigationStore)
+    public RegistrationViewModel(HttpClient httpClient, NavigationStore navigationStore)
     {
-        RegistrationCommand = new RegistrationCommand(this);
+        RegistrationCommand = new RegistrationCommand(this, httpClient);
 
-        SingInNavigateCommand = new SingInNavigateCommand(navigationStore);
+        NavigationCommand = new NavigationCommand<AuthenticationViewModel>(
+            new NavigationService<AuthenticationViewModel>(navigationStore, () => new AuthenticationViewModel()));
     }
-
-
 }

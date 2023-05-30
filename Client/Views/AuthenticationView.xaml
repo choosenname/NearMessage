@@ -7,11 +7,16 @@
              mc:Ignorable="d">
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         
-        <TextBlock Text="Sing in" 
+        <TextBlock Text="Sing In" 
                    FontSize="30"/>
         
         <TextBox Tag="Enter Name"/>
         <TextBox Tag="Enter Password"/>
         <Button Content="Sing In"/>
+        <TextBlock HorizontalAlignment="Center">
+            <Hyperlink Command="{Binding NavigateCommand}">
+                Sing In
+            </Hyperlink>
+        </TextBlock>
     </StackPanel>
 </UserControl>
