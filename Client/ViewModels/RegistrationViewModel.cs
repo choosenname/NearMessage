@@ -9,27 +9,26 @@ namespace Client.ViewModels;
 
 public class RegistrationViewModel : ViewModelBase
 {
-    private string _username = String.Empty;
-    private string _password = String.Empty;
+    private readonly UserStore _userStore;
     private bool _isLoading = false;
 
     public string Username
     {
-        get => _username;
+        get => _userStore.Username;
         set
         {
-            _username = value;
-            OnPropertyChanged(nameof(Username));
+            _userStore.Username = value;
+            OnPropertyChanged(nameof(_userStore.Username));
         }
     }
 
     public string Password
     {
-        get => _password;
+        get => _userStore.Password;
         set
         {
-            _password = value;
-            OnPropertyChanged(nameof(Password));
+            _userStore.Password = value;
+            OnPropertyChanged(nameof(_userStore.Username));
         }
     }
 
@@ -43,16 +42,17 @@ public class RegistrationViewModel : ViewModelBase
         }
     }
 
-
     public ICommand RegistrationCommand { get; }
     public ICommand NavigateCommand { get; }
 
-    public RegistrationViewModel(HttpClient httpClient, NavigationStore navigationStore)
+    public RegistrationViewModel(HttpClient httpClient, UserStore userStore, NavigationStore navigationStore)
     {
-        RegistrationCommand = new RegistrationCommand(this, httpClient);
+        _userStore = userStore;
+
+        RegistrationCommand = new RegistrationCommand(this, httpClient, _userStore);
 
         NavigateCommand = new NavigateCommand<AuthenticationViewModel>(
             new NavigationService<AuthenticationViewModel>(navigationStore, 
-            () => new AuthenticationViewModel(httpClient, navigationStore)));
+            () => new AuthenticationViewModel(httpClient, _userStore, navigationStore)));
     }
 }

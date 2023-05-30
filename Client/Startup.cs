@@ -29,6 +29,7 @@ public class Startup
         });
 
         services.AddSingleton<NavigationStore>();
+        services.AddSingleton<UserStore>();
 
         return services.BuildServiceProvider();
     }

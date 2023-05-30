@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Client.Stores;
 using Client.ViewModels;
 using Newtonsoft.Json;
 using System;
@@ -11,15 +12,19 @@ namespace Client.Commands;
 
 public class RegistrationCommand : CommandBase
 {
-    RegistrationViewModel _registrationViewModel;
-    HttpClient _httpClient;
+    private readonly RegistrationViewModel _registrationViewModel;
+    private readonly HttpClient _httpClient;
+    private UserStore _userStore;
 
-    public RegistrationCommand(RegistrationViewModel registrationViewModel, HttpClient httpClient)
+    public RegistrationCommand(RegistrationViewModel registrationViewModel, 
+        HttpClient httpClient, UserStore userStore)
     {
         _registrationViewModel = registrationViewModel;
 
         _registrationViewModel.PropertyChanged += RegistrationViewModel_PropertyChanged;
         _httpClient = httpClient;
+
+        _userStore = userStore;
     }
 
     private void RegistrationViewModel_PropertyChanged(object? sender,
@@ -41,11 +46,11 @@ public class RegistrationCommand : CommandBase
     {
         _registrationViewModel.IsLoading = true;
 
-        UserModel user = new UserModel(
+        _userStore = new UserStore(
             _registrationViewModel.Username,
             _registrationViewModel.Password);
 
-        var content = new StringContent(JsonConvert.SerializeObject(user),
+        var content = new StringContent(JsonConvert.SerializeObject(_userStore.ToUserModel()),
             Encoding.UTF8, "application/json");
 
         var response = await _httpClient.PostAsync("/registration", content);
