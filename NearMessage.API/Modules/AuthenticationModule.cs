@@ -1,5 +1,6 @@
 ﻿using Carter;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using NearMessage.Application.Users.Commands.UserAuthentication;
 using NearMessage.Common.Primitives.Result;
 
@@ -14,7 +15,7 @@ public class AuthenticationModule : CarterModule
 
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("", async (UserAuthenticationCommand request,
+        app.MapPost("", async ([FromBody] UserAuthenticationCommand request,
             ISender sender, CancellationToken cancellationToken) =>
         {
             Result<string> result = await sender.Send(request, cancellationToken);
