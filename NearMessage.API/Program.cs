@@ -1,22 +1,38 @@
 using Carter;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using NearMessage.API.OptionsSetup;
 using NearMessage.Application;
+using NearMessage.Infrastructure.Authentication;
 using NearMessage.Persistence;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApplication();
-builder.Services.AddPersistence(builder.Configuration);
-builder.Services.AddInfrastructure();
+builder
+    .Services
+    .AddApplication()
+    .AddPersistence(builder.Configuration)
+    .AddInfrastructure();
+
+builder.Services.ConfigureOptions<JwtOptionsSetup>();
+builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer();
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddCarter();
 
-// Add services to the container.
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapCarter();
 

@@ -9,26 +9,25 @@ namespace Client.ViewModels;
 
 public class RegistrationViewModel : ViewModelBase
 {
-    private string _username = String.Empty;
-    private string _password = String.Empty;
+    private readonly UserStore _userStore;
     private bool _isLoading = false;
 
     public string Username
     {
-        get => _username;
+        get => _userStore.User?.Username;
         set
         {
-            _username = value;
+            _userStore.User.Username = value;
             OnPropertyChanged(nameof(Username));
         }
     }
 
     public string Password
     {
-        get => _password;
+        get => _userStore.User?.Password;
         set
         {
-            _password = value;
+            _userStore.User.Password = value;
             OnPropertyChanged(nameof(Password));
         }
     }
@@ -43,16 +42,21 @@ public class RegistrationViewModel : ViewModelBase
         }
     }
 
-
-    public ICommand RegistrationCommand { get; }
     public ICommand NavigateCommand { get; }
+    public ICommand RegistrationCommand { get; }
 
-    public RegistrationViewModel(HttpClient httpClient, NavigationStore navigationStore)
+    public RegistrationViewModel(HttpClient httpClient, UserStore userStore, NavigationStore navigationStore)
     {
-        RegistrationCommand = new RegistrationCommand(this, httpClient);
+        _userStore = userStore;
 
         NavigateCommand = new NavigateCommand<AuthenticationViewModel>(
-            new NavigationService<AuthenticationViewModel>(navigationStore, 
-            () => new AuthenticationViewModel(httpClient, navigationStore)));
+            new NavigationService<AuthenticationViewModel>(navigationStore,
+            () => new AuthenticationViewModel(httpClient, userStore, navigationStore)));
+
+        var navigateService = new NavigationService<ChatViewModel>(
+            navigationStore,
+            () => new ChatViewModel(userStore));
+
+        RegistrationCommand = new RegistrationCommand(this, httpClient, userStore, navigateService);
     }
 }
