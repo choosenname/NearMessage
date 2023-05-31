@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NearMessage.Application.Users.Commands.CreateUser;
+using NearMessage.Common.Primitives.Result;
+using System.Runtime.CompilerServices;
 
 namespace NearMessage.API.Modules;
 
@@ -17,9 +19,9 @@ public class RegistrationModule : CarterModule
         app.MapPost("", async (UserRegistrationCommand request,
             ISender sender, CancellationToken cancellationToken) =>
         {
-            var result = await sender.Send(request, cancellationToken);
+            Result<string> result = await sender.Send(request, cancellationToken);
 
-            return result.IsSuccess ? Results.Ok() : Results.BadRequest(result.Error);
+            return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
         });
     }
 }

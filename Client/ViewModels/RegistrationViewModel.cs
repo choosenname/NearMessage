@@ -14,20 +14,20 @@ public class RegistrationViewModel : ViewModelBase
 
     public string Username
     {
-        get => _userStore.Username;
+        get => _userStore.User?.Username;
         set
         {
-            _userStore.Username = value;
+            _userStore.User.Username = value;
             OnPropertyChanged(nameof(Username));
         }
     }
 
     public string Password
     {
-        get => _userStore.Password;
+        get => _userStore.User?.Password;
         set
         {
-            _userStore.Password = value;
+            _userStore.User.Password = value;
             OnPropertyChanged(nameof(Password));
         }
     }
@@ -42,17 +42,21 @@ public class RegistrationViewModel : ViewModelBase
         }
     }
 
-    public ICommand RegistrationCommand { get; }
     public ICommand NavigateCommand { get; }
+    public ICommand RegistrationCommand { get; }
 
     public RegistrationViewModel(HttpClient httpClient, UserStore userStore, NavigationStore navigationStore)
     {
         _userStore = userStore;
 
-        RegistrationCommand = new RegistrationCommand(this, httpClient, userStore);
-
         NavigateCommand = new NavigateCommand<AuthenticationViewModel>(
-            new NavigationService<AuthenticationViewModel>(navigationStore, 
+            new NavigationService<AuthenticationViewModel>(navigationStore,
             () => new AuthenticationViewModel(httpClient, userStore, navigationStore)));
+
+        var navigateService = new NavigationService<ChatViewModel>(
+            navigationStore,
+            () => new ChatViewModel(userStore));
+
+        RegistrationCommand = new RegistrationCommand(this, httpClient, userStore, navigateService);
     }
 }

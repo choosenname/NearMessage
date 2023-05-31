@@ -29,7 +29,10 @@ public class Startup
         });
 
         services.AddSingleton<NavigationStore>();
-        services.AddSingleton<UserStore>();
+        services.AddSingleton<UserStore>(provider => new UserStore()
+        {
+            User = new Models.UserModel("", "")
+        });
 
         return services.BuildServiceProvider();
     }

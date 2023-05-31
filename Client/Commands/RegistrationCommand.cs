@@ -1,12 +1,10 @@
 ﻿using Client.Models;
+using Client.Services;
 using Client.Stores;
 using Client.ViewModels;
 using Newtonsoft.Json;
-using System;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
-using System.Windows;
 
 namespace Client.Commands;
 
@@ -15,9 +13,10 @@ public class RegistrationCommand : CommandBase
     private readonly RegistrationViewModel _registrationViewModel;
     private readonly HttpClient _httpClient;
     private UserStore _userStore;
+    private readonly NavigationService<ChatViewModel> _navigationService;
 
-    public RegistrationCommand(RegistrationViewModel registrationViewModel, 
-        HttpClient httpClient, UserStore userStore)
+    public RegistrationCommand(RegistrationViewModel registrationViewModel,
+        HttpClient httpClient, UserStore userStore, NavigationService<ChatViewModel> navigationService)
     {
         _registrationViewModel = registrationViewModel;
 
@@ -25,6 +24,7 @@ public class RegistrationCommand : CommandBase
         _httpClient = httpClient;
 
         _userStore = userStore;
+        _navigationService = navigationService;
     }
 
     private void OnPropertyChanged(object? sender,
@@ -46,16 +46,23 @@ public class RegistrationCommand : CommandBase
     {
         _registrationViewModel.IsLoading = true;
 
-        _userStore = new UserStore(
+        _userStore.User = new UserModel(
             _registrationViewModel.Username,
             _registrationViewModel.Password);
 
-        var content = new StringContent(JsonConvert.SerializeObject(_userStore.ToUserModel()),
+        var content = new StringContent(JsonConvert.SerializeObject(_userStore.User),
             Encoding.UTF8, "application/json");
 
         var response = await _httpClient.PostAsync("/registration", content);
 
         response.EnsureSuccessStatusCode();
+
+        if (response.IsSuccessStatusCode)
+        {
+            _userStore.Token = await response.Content.ReadAsStringAsync();
+
+            _navigationService.Navigate();
+        }
 
         _registrationViewModel.IsLoading = false;
     }

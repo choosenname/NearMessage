@@ -14,20 +14,20 @@ public class AuthenticationViewModel : ViewModelBase
 
     public string Username
     {
-        get => _userStore.Username;
+        get => _userStore.User?.Username;
         set
         {
-            _userStore.Username = value;
+            _userStore.User.Username = value;
             OnPropertyChanged(nameof(Username));
         }
     }
 
     public string Password
     {
-        get => _userStore.Password;
+        get => _userStore.User?.Password;
         set
         {
-            _userStore.Password = value;
+            _userStore.User.Password = value;
             OnPropertyChanged(nameof(Password));
         }
     }
@@ -50,10 +50,14 @@ public class AuthenticationViewModel : ViewModelBase
     {
         _userStore = userStore;
 
-        AuthenticationCommand = new AuthenticationCommand(this, httpClient, userStore, navigationStore);
-
         NavigateCommand = new NavigateCommand<RegistrationViewModel>(
             new NavigationService<RegistrationViewModel>(navigationStore,
             () => new RegistrationViewModel(httpClient, userStore, navigationStore)));
+
+        var navigationService = new NavigationService<ChatViewModel>(
+            navigationStore,
+            () => new ChatViewModel(userStore));
+
+        AuthenticationCommand = new AuthenticationCommand(this, httpClient, userStore, navigationService);
     }
 }

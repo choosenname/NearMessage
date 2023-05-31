@@ -9,19 +9,21 @@ using System.Windows.Input;
 namespace NearMessage.Application.Users.Commands.CreateUser;
 
 public sealed class UserRegistrationAsyncCommandHandler 
-    : ICommandHandler<UserRegistrationCommand, Result>
+    : ICommandHandler<UserRegistrationCommand, Result<string>>
 {
     private readonly INearMessageDbContext _nearMessageDbContext;
     private readonly IUserRepository _userRepository;
+    private readonly IJwtProvider _jwtProvider;
 
     public UserRegistrationAsyncCommandHandler(INearMessageDbContext nearMessageDbContext
-        , IUserRepository userRepository)
+        , IUserRepository userRepository, IJwtProvider jwtProvider)
     {
         _nearMessageDbContext = nearMessageDbContext;
         _userRepository = userRepository;
+        _jwtProvider = jwtProvider;
     }
 
-    public async Task<Result> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
     {
         var id = Guid.NewGuid();
 
@@ -34,11 +36,13 @@ public sealed class UserRegistrationAsyncCommandHandler
 
         if (result.IsFailure)
         {
-            return result;
+            return Result.Failure<string>(result.Error);
         }
 
         await _nearMessageDbContext.SaveChangesAsync(cancellationToken);
 
-        return Result.Success();
+        var token = _jwtProvider.Generate(user);
+
+        return Result.Success(token);
     }
 }

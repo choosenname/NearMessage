@@ -1,4 +1,5 @@
-﻿using Client.Services;
+﻿using Client.Models;
+using Client.Services;
 using Client.Stores;
 using Client.ViewModels;
 using Newtonsoft.Json;
@@ -12,16 +13,16 @@ public class AuthenticationCommand : CommandBase
 {
     private readonly AuthenticationViewModel _authenticationViewModel;
     private readonly HttpClient _httpClient;
-    private readonly NavigationStore _navigationStore;
+    private readonly NavigationService<ChatViewModel> _navigationService;
     private UserStore _userStore;
 
     public AuthenticationCommand(AuthenticationViewModel authenticationViewModel,
-        HttpClient httpClient, UserStore userStore, NavigationStore navigationStore)
+        HttpClient httpClient, UserStore userStore, NavigationService<ChatViewModel> navigationService)
     {
         _authenticationViewModel = authenticationViewModel;
         _httpClient = httpClient;
         _userStore = userStore;
-        _navigationStore = navigationStore;
+        _navigationService = navigationService;
 
         authenticationViewModel.PropertyChanged += OnPropertyChanged;
     }
@@ -44,11 +45,11 @@ public class AuthenticationCommand : CommandBase
     {
         _authenticationViewModel.IsLoading = true;
 
-        _userStore = new UserStore(
+        _userStore.User = new UserModel(
             _authenticationViewModel.Username,
             _authenticationViewModel.Password);
 
-        var content = new StringContent(JsonConvert.SerializeObject(_userStore.ToUserModel()),
+        var content = new StringContent(JsonConvert.SerializeObject(_userStore.User),
             Encoding.UTF8, "application/json");
 
         var response = await _httpClient.PostAsync("/authentication", content);
@@ -59,9 +60,7 @@ public class AuthenticationCommand : CommandBase
         {
             _userStore.Token = await response.Content.ReadAsStringAsync();
 
-            new NavigateCommand<ChatViewModel>(
-            new NavigationService<ChatViewModel>(_navigationStore,
-            () => new ChatViewModel(_userStore))).Execute(parameter);
+            _navigationService.Navigate();
         }
 
         _authenticationViewModel.IsLoading = false;
