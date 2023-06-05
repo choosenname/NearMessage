@@ -20,6 +20,7 @@ public static class DependencyInjection
 
         services.AddTransient<JwtOptions>();
         services.AddScoped<IJwtProvider, JwtProvider>();
+
         return services;
     }
 }

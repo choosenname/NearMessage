@@ -1,5 +1,6 @@
 ﻿using NearMessage.Application.Abstraction;
 using NearMessage.Common.Primitives.Result;
+using NearMessage.Domain.Entities;
 using NearMessage.Domain.Messages;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,14 @@ public class MessageRepository : IMessageRepository
         _filePath = filePath;
     }
 
-    public async Task<Result> SaveMessageAsync(Message message, CancellationToken cancellationToken)
+    public async Task<Result> SaveMessageAsync(User sender, Message message, CancellationToken cancellationToken)
     {
+        string directoryPath = _filePath + $"{sender.Id}\\";
+        Directory.CreateDirectory(directoryPath);
+
         string json = JsonSerializer.Serialize(message);
 
-        await File.WriteAllTextAsync(_filePath + $"{message.Id}.json", json, cancellationToken);
+        await File.WriteAllTextAsync(_filePath + $"{sender.Id}\\{Guid.NewGuid()}.json", json, cancellationToken);
 
         return Result.Success();
     }

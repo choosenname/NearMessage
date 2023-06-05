@@ -1,6 +1,5 @@
 ﻿using NearMessage.Application.Abstraction;
 using NearMessage.Common.Abstractions.Messaging;
-using NearMessage.Common.Primitives.Errors;
 using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Entities;
@@ -21,7 +20,8 @@ public sealed class UserAuthenticationAsyncCommandHandler
         _jwtProvider = jwtProvider;
     }
 
-    public async Task<Result<string>> Handle(UserAuthenticationCommand request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(UserAuthenticationCommand request,
+        CancellationToken cancellationToken)
     {
         Maybe<User> maybeUser = await _userRepository.GetByUsernameAsync(request.UserName, cancellationToken);
 
