@@ -3,6 +3,7 @@ using Client.Services;
 using Client.Stores;
 using Client.ViewModels;
 using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Text;
 
@@ -13,10 +14,10 @@ public class RegistrationCommand : CommandBase
     private readonly RegistrationViewModel _registrationViewModel;
     private readonly HttpClient _httpClient;
     private UserStore _userStore;
-    private readonly NavigationService<ChatViewModel> _navigationService;
+    private readonly NavigationService<HomeViewModel> _navigationService;
 
     public RegistrationCommand(RegistrationViewModel registrationViewModel,
-        HttpClient httpClient, UserStore userStore, NavigationService<ChatViewModel> navigationService)
+        HttpClient httpClient, UserStore userStore, NavigationService<HomeViewModel> navigationService)
     {
         _registrationViewModel = registrationViewModel;
 
@@ -47,6 +48,7 @@ public class RegistrationCommand : CommandBase
         _registrationViewModel.IsLoading = true;
 
         _userStore.User = new UserModel(
+            Guid.NewGuid(),
             _registrationViewModel.Username,
             _registrationViewModel.Password);
 
@@ -60,6 +62,8 @@ public class RegistrationCommand : CommandBase
         if (response.IsSuccessStatusCode)
         {
             _userStore.Token = await response.Content.ReadAsStringAsync();
+
+            _userStore.Token = _userStore.Token.Trim('"');
 
             _navigationService.Navigate();
         }

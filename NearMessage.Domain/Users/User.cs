@@ -15,7 +15,6 @@ public class User : Entity
     public string Username { get; set; }
     public string Password { get; set; }
 
-    public bool IsActive { get; }
     public DateTime CreatedAt { get; set; }
     //public List<int> Connections { get; set; }
 

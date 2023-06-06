@@ -2,5 +2,4 @@
 
 namespace NearMessage.Application.Users.Queries.GetAllUsers;
 
-public sealed record class GetAllUsersQuery : IQuery<UsersResponse>
-{ }
+public sealed record class GetAllUsersQuery : IQuery<UsersResponse>;

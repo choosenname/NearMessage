@@ -29,9 +29,9 @@ public class Startup
         });
 
         services.AddSingleton<NavigationStore>();
-        services.AddSingleton<UserStore>(provider => new UserStore()
+        services.AddSingleton(new UserStore()
         {
-            User = new Models.UserModel("", "")
+            User = new Models.UserModel(Guid.Empty, "", "")
         });
 
         return services.BuildServiceProvider();

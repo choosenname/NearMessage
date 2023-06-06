@@ -14,7 +14,7 @@ public class RegistrationViewModel : ViewModelBase
 
     public string Username
     {
-        get => _userStore.User?.Username;
+        get => _userStore.User.Username;
         set
         {
             _userStore.User.Username = value;
@@ -24,7 +24,7 @@ public class RegistrationViewModel : ViewModelBase
 
     public string Password
     {
-        get => _userStore.User?.Password;
+        get => _userStore.User.Password;
         set
         {
             _userStore.User.Password = value;
@@ -53,9 +53,9 @@ public class RegistrationViewModel : ViewModelBase
             new NavigationService<AuthenticationViewModel>(navigationStore,
             () => new AuthenticationViewModel(httpClient, userStore, navigationStore)));
 
-        var navigateService = new NavigationService<ChatViewModel>(
+        var navigateService = new NavigationService<HomeViewModel>(
             navigationStore,
-            () => new ChatViewModel(userStore));
+            () => new HomeViewModel(userStore, httpClient));
 
         RegistrationCommand = new RegistrationCommand(this, httpClient, userStore, navigateService);
     }

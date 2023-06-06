@@ -3,6 +3,7 @@ using Client.Services;
 using Client.Stores;
 using Client.ViewModels;
 using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
@@ -13,11 +14,11 @@ public class AuthenticationCommand : CommandBase
 {
     private readonly AuthenticationViewModel _authenticationViewModel;
     private readonly HttpClient _httpClient;
-    private readonly NavigationService<ChatViewModel> _navigationService;
+    private readonly NavigationService<HomeViewModel> _navigationService;
     private UserStore _userStore;
 
     public AuthenticationCommand(AuthenticationViewModel authenticationViewModel,
-        HttpClient httpClient, UserStore userStore, NavigationService<ChatViewModel> navigationService)
+        HttpClient httpClient, UserStore userStore, NavigationService<HomeViewModel> navigationService)
     {
         _authenticationViewModel = authenticationViewModel;
         _httpClient = httpClient;
@@ -46,6 +47,7 @@ public class AuthenticationCommand : CommandBase
         _authenticationViewModel.IsLoading = true;
 
         _userStore.User = new UserModel(
+            Guid.NewGuid(),
             _authenticationViewModel.Username,
             _authenticationViewModel.Password);
 
@@ -59,6 +61,8 @@ public class AuthenticationCommand : CommandBase
         if(response.IsSuccessStatusCode)
         {
             _userStore.Token = await response.Content.ReadAsStringAsync();
+
+            _userStore.Token = _userStore.Token.Trim('"');
 
             _navigationService.Navigate();
         }
