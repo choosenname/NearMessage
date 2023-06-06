@@ -27,7 +27,7 @@ public class MessageRepository : IMessageRepository
 
         string json = JsonSerializer.Serialize(message);
 
-        await File.WriteAllTextAsync(_filePath + $"{sender.Id}\\{Guid.NewGuid()}.json", json, cancellationToken);
+        await File.WriteAllTextAsync(_filePath + $"{sender.Id}\\{message.Id}.json", json, cancellationToken);
 
         return Result.Success();
     }

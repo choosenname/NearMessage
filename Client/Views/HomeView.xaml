@@ -25,14 +25,15 @@
                 </Grid.ColumnDefinitions>
                 
                 <Button Grid.Column="0"
-                        Command="{Binding GetAllUsersCommand}"/>
+                        Command="{Binding GetAllUsersQuery}"/>
                 
                 <TextBox Grid.Column="1" 
                          Tag="Search" />
             </Grid>
 
             <ListView Grid.Row="1"
-                ItemsSource="{Binding Users}">
+                ItemsSource="{Binding Users}"
+                SelectedItem="{Binding SelectedUser}">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -50,7 +51,8 @@
             </ListView>
         </Grid>
 
-        <Grid Grid.Column="1" Background="LightYellow">
-        </Grid>
+        <Frame Grid.Column="1" 
+               Content="{Binding ChatViewModel}"
+               NavigationUIVisibility="Hidden"/>
     </Grid>
 </UserControl>

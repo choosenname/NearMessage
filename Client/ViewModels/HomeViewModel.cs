@@ -1,18 +1,20 @@
 ﻿using Client.Commands;
 using Client.Models;
+using Client.Queries;
 using Client.Stores;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace Client.ViewModels;
 
 public class HomeViewModel : ViewModelBase
 {
-    private List<UserModel> _users = new();
+    private HttpClient _httpClient;
 
-    public List<UserModel> Users
+    private ObservableCollection<UserModel> _users = new();
+
+    public ObservableCollection<UserModel> Users
     {
         get => _users;
         set
@@ -22,10 +24,36 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    public ICommand GetAllUsersCommand { get; }
+    private ChatViewModel? _chatViewModel;
+    public ChatViewModel? ChatViewModel
+    {
+        get => _chatViewModel;
+        set
+        {
+            _chatViewModel = value;
+            OnPropertyChanged(nameof(ChatViewModel));
+        }
+    }
+
+    private UserModel? _selectedUser;
+    public UserModel? SelectedUser
+    {
+        get => _selectedUser;
+        set
+        {
+            _selectedUser = value;
+            OnPropertyChanged(nameof(SelectedUser));
+
+            ChatViewModel = new ChatViewModel(value, _httpClient);
+        }
+    }
+
+    public ICommand GetAllUsersQuery { get; }
 
     public HomeViewModel(UserStore userStore, HttpClient httpClient)
     {
-        GetAllUsersCommand = new GetAllUsersCommand(this, httpClient, userStore);
+        _httpClient = httpClient;
+        GetAllUsersQuery = new GetAllUsersQuery(this, httpClient, userStore);
     }
+
 }

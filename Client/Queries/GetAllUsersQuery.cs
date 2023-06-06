@@ -1,13 +1,14 @@
-﻿using Client.Models;
+﻿using Client.Commands;
+using Client.Models;
 using Client.Stores;
 using Client.ViewModels;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace Client.Commands;
+namespace Client.Queries;
 
-public class GetAllUsersCommand : CommandBase
+public class GetAllUsersQuery : CommandBase
 {
     private readonly HomeViewModel _homeViewModel;
 
@@ -15,7 +16,7 @@ public class GetAllUsersCommand : CommandBase
 
     private readonly UserStore _userStore;
 
-    public GetAllUsersCommand(HomeViewModel homeViewModel,
+    public GetAllUsersQuery(HomeViewModel homeViewModel,
         HttpClient httpClient, UserStore userStore)
     {
         _homeViewModel = homeViewModel;
@@ -34,7 +35,7 @@ public class GetAllUsersCommand : CommandBase
 
         if (response.IsSuccessStatusCode)
         {
-            _homeViewModel.Users = await response.Content.ReadAsAsync<List<UserModel>>();
+            _homeViewModel.Users = await response.Content.ReadAsAsync<ObservableCollection<UserModel>>();
         }
     }
 }
