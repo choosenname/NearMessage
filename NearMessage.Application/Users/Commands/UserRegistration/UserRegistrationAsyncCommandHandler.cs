@@ -23,7 +23,8 @@ public sealed class UserRegistrationAsyncCommandHandler
         _jwtProvider = jwtProvider;
     }
 
-    public async Task<Result<string>> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(UserRegistrationCommand request,
+        CancellationToken cancellationToken)
     {
         var id = Guid.NewGuid();
 

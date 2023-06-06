@@ -16,5 +16,5 @@ public sealed class GetAllUsersQueryHandler : IQueryHandler<GetAllUsersQuery, Us
 
     public async Task<UsersResponse> Handle(GetAllUsersQuery request, CancellationToken cancellationToken) =>
         new UsersResponse(
-            await _nearMessageDbContext.Users.ToListAsync(cancellationToken: cancellationToken));
+            await _nearMessageDbContext.Users.ToListAsync(cancellationToken));
 }

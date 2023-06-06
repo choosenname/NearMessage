@@ -16,7 +16,7 @@ public class RegistrationModule : CarterModule
 
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("", async (UserRegistrationCommand request,
+        app.MapPost("", async ([FromBody] UserRegistrationCommand request,
             ISender sender, CancellationToken cancellationToken) =>
         {
             Result<string> result = await sender.Send(request, cancellationToken);

@@ -26,7 +26,7 @@ public sealed class JwtBearerOptionsSetup : IPostConfigureOptions<JwtBearerOptio
 
         options.TokenValidationParameters.ValidAudience = _options.Audience;
 
-        options.TokenValidationParameters.IssuerSigningKey = 
+        options.TokenValidationParameters.IssuerSigningKey =
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecurityKey));
     }
 }

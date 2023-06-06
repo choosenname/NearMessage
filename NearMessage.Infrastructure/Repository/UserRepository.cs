@@ -24,10 +24,8 @@ public class UserRepository : IUserRepository
         return Result<User>.Success(user);
     }
 
-    public Task<Maybe<User>> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<Maybe<User>> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
+        await _context.Users.SingleOrDefaultAsync(i => i.Id == id, cancellationToken);
 
     public async Task<Maybe<User>> GetByUsernameAsync(string userName, CancellationToken cancellationToken) =>
         await _context.Users.SingleOrDefaultAsync(i => i.Username == userName, cancellationToken);

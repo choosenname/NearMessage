@@ -2,9 +2,9 @@
 
 public class JwtOptions
 {
-    public string Issuer { get; init; }
+    public string Issuer { get; init; } = String.Empty;
 
-    public string Audience { get; init; }
+    public string Audience { get; init; } = String.Empty;
 
-    public string SecurityKey { get; init; }
+    public string SecurityKey { get; init; } = String.Empty;
 }

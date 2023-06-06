@@ -1,20 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Client.Models;
 
 public class UserModel
 {
-    public UserModel(string username, string password)
+    public UserModel(Guid id, string username, string password)
     {
+        Id = id;
         Username = username;
         Password = password;
+        CreatedAt = DateTime.Now;
     }
 
-    public string Username { get; set; }
+    public Guid Id { get; set; }
 
+    public string Username { get; set; }
     public string Password { get; set; }
+
+    public DateTime CreatedAt { get; set; }
 }

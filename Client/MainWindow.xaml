@@ -14,6 +14,9 @@
         <DataTemplate DataType="{x:Type vms:AuthenticationViewModel}">
             <views:AuthenticationView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:HomeViewModel}">
+            <views:HomeView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vms:ChatViewModel}">
             <views:ChatView/>
         </DataTemplate>

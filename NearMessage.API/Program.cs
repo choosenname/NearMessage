@@ -1,12 +1,8 @@
 using Carter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using NearMessage.API.OptionsSetup;
 using NearMessage.Application;
-using NearMessage.Infrastructure.Authentication;
 using NearMessage.Persistence;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +10,7 @@ builder
     .Services
     .AddApplication()
     .AddPersistence(builder.Configuration)
-    .AddInfrastructure();
+    .AddInfrastructure(builder.Configuration);
 
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
