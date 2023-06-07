@@ -10,7 +10,7 @@ namespace Client.ViewModels;
 
 public class HomeViewModel : ViewModelBase
 {
-    private HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
 
     private ObservableCollection<ContactModel> _contacts = new();
 

@@ -16,12 +16,12 @@ public class MessageRepository : IMessageRepository
 
     public async Task<Result> SaveMessageAsync(Chat chat, Message message, CancellationToken cancellationToken)
     {
-        string directoryPath = _filePath + $"{chat.Id}\\";
+        string directoryPath = _filePath + $"{chat.ChatId}\\";
         Directory.CreateDirectory(directoryPath);
 
         string json = JsonSerializer.Serialize(message);
 
-        await File.WriteAllTextAsync(_filePath + $"{chat.Id}\\{message.Id}.json", json, cancellationToken);
+        await File.WriteAllTextAsync(_filePath + $"{chat.ChatId}\\{message.Id}.json", json, cancellationToken);
 
         return Result.Success();
     }

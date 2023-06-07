@@ -13,7 +13,7 @@ public class RegistrationCommand : CommandBase
 {
     private readonly RegistrationViewModel _registrationViewModel;
     private readonly HttpClient _httpClient;
-    private UserStore _userStore;
+    private readonly UserStore _userStore;
     private readonly NavigationService<HomeViewModel> _navigationService;
 
     public RegistrationCommand(RegistrationViewModel registrationViewModel,

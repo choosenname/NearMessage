@@ -18,9 +18,9 @@ public class User : Entity
 
     public DateTime CreatedAt { get; set; }
 
-    public List<Chat> SentChats { get; set; } = new();
+    public List<Chat>? SentChats { get; set; }
 
-    public List<Chat> ReceivedChats { get; set; } = new();
+    public List<Chat>? ReceivedChats { get; set; }
 
     public bool VerifyPassword(string password) => password == Password;
 }
