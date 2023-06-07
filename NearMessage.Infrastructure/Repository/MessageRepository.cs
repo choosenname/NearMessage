@@ -11,28 +11,25 @@ namespace NearMessage.Infrastructure.Repository;
 public class MessageRepository : IMessageRepository
 {
     private readonly string _filePath;
-    private readonly INearMessageDbContext _nearMessageDbContext;
+    private readonly IChatRepository _chatRepository;
 
-    public MessageRepository(string filePath, INearMessageDbContext nearMessageDbContext)
+    public MessageRepository(string filePath, IChatRepository chatRepository)
     {
         _filePath = filePath;
-        _nearMessageDbContext = nearMessageDbContext;
+        _chatRepository = chatRepository;
     }
 
     public async Task<Result<List<Message>>> GetMessagesAsync(Guid receiver, Guid sender,
         CancellationToken cancellationToken)
     {
-        var chat = await _nearMessageDbContext.Chats
-        .FirstOrDefaultAsync(c =>
-        c.Sender.Id == sender && c.Receiver.Id == receiver,
-        cancellationToken);
+        var chatResult = await _chatRepository.GetChatAsync(sender, receiver, cancellationToken);
 
-        if (chat == null)
+        if (chatResult.IsFailure)
         {
-            return Result.Failure<List<Message>>(new("The chat does not exist"));
+            return Result.Failure<List<Message>>(chatResult.Error);
         }
 
-        string directoryPath = Path.Combine(_filePath, chat.ChatId.ToString());
+        string directoryPath = Path.Combine(_filePath, chatResult.Value.ChatId.ToString());
         string[] fileNames = Directory.GetFiles(directoryPath);
 
         List<Message> messages = new();
