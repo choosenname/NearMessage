@@ -11,11 +11,22 @@ namespace NearMessage.Infrastructure.Repository;
 public class MessageRepository : IMessageRepository
 {
     private readonly string _filePath;
+<<<<<<< HEAD
     private readonly IChatRepository _chatRepository;
 
     public MessageRepository(string filePath, IChatRepository chatRepository)
     {
         _filePath = filePath;
+=======
+    private readonly INearMessageDbContext _nearMessageDbContext;
+    private readonly IChatRepository _chatRepository;
+
+    public MessageRepository(string filePath, INearMessageDbContext nearMessageDbContext,
+        IChatRepository chatRepository)
+    {
+        _filePath = filePath;
+        _nearMessageDbContext = nearMessageDbContext;
+>>>>>>> dev
         _chatRepository = chatRepository;
     }
 
