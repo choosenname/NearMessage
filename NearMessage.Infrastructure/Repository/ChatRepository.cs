@@ -1,6 +1,8 @@
-﻿using NearMessage.Application.Abstraction;
+﻿using Microsoft.EntityFrameworkCore;
+using NearMessage.Application.Abstraction;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Chats;
+using NearMessage.Domain.Messages;
 using NearMessage.Domain.Users;
 using System;
 using System.Collections.Generic;
@@ -32,5 +34,20 @@ internal class ChatRepository : IChatRepository
         await _nearMessageDbContext.SaveChangesAsync(cancellationToken);
 
         return Result.Success(chat);
+    }
+
+    public async Task<Result<Chat>> GetChatAsync(Guid sender, Guid receiver, CancellationToken cancellationToken)
+    {
+        var chat = await _nearMessageDbContext.Chats
+        .FirstOrDefaultAsync(c =>
+        c.Sender.Id == sender && c.Receiver.Id == receiver,
+        cancellationToken);
+
+        if (chat == null)
+        {
+            return await CreateChatAsync(sender, receiver, cancellationToken);
+        }
+
+        return Result<Chat>.Success(chat);
     }
 }

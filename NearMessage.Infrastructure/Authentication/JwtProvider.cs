@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Options;
+﻿using MediatR;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NearMessage.Application.Abstraction;
+using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Domain.Users;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -41,5 +43,14 @@ public sealed class JwtProvider : IJwtProvider
         string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
 
         return tokenValue;
+    }
+
+    public Maybe<Guid> GetUserIdAsync(ClaimsPrincipal principal)
+    {
+        var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier);
+
+        if (userIdClaim == null) { return Maybe<Guid>.None; }
+
+        return Maybe<Guid>.From(Guid.Parse(userIdClaim.Value));
     }
 }

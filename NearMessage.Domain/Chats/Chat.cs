@@ -9,7 +9,7 @@ public class Chat
     {
         ChatId = chatId;
         SenderId = senderId;
-        ReceiverId = receiverId;
+        ReceiverId = receiverId;    
     }
 
     public int Id { get; set; }
@@ -20,9 +20,9 @@ public class Chat
 
     public Guid ReceiverId { get; set; }
 
-    public User? Sender { get; set; }
+    public User Sender { get; set; }
 
-    public User? Receiver { get; set; }
+    public User Receiver { get; set; }
 
     public Chat InversedChat => new(ChatId, ReceiverId, SenderId);
 }

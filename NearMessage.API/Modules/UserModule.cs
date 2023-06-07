@@ -5,16 +5,16 @@ using NearMessage.Application.Users.Queries.GetAllUsers;
 
 namespace NearMessage.API.Modules;
 
-public class GetUsersModule : CarterModule
+public class UserModule : CarterModule
 {
-    public GetUsersModule() :
-        base("users/getall")
+    public UserModule() :
+        base("/users")
     {
     }
 
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("", [Authorize] async (ISender sender, CancellationToken cancellationToken) =>
+        app.MapGet("/getall", [Authorize] async (ISender sender, CancellationToken cancellationToken) =>
             (await sender.Send(new GetAllUsersQuery(), cancellationToken)).Сontacts
         );
     }

@@ -1,4 +1,5 @@
-﻿using NearMessage.Common.Abstractions.Messaging;
+﻿using NearMessage.Application.Abstraction;
+using NearMessage.Common.Abstractions.Messaging;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Chats;
 using NearMessage.Domain.Messages;
@@ -11,24 +12,25 @@ public sealed class SaveMessageCommandHandler : ICommandHandler<SaveMessageComma
 {
     private readonly IMessageRepository _messageRepository;
     private readonly IChatRepository _chatRepository;
+    private readonly IJwtProvider _jwtProvider;
 
-    public SaveMessageCommandHandler(IMessageRepository messageRepository, IChatRepository chatRepository)
+    public SaveMessageCommandHandler(IMessageRepository messageRepository, 
+        IChatRepository chatRepository, IJwtProvider jwtProvider)
     {
         _messageRepository = messageRepository;
         _chatRepository = chatRepository;
+        _jwtProvider = jwtProvider;
     }
 
     public async Task<Result> Handle(SaveMessageCommand request, CancellationToken cancellationToken)
     {
-        var claimUser = request.Context.User;
-        var userIdClaim = claimUser.FindFirst(ClaimTypes.NameIdentifier);
-
-        if (userIdClaim == null)
+        var maybeSenderId = _jwtProvider.GetUserIdAsync(request.Context.User);
+        if (maybeSenderId.HasNoValue) 
         {
-            return Result.Failure(new("Can't find maybeUser identifier"));
+            return Result.Failure(new("Can't find sender identifier"));
         }
 
-        var chatResult = await _chatRepository.CreateChatAsync(Guid.Parse(userIdClaim.Value), 
+        var chatResult = await _chatRepository.GetChatAsync(maybeSenderId.Value, 
             request.Message.Receiver, cancellationToken);
 
         if (chatResult.IsFailure)

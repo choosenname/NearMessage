@@ -19,7 +19,8 @@ public class SaveMessageModule : CarterModule
         app.MapPost("", [Authorize] async (Message request, ISender sender,
             HttpContext context, CancellationToken cancellationToken) =>
         {
-            Result result = await sender.Send(new SaveMessageCommand(request, context), cancellationToken);
+            Result result = await sender.Send(new SaveMessageCommand(request, context),
+                cancellationToken);
 
             return result.IsSuccess ? Results.Ok() : Results.BadRequest(result.Error);
         });
