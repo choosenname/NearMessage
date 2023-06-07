@@ -1,4 +1,4 @@
-﻿using NearMessage.Domain.Entities;
+﻿using NearMessage.Domain.Users;
 
 namespace NearMessage.Application.Abstraction;
 

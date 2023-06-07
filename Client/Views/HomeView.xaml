@@ -32,8 +32,8 @@
             </Grid>
 
             <ListView Grid.Row="1"
-                ItemsSource="{Binding Users}"
-                SelectedItem="{Binding SelectedUser}">
+                ItemsSource="{Binding Contacts}"
+                SelectedItem="{Binding SelectedContact}">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>

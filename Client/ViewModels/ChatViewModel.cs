@@ -7,15 +7,15 @@ namespace Client.ViewModels;
 
 public class ChatViewModel : ViewModelBase
 {
-    private UserModel _currentUser;
+    private ContactModel _currentContact;
 
-    public UserModel CurrentUser
+    public ContactModel CurrentContact
     {
-        get => _currentUser;
+        get => _currentContact;
         set
         {
-            _currentUser = value;
-            OnPropertyChanged(nameof(CurrentUser));
+            _currentContact = value;
+            OnPropertyChanged(nameof(CurrentContact));
         }
     }
 
@@ -33,9 +33,9 @@ public class ChatViewModel : ViewModelBase
 
     public ICommand SendMessageCommand { get; set; }
 
-    public ChatViewModel(UserModel currentUser, HttpClient httpClient)
+    public ChatViewModel(ContactModel currentContact, HttpClient httpClient)
     {
-        _currentUser = currentUser;
-        SendMessageCommand = new SendMessageCommand(currentUser, Message, httpClient);
+        _currentContact = currentContact;
+        SendMessageCommand = new SendMessageCommand(currentContact, Message, httpClient);
     }
 }

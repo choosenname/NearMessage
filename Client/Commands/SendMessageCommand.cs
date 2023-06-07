@@ -9,13 +9,13 @@ namespace Client.Commands;
 
 public class SendMessageCommand : CommandBase
 {
-    private readonly UserModel _receiver;
+    private readonly ContactModel _receiver;
     
     private readonly string _message;
 
     private readonly HttpClient _httpClient;
 
-    public SendMessageCommand(UserModel receiver, 
+    public SendMessageCommand(ContactModel receiver, 
         string message, HttpClient httpClient)
     {
         _receiver = receiver;

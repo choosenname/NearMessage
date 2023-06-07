@@ -1,24 +1,19 @@
-﻿using MediatR;
-using NearMessage.Application.Abstraction;
+﻿using NearMessage.Application.Abstraction;
 using NearMessage.Common.Abstractions.Messaging;
 using NearMessage.Common.Primitives.Result;
-using NearMessage.Domain.Entities;
 using NearMessage.Domain.Users;
-using System.Windows.Input;
 
 namespace NearMessage.Application.Users.Commands.CreateUser;
 
-public sealed class UserRegistrationAsyncCommandHandler 
+public sealed class UserRegistrationAsyncCommandHandler
     : ICommandHandler<UserRegistrationCommand, Result<string>>
 {
-    private readonly INearMessageDbContext _nearMessageDbContext;
     private readonly IUserRepository _userRepository;
     private readonly IJwtProvider _jwtProvider;
 
-    public UserRegistrationAsyncCommandHandler(INearMessageDbContext nearMessageDbContext
-        , IUserRepository userRepository, IJwtProvider jwtProvider)
+    public UserRegistrationAsyncCommandHandler(IUserRepository userRepository,
+        IJwtProvider jwtProvider)
     {
-        _nearMessageDbContext = nearMessageDbContext;
         _userRepository = userRepository;
         _jwtProvider = jwtProvider;
     }
@@ -39,8 +34,6 @@ public sealed class UserRegistrationAsyncCommandHandler
         {
             return Result.Failure<string>(result.Error);
         }
-
-        await _nearMessageDbContext.SaveChangesAsync(cancellationToken);
 
         var token = _jwtProvider.Generate(user);
 

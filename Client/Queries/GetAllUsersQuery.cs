@@ -35,7 +35,7 @@ public class GetAllUsersQuery : CommandBase
 
         if (response.IsSuccessStatusCode)
         {
-            _homeViewModel.Users = await response.Content.ReadAsAsync<ObservableCollection<UserModel>>();
+            _homeViewModel.Contacts = await response.Content.ReadAsAsync<ObservableCollection<ContactModel>>();
         }
     }
 }

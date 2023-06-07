@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 
 namespace Client.Models;
 
-public class UserModel
+public class ContactModel
 {
-    public UserModel(Guid id, string username, string password)
+    public ContactModel(Guid id, Guid chatID, string username)
     {
         Id = id;
         Username = username;
-        Password = password;
+        CreatedAt = DateTime.Now;
+        ChatID = chatID;
     }
 
     public Guid Id { get; set; }
 
     public string Username { get; set; }
-    public string Password { get; set; }
+
+    public Guid ChatID { get; set; }
+
+    public DateTime CreatedAt { get; set; }
 }

@@ -12,15 +12,15 @@ public class HomeViewModel : ViewModelBase
 {
     private HttpClient _httpClient;
 
-    private ObservableCollection<UserModel> _users = new();
+    private ObservableCollection<ContactModel> _contacts = new();
 
-    public ObservableCollection<UserModel> Users
+    public ObservableCollection<ContactModel> Contacts
     {
-        get => _users;
+        get => _contacts;
         set
         {
-            _users = value;
-            OnPropertyChanged(nameof(Users));
+            _contacts = value;
+            OnPropertyChanged(nameof(Contacts));
         }
     }
 
@@ -35,14 +35,14 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    private UserModel? _selectedUser;
-    public UserModel? SelectedUser
+    private ContactModel? _selectedContact;
+    public ContactModel? SelectedContact
     {
-        get => _selectedUser;
+        get => _selectedContact;
         set
         {
-            _selectedUser = value;
-            OnPropertyChanged(nameof(SelectedUser));
+            _selectedContact = value;
+            OnPropertyChanged(nameof(SelectedContact));
 
             ChatViewModel = new ChatViewModel(value, _httpClient);
         }

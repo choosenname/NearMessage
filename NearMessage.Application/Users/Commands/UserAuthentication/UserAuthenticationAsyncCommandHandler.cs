@@ -2,7 +2,6 @@
 using NearMessage.Common.Abstractions.Messaging;
 using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Common.Primitives.Result;
-using NearMessage.Domain.Entities;
 using NearMessage.Domain.Users;
 
 namespace NearMessage.Application.Users.Commands.UserAuthentication;

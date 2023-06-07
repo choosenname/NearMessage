@@ -1,6 +1,7 @@
-﻿using NearMessage.Domain.Primitives;
+﻿using NearMessage.Domain.Chats;
+using NearMessage.Domain.Primitives;
 
-namespace NearMessage.Domain.Entities;
+namespace NearMessage.Domain.Users;
 
 public class User : Entity
 {
@@ -16,7 +17,10 @@ public class User : Entity
     public string Password { get; set; }
 
     public DateTime CreatedAt { get; set; }
-    //public List<int> Connections { get; set; }
+
+    public List<Chat> SentChats { get; set; } = new();
+
+    public List<Chat> ReceivedChats { get; set; } = new();
 
     public bool VerifyPassword(string password) => password == Password;
 }

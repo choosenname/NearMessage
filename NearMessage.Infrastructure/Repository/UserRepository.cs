@@ -3,7 +3,6 @@ using NearMessage.Application.Abstraction;
 using NearMessage.Common.Primitives.Errors;
 using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Common.Primitives.Result;
-using NearMessage.Domain.Entities;
 using NearMessage.Domain.Users;
 
 namespace NearMessage.Infrastructure.Repository;
@@ -20,6 +19,7 @@ public class UserRepository : IUserRepository
     public async Task<Result<User>> CreateUserAsync(User user, CancellationToken cancellationToken = default)
     {
         await _context.Users.AddAsync(user, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return Result<User>.Success(user);
     }

@@ -1,4 +1,5 @@
-﻿using Client.Services;
+﻿using Client.Models;
+using Client.Services;
 using Client.Stores;
 using Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,7 @@ public class Startup
         services.AddSingleton<NavigationStore>();
         services.AddSingleton(new UserStore()
         {
-            User = new Models.UserModel(Guid.Empty, "", "")
+            User = new UserModel(Guid.Empty, String.Empty, String.Empty)
         });
 
         return services.BuildServiceProvider();
