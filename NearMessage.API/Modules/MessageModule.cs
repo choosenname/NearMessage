@@ -21,7 +21,7 @@ public class MessageModule : CarterModule
                 cancellationToken);
 
             return result.Messages.IsSuccess ?
-            Results.Ok(result.Messages) :
+            Results.Ok(result.Messages.Value) :
             Results.BadRequest(result.Messages.Error);
         });
     }
