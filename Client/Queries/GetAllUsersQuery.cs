@@ -22,8 +22,6 @@ public class GetAllUsersQuery : CommandBase
         _homeViewModel = homeViewModel;
         _httpClient = httpClient;
         _userStore = userStore;
-
-        Execute(null);
     }
 
     public override async void Execute(object? parameter)
@@ -31,11 +29,12 @@ public class GetAllUsersQuery : CommandBase
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
             _userStore.Token);
 
-        var response = await _httpClient.GetAsync("https://localhost:7196/users/getall");
+        var response = await _httpClient.GetAsync("/users/getall");
 
         if (response.IsSuccessStatusCode)
         {
-            _homeViewModel.Contacts = await response.Content.ReadAsAsync<ObservableCollection<ContactModel>>();
+            _homeViewModel.Contacts = await response.Content
+                .ReadAsAsync<ObservableCollection<ContactModel>>();
         }
     }
 }

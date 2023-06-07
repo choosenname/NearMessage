@@ -1,5 +1,6 @@
 ﻿using Client.Models;
 using Client.Stores;
+using Client.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -9,17 +10,15 @@ namespace Client.Commands;
 
 public class SendMessageCommand : CommandBase
 {
+    private readonly ChatViewModel _chatViewModel;
     private readonly ContactModel _receiver;
-    
-    private readonly string _message;
-
     private readonly HttpClient _httpClient;
 
-    public SendMessageCommand(ContactModel receiver, 
-        string message, HttpClient httpClient)
+    public SendMessageCommand(ChatViewModel chatViewModel, ContactModel receiver,
+        HttpClient httpClient)
     {
+        _chatViewModel = chatViewModel;
         _receiver = receiver;
-        _message = message;
         _httpClient = httpClient;
     }
 
@@ -27,13 +26,13 @@ public class SendMessageCommand : CommandBase
     {
         var message = new MessageModel(
             Guid.NewGuid(),
-            _message,
-            _receiver);
+            _chatViewModel.MessageText,
+            _receiver.Id);
 
         var content = new StringContent(JsonConvert.SerializeObject(message),
             Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PostAsync("/receiver", content);
+        var response = await _httpClient.PostAsync("/message/send", content);
 
         response.EnsureSuccessStatusCode();
     }

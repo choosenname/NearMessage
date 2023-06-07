@@ -1,5 +1,6 @@
 ﻿using Client.Commands;
 using Client.Models;
+using Client.Queries;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Windows.Input;
@@ -32,7 +33,7 @@ public class ChatViewModel : ViewModelBase
         }
     }
 
-    private ObservableCollection<MessageModel> _messages;
+    private ObservableCollection<MessageModel> _messages = new();
     public ObservableCollection<MessageModel> Messages
     {
         get => _messages;
@@ -43,11 +44,14 @@ public class ChatViewModel : ViewModelBase
         }
     }
 
-    public ICommand SendMessageCommand { get; set; }
+    public ICommand SendMessageCommand { get; }
+    public ICommand GetMessagesQuery { get; }
 
     public ChatViewModel(ContactModel currentContact, HttpClient httpClient)
     {
         _currentContact = currentContact;
-        SendMessageCommand = new SendMessageCommand(currentContact, MessageText, httpClient);
+        SendMessageCommand = new SendMessageCommand(this, currentContact, httpClient);
+        GetMessagesQuery = new GetMessagesQuery(this, httpClient);
+        GetMessagesQuery.Execute(null);
     }
 }

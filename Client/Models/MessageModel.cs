@@ -4,7 +4,7 @@ namespace Client.Models;
 
 public class MessageModel
 {
-    public MessageModel(Guid id, string content, ContactModel receiver)
+    public MessageModel(Guid id, string content, Guid receiver)
     {
         Id = id;
         Content = content;
@@ -15,5 +15,5 @@ public class MessageModel
 
     public string Content { get; set; }
 
-    public ContactModel Receiver { get; set; }
+    public Guid Receiver { get; set; }
 }

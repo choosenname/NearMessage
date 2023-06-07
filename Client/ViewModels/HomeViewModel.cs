@@ -54,6 +54,7 @@ public class HomeViewModel : ViewModelBase
     {
         _httpClient = httpClient;
         GetAllUsersQuery = new GetAllUsersQuery(this, httpClient, userStore);
+        GetAllUsersQuery.Execute(null);
     }
 
 }

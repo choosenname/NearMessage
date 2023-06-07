@@ -24,7 +24,20 @@
 
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Messages}">
-            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="Transparent"
+                                Height="65">
+                        <StackPanel Margin="5, 5, 0, 0">
+                            <Label Content="{Binding Content}" 
+                                               Foreground="Black"   
+                                               FontSize="13"/>
+
+                            <Label Content="{Binding Receiver}"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Grid Grid.Row="2">
