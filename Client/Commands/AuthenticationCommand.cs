@@ -15,7 +15,7 @@ public class AuthenticationCommand : CommandBase
     private readonly AuthenticationViewModel _authenticationViewModel;
     private readonly HttpClient _httpClient;
     private readonly NavigationService<HomeViewModel> _navigationService;
-    private UserStore _userStore;
+    private readonly UserStore _userStore;
 
     public AuthenticationCommand(AuthenticationViewModel authenticationViewModel,
         HttpClient httpClient, UserStore userStore, NavigationService<HomeViewModel> navigationService)

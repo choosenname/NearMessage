@@ -9,8 +9,7 @@ public class ChatConfiguration : IEntityTypeConfiguration<Chat>
     public void Configure(EntityTypeBuilder<Chat> builder)
     {
         builder.HasKey(com => com.Id);
-        builder.HasIndex(com => com.Id)
-        .IsUnique();
+        builder.Property(u => u.Id).ValueGeneratedOnAdd();
 
         builder.HasOne(c => c.Sender)
             .WithMany(u => u.SentChats)
