@@ -60,7 +60,7 @@ public class AuthenticationViewModel : ViewModelBase
 
         AuthenticationCommand = new AuthenticationCommand(this, httpClient, userStore, navigationService);
 
-        Username = "вывddыdff";
+        Username = "My Bebras";
         Password = "qwerty";
     }
 }

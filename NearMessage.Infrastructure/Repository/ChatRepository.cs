@@ -27,8 +27,8 @@ internal class ChatRepository : IChatRepository
             user1,
             user2);
 
-        await _nearMessageDbContext.Chats.AddAsync(chat);
-        await _nearMessageDbContext.Chats.AddAsync(chat.InversedChat);
+        await _nearMessageDbContext.Chats.AddAsync(chat, cancellationToken);
+        await _nearMessageDbContext.Chats.AddAsync(chat.InversedChat, cancellationToken);
         await _nearMessageDbContext.SaveChangesAsync(cancellationToken);
 
         return Result.Success(chat);

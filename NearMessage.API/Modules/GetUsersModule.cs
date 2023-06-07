@@ -15,7 +15,7 @@ public class GetUsersModule : CarterModule
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("", [Authorize] async (ISender sender, CancellationToken cancellationToken) =>
-            (await sender.Send(new GetAllUsersQuery(), cancellationToken)).Users
+            (await sender.Send(new GetAllUsersQuery(), cancellationToken)).Сontacts
         );
     }
 }

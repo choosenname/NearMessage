@@ -14,7 +14,12 @@ public sealed class GetAllUsersQueryHandler : IQueryHandler<GetAllUsersQuery, Us
         _nearMessageDbContext = nearMessageDbContext;
     }
 
-    public async Task<UsersResponse> Handle(GetAllUsersQuery request, CancellationToken cancellationToken) =>
-        new UsersResponse(
-            await _nearMessageDbContext.Users.ToListAsync(cancellationToken));
+    public async Task<UsersResponse> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+    {
+        var users = await _nearMessageDbContext.Users
+        .Select(u => u.ToContact())
+        .ToListAsync(cancellationToken);
+
+        return new UsersResponse(users);
+    }
 }
