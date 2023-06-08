@@ -40,8 +40,6 @@ public class GetAllUsersQuery : CommandBase
         var contacts = await response.Content
             .ReadAsAsync<ObservableCollection<ContactModel>>();
 
-        _userStore.User.Id = contacts.FirstOrDefault(c => c.Username == _userStore.User.Username).Id;
-
         _homeViewModel.Contacts = contacts;
     }
 }

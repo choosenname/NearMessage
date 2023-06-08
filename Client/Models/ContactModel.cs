@@ -17,4 +17,6 @@ public class ContactModel
     public Guid Id { get; set; }
 
     public string Username { get; set; }
+
+    public Guid ChatId { get; set; }
 }

@@ -3,28 +3,31 @@ using Client.Models;
 using Client.Services;
 using Client.ViewModels;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Client.Queries;
 
-internal class GetMessagesQuery : CommandBase
+public class SaveMessagesQuery : CommandBase
 {
-    private readonly ChatViewModel _chatViewModel;
+    private readonly ContactModel _currentContact;
     private readonly HttpClient _httpClient;
 
-    public GetMessagesQuery(ChatViewModel chatViewModel, HttpClient httpClient)
+    public SaveMessagesQuery(ContactModel currentContact, HttpClient httpClient)
     {
-        _chatViewModel = chatViewModel;
+        _currentContact = currentContact;
         _httpClient = httpClient;
     }
 
-    public async override void Execute(object? parameter)
+    public override async void Execute(object? parameter)
     {
         var content = new StringContent(
-            JsonConvert.SerializeObject(_chatViewModel.CurrentContact),
+            JsonConvert.SerializeObject(_currentContact),
             Encoding.UTF8, "application/json");
 
         var response = await _httpClient.PostAsync("/message/get", content);
@@ -36,9 +39,6 @@ internal class GetMessagesQuery : CommandBase
         var messages = await response.Content
             .ReadAsAsync<ObservableCollection<MessageModel>>();
 
-        _chatViewModel.Messages = new ObservableCollection<MessageModel>(
-            messages.OrderBy(i => i.SendTime));
-
-        await SaveMessageService.SaveMessagesAsync(messages, _chatViewModel.CurrentContact, default);
+        await SaveMessageService.SaveMessagesAsync(messages, _currentContact, default);
     }
 }

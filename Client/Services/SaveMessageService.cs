@@ -1,16 +1,42 @@
 ﻿using Client.Models;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Client.Services;
 
 public class SaveMessageService
 {
-    public async Task SaveMessages(IEnumerable<MessageModel> messages)
+    public static async Task SaveMessagesAsync(IEnumerable<MessageModel> messages, ContactModel contact,
+        CancellationToken cancellationToken)
     {
+        foreach (var message in messages)
+        {
+            await SaveMessageAsync(message, contact, cancellationToken);
+        }
 
+        return;
+    }
+
+    public static async Task SaveMessageAsync(MessageModel message, ContactModel contact,
+        CancellationToken cancellationToken)
+    {
+        string directoryPath = Path.Combine(
+            Properties.Settings.Default.DataPath,
+            contact.ChatId.ToString());
+
+        Directory.CreateDirectory(directoryPath);
+
+        string json = JsonConvert.SerializeObject(message);
+
+        Encoding encoding = Encoding.UTF8;
+
+        await File.WriteAllTextAsync(Path.Combine(directoryPath, $"{message.Id}.json"), json,
+            encoding, cancellationToken);
+
+        return;
     }
 }
