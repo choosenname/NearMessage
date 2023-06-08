@@ -1,14 +1,13 @@
 ﻿namespace NearMessage.Domain.Messages;
 
-public class Media
+public class Media : Message
 {
-    public Media(Message message, StreamContent streamContent)
+    public Media(Guid id, string content, Guid receiver,
+        DateTime sendTime, StreamContent streamContent) 
+        : base(id, content, receiver, sendTime)
     {
-        Message = message;
         StreamContent = streamContent;
     }
-
-    public Message Message { get; set; }
 
     public StreamContent StreamContent { get; set; }
 }

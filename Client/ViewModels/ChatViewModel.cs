@@ -50,6 +50,7 @@ public class ChatViewModel : ViewModelBase
 
     public ICommand SendMessageCommand { get; }
     public ICommand GetMessagesQuery { get; }
+    public ICommand SendMediaCommand { get; }
 
     public ChatViewModel(ContactModel currentContact, UserStore userStore, HttpClient httpClient)
     {

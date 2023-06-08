@@ -32,7 +32,16 @@ public class MessageModule : CarterModule
         app.MapPost("/send", [Authorize] async (Message request, ISender sender,
             HttpContext context, CancellationToken cancellationToken) =>
         {
-            Result result = await sender.Send(new SaveMessageCommand(request, context),
+            var result = await sender.Send(new SaveMessageCommand(request, context),
+                cancellationToken);
+
+            return result.IsSuccess ? Results.Ok() : Results.BadRequest(result.Error);
+        });
+
+        app.MapPost("/sendfile", [Authorize] async (Message request, ISender sender,
+            HttpContext context, CancellationToken cancellationToken) =>
+        {
+            var result = await sender.Send(new SaveMessageCommand(request, context),
                 cancellationToken);
 
             return result.IsSuccess ? Results.Ok() : Results.BadRequest(result.Error);
