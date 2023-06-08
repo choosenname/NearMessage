@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Client.Services;
 
-public class NavigationService<TViewModel> where TViewModel : ViewModelBase
+public class NavigationService<TViewModel> 
+    where TViewModel : ViewModelBase
 {
     private readonly NavigationStore _navigationStore;
     private readonly Func<TViewModel> _createViewModel;

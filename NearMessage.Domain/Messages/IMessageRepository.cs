@@ -7,6 +7,6 @@ public interface IMessageRepository
 {
     Task<Result> SaveMessageAsync(Chat chat, Message message, CancellationToken cancellationToken);
 
-    Task<Result<IEnumerable<Message>>> GetMessagesAsync(Guid receiver, Guid sender,
+    Task<Result<IEnumerable<Message>>> GetMessagesAsync(Guid user1, Guid user2,
         CancellationToken cancellationToken);
 }

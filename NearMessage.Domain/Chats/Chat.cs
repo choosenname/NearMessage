@@ -3,7 +3,7 @@ using NearMessage.Domain.Users;
 
 namespace NearMessage.Domain.Chats;
 
-public class Chat 
+public class Chat
 {
     public Chat(Guid chatId, Guid senderId, Guid receiverId)
     {
@@ -16,13 +16,13 @@ public class Chat
 
     public Guid ChatId { get; set; }
 
+    public virtual User Sender { get; set; }
+
     public Guid SenderId { get; set; }
 
+    public virtual User Receiver { get; set; }
+
     public Guid ReceiverId { get; set; }
-
-    public User Sender { get; set; }
-
-    public User Receiver { get; set; }
 
     public Chat InversedChat => new(ChatId, ReceiverId, SenderId);
 }

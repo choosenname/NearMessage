@@ -8,5 +8,5 @@ public interface IJwtProvider
 {
     string Generate(User user);
 
-    Maybe<Guid> GetUserIdAsync(ClaimsPrincipal principal);
+    Maybe<Guid> GetUserId(ClaimsPrincipal principal);
 }

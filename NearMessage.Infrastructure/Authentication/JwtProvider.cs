@@ -45,7 +45,7 @@ public sealed class JwtProvider : IJwtProvider
         return tokenValue;
     }
 
-    public Maybe<Guid> GetUserIdAsync(ClaimsPrincipal principal)
+    public Maybe<Guid> GetUserId(ClaimsPrincipal principal)
     {
         var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier);
 

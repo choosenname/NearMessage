@@ -21,6 +21,16 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(128);
 
+        builder.HasMany(u => u.SentChats)
+            .WithOne(c => c.Sender)
+            .HasForeignKey(c => c.SenderId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(u => u.ReceivedChats)
+            .WithOne(c => c.Receiver)
+            .HasForeignKey(c => c.ReceiverId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.Property(user => user.CreatedAt).IsRequired();
     }
 }
