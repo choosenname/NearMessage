@@ -17,6 +17,7 @@ public class Startup
         services.AddSingleton<MainViewModel>();
         services.AddSingleton<RegistrationViewModel>();
         services.AddSingleton<AuthenticationViewModel>();
+        services.AddSingleton<HomeViewModel>();
 
         services.AddSingleton(provider => new MainWindow
         {
@@ -32,7 +33,11 @@ public class Startup
         services.AddSingleton<NavigationStore>();
         services.AddSingleton(new UserStore()
         {
-            User = new UserModel(Guid.Empty, String.Empty, String.Empty)
+            User = new UserModel(
+                Guid.Empty,
+                Properties.Settings.Default.Username,
+                Properties.Settings.Default.Password),
+            Token = Properties.Settings.Default.Token
         });
 
         return services.BuildServiceProvider();

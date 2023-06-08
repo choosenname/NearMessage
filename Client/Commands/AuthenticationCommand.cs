@@ -67,6 +67,11 @@ public class AuthenticationCommand : CommandBase
             _navigationService.Navigate();
         }
 
+        Properties.Settings.Default.Username = _userStore.User.Username;
+        Properties.Settings.Default.Password = _userStore.User.Password;
+        Properties.Settings.Default.Token = _userStore.Token;
+        Properties.Settings.Default.Save();
+
         _authenticationViewModel.IsLoading = false;
     }
 }
