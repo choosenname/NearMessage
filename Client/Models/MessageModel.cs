@@ -16,6 +16,8 @@ public class MessageModel
 
     public string Content { get; set; }
 
+    public Guid Sender { get; set; }
+
     public Guid Receiver { get; set; }
 
     public DateTime SendTime { get; set; }
