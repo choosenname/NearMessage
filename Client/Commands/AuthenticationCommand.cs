@@ -47,7 +47,7 @@ public class AuthenticationCommand : CommandBase
         _authenticationViewModel.IsLoading = true;
 
         _userStore.User = new UserModel(
-            Guid.NewGuid(),
+            Guid.Empty,
             _authenticationViewModel.Username,
             _authenticationViewModel.Password);
 

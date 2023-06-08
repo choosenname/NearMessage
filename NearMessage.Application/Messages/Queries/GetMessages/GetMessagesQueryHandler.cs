@@ -24,7 +24,7 @@ public class GetMessagesQueryHandler : IQueryHandler<GetMessagesQuery, MessagesR
 
         if (maybeSenderId.HasNoValue)
         {
-            return new MessagesResponse(Result.Failure<List<Message>>(
+            return new MessagesResponse(Result.Failure<IEnumerable<Message>>(
                 new("Can't find sender identifier")));
         }
 

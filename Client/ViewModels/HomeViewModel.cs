@@ -10,6 +10,7 @@ namespace Client.ViewModels;
 
 public class HomeViewModel : ViewModelBase
 {
+    private readonly UserStore _userStore;
     private readonly HttpClient _httpClient;
 
     private ObservableCollection<ContactModel> _contacts = new();
@@ -44,7 +45,7 @@ public class HomeViewModel : ViewModelBase
             _selectedContact = value;
             OnPropertyChanged(nameof(SelectedContact));
 
-            ChatViewModel = new ChatViewModel(value, _httpClient);
+            ChatViewModel = new ChatViewModel(value, _userStore, _httpClient);
         }
     }
 
@@ -52,6 +53,7 @@ public class HomeViewModel : ViewModelBase
 
     public HomeViewModel(UserStore userStore, HttpClient httpClient)
     {
+        _userStore = userStore;
         _httpClient = httpClient;
         GetAllUsersQuery = new GetAllUsersQuery(this, httpClient, userStore);
         GetAllUsersQuery.Execute(null);

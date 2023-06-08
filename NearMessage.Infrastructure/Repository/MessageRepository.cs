@@ -19,14 +19,14 @@ public class MessageRepository : IMessageRepository
         _chatRepository = chatRepository;
     }
 
-    public async Task<Result<List<Message>>> GetMessagesAsync(Guid receiver, Guid sender,
+    public async Task<Result<IEnumerable<Message>>> GetMessagesAsync(Guid receiver, Guid sender,
         CancellationToken cancellationToken)
     {
         var chatResult = await _chatRepository.GetChatAsync(sender, receiver, cancellationToken);
 
         if (chatResult.IsFailure)
         {
-            return Result.Failure<List<Message>>(chatResult.Error);
+            return Result.Failure<IEnumerable<Message>>(chatResult.Error);
         }
 
         string directoryPath = Path.Combine(_filePath, chatResult.Value.ChatId.ToString());
@@ -43,7 +43,7 @@ public class MessageRepository : IMessageRepository
             messages.Add(message);
         }
 
-        return Result.Success(messages);
+        return Result.Success<IEnumerable<Message>>(messages);
     }
 
     public async Task<Result> SaveMessageAsync(Chat chat, Message message, CancellationToken cancellationToken)

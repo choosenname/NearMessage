@@ -8,4 +8,4 @@ using System.Threading.Tasks;
 
 namespace NearMessage.Application.Messages.Queries.GetMessages;
 
-public sealed record MessagesResponse(Result<List<Message>> Messages);
+public sealed record MessagesResponse(Result<IEnumerable<Message>> Messages);
