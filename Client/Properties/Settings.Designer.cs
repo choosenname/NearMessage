@@ -58,5 +58,14 @@ namespace Client.Properties {
                 this["Token"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\ClientData\\\\")]
+        public string DataPath {
+            get {
+                return ((string)(this["DataPath"]));
+            }
+        }
     }
 }
