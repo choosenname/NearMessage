@@ -1,18 +1,22 @@
-﻿using NearMessage.Domain.Entities;
-using NearMessage.Domain.Primitives;
+﻿using NearMessage.Domain.Primitives;
+using NearMessage.Domain.Users;
 
 namespace NearMessage.Domain.Messages;
 
 public class Message : Entity
 {
-    public Message(Guid id, string content, User receiver)
+    public Message(Guid id, string content, 
+        Guid receiver, DateTime sendTime)
         : base(id)
     {
         Content = content;
         Receiver = receiver;
+        SendTime = sendTime;
     }
 
     public string Content { get; set; }
 
-    public User Receiver { get; set; }
+    public Guid Receiver { get; set; }
+
+    public DateTime SendTime { get; set; }
 }

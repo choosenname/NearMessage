@@ -1,5 +1,6 @@
 ﻿using Carter;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NearMessage.Application.Users.Commands.UserAuthentication;
 using NearMessage.Common.Primitives.Result;
@@ -22,5 +23,7 @@ public class AuthenticationModule : CarterModule
 
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
         });
+
+        app.MapPost("/confirm", [Authorize] () => { });
     }
 }

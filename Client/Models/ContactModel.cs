@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace Client.Models;
 
-public class UserModel
+public class ContactModel
 {
-    public UserModel(Guid id, string username, string password)
+    public ContactModel(Guid id, string username)
     {
         Id = id;
         Username = username;
-        Password = password;
     }
 
     public Guid Id { get; set; }
 
     public string Username { get; set; }
-    public string Password { get; set; }
 }

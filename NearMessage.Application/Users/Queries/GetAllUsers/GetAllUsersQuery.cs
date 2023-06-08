@@ -1,5 +1,8 @@
-﻿using NearMessage.Common.Abstractions.Messaging;
+﻿using Microsoft.AspNetCore.Http;
+using NearMessage.Common.Abstractions.Messaging;
 
 namespace NearMessage.Application.Users.Queries.GetAllUsers;
 
-public sealed record class GetAllUsersQuery : IQuery<UsersResponse>;
+//TODO: Return Result<MessagesResponse>
+public sealed record class GetAllUsersQuery(
+    HttpContext HttpContext) : IQuery<UsersResponse>;

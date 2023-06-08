@@ -1,8 +1,8 @@
-﻿using Client.Commands;
-using Client.Stores;
+﻿using Client.Stores;
 using Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Net.Http;
 using System.Windows;
 
 namespace Client
@@ -19,12 +19,29 @@ namespace Client
             _serviceProvider = Client.Startup.Configure();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected async override void OnStartup(StartupEventArgs e)
         {
-            var registrationViewModel = _serviceProvider.GetRequiredService<RegistrationViewModel>();
+
+            ViewModelBase viewModel = _serviceProvider.GetRequiredService<HomeViewModel>(); ;
+
+            if (String.IsNullOrEmpty(Client.Properties.Settings.Default.Token))
+            {
+                viewModel = _serviceProvider.GetRequiredService<RegistrationViewModel>();
+            }
+            else
+            {
+                var httpClient = _serviceProvider.GetRequiredService<HttpClient>();
+                var response = await httpClient.PostAsync("/authentication/confirm", null);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    viewModel = _serviceProvider.GetRequiredService<AuthenticationViewModel>();
+                }
+
+            }
 
             var navigationStore = _serviceProvider.GetRequiredService<NavigationStore>();
-            navigationStore.CurrentViewModel = registrationViewModel;
+            navigationStore.CurrentViewModel = viewModel;
 
             MainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             MainWindow.Show();

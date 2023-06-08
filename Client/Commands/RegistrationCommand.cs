@@ -13,7 +13,7 @@ public class RegistrationCommand : CommandBase
 {
     private readonly RegistrationViewModel _registrationViewModel;
     private readonly HttpClient _httpClient;
-    private UserStore _userStore;
+    private readonly UserStore _userStore;
     private readonly NavigationService<HomeViewModel> _navigationService;
 
     public RegistrationCommand(RegistrationViewModel registrationViewModel,
@@ -67,6 +67,12 @@ public class RegistrationCommand : CommandBase
 
             _navigationService.Navigate();
         }
+
+
+        Properties.Settings.Default.Username = _userStore.User.Username;
+        Properties.Settings.Default.Password = _userStore.User.Password;
+        Properties.Settings.Default.Token = _userStore.Token;
+        Properties.Settings.Default.Save();
 
         _registrationViewModel.IsLoading = false;
     }

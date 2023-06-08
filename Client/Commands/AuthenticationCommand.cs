@@ -15,7 +15,7 @@ public class AuthenticationCommand : CommandBase
     private readonly AuthenticationViewModel _authenticationViewModel;
     private readonly HttpClient _httpClient;
     private readonly NavigationService<HomeViewModel> _navigationService;
-    private UserStore _userStore;
+    private readonly UserStore _userStore;
 
     public AuthenticationCommand(AuthenticationViewModel authenticationViewModel,
         HttpClient httpClient, UserStore userStore, NavigationService<HomeViewModel> navigationService)
@@ -47,7 +47,7 @@ public class AuthenticationCommand : CommandBase
         _authenticationViewModel.IsLoading = true;
 
         _userStore.User = new UserModel(
-            Guid.NewGuid(),
+            Guid.Empty,
             _authenticationViewModel.Username,
             _authenticationViewModel.Password);
 
@@ -66,6 +66,11 @@ public class AuthenticationCommand : CommandBase
 
             _navigationService.Navigate();
         }
+
+        Properties.Settings.Default.Username = _userStore.User.Username;
+        Properties.Settings.Default.Password = _userStore.User.Password;
+        Properties.Settings.Default.Token = _userStore.Token;
+        Properties.Settings.Default.Save();
 
         _authenticationViewModel.IsLoading = false;
     }

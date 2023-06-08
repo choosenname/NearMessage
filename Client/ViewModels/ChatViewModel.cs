@@ -1,5 +1,8 @@
 ﻿using Client.Commands;
 using Client.Models;
+using Client.Queries;
+using Client.Stores;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Windows.Input;
 
@@ -7,35 +10,53 @@ namespace Client.ViewModels;
 
 public class ChatViewModel : ViewModelBase
 {
-    private UserModel _currentUser;
+    private ContactModel _currentContact;
+    private readonly UserStore _userStore;
 
-    public UserModel CurrentUser
+    public UserStore UserStore => _userStore;
+
+    public ContactModel CurrentContact
     {
-        get => _currentUser;
+        get => _currentContact;
         set
         {
-            _currentUser = value;
-            OnPropertyChanged(nameof(CurrentUser));
+            _currentContact = value;
+            OnPropertyChanged(nameof(CurrentContact));
         }
     }
 
-    private string _message = string.Empty;
+    private string _messageText = string.Empty;
 
-    public string Message
+    public string MessageText
     {
-        get => _message;
+        get => _messageText;
         set
         {
-            _message = value;
-            OnPropertyChanged(nameof(Message));
+            _messageText = value;
+            OnPropertyChanged(nameof(MessageText));
         }
     }
 
-    public ICommand SendMessageCommand { get; set; }
-
-    public ChatViewModel(UserModel currentUser, HttpClient httpClient)
+    private ObservableCollection<MessageModel> _messages = new();
+    public ObservableCollection<MessageModel> Messages
     {
-        _currentUser = currentUser;
-        SendMessageCommand = new SendMessageCommand(currentUser, Message, httpClient);
+        get => _messages;
+        set
+        {
+            _messages = value;
+            OnPropertyChanged(nameof(Messages));
+        }
+    }
+
+    public ICommand SendMessageCommand { get; }
+    public ICommand GetMessagesQuery { get; }
+
+    public ChatViewModel(ContactModel currentContact, UserStore userStore, HttpClient httpClient)
+    {
+        _currentContact = currentContact;
+        _userStore = userStore;
+        SendMessageCommand = new SendMessageCommand(this, currentContact, httpClient);
+        GetMessagesQuery = new GetMessagesQuery(this, httpClient);
+        GetMessagesQuery.Execute(null);
     }
 }

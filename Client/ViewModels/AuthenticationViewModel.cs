@@ -59,8 +59,5 @@ public class AuthenticationViewModel : ViewModelBase
             () => new HomeViewModel(userStore, httpClient));
 
         AuthenticationCommand = new AuthenticationCommand(this, httpClient, userStore, navigationService);
-
-        Username = "вывddыdff";
-        Password = "qwerty";
     }
 }

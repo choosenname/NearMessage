@@ -3,9 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Client.Views"
+             xmlns:local="clr-namespace:Client.Views" 
+             xmlns:viewmodels="clr-namespace:Client.ViewModels"
+             xmlns:converter="clr-namespace:Client.Converter"
+             xmlns:model="clr-namespace:Client.Models"
+             d:DataContext="{d:DesignInstance Type=viewmodels:ChatViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converter:MessageAlignmentConverter x:Key="MessageAlignmentConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -16,9 +23,44 @@
         <Border Grid.Row="0"
                 Background="White">
 
-            <TextBlock Text="{Binding CurrentUser.Username}"/>
+            <TextBlock Text="{Binding CurrentContact.Username}"/>
 
         </Border>
+
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding Messages}">
+
+                <ItemsControl.Resources>
+                    <DataTemplate DataType="{x:Type model:MessageModel}">
+                        <Border Background="Transparent"
+                                Height="65">
+
+                            <Border.HorizontalAlignment>
+                                <MultiBinding Converter="{StaticResource MessageAlignmentConverter}">
+                                    <Binding Path="Receiver" />
+                                    <Binding Path="DataContext.UserStore"
+                                     RelativeSource="{RelativeSource AncestorType=UserControl}" />
+                                </MultiBinding>
+                            </Border.HorizontalAlignment>
+
+                            <StackPanel Margin="5, 5, 0, 0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding Content}" 
+                                               Foreground="Black"   
+                                               FontSize="13"/>
+                                    <Label Content="{Binding Id}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding Receiver}"/>
+                                    <Label Content="{Binding SendTime}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.Resources>
+            </ItemsControl>
+        </ScrollViewer>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -27,7 +69,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBox Grid.Column="0"
-                     Text="{Binding Message}"/>
+                     Text="{Binding MessageText}"/>
 
             <Button Grid.Column="1"
                     Command="{Binding SendMessageCommand}"/>

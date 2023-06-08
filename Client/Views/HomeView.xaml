@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Client.Views"
+             xmlns:viewmodels="clr-namespace:Client.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -32,8 +34,8 @@
             </Grid>
 
             <ListView Grid.Row="1"
-                ItemsSource="{Binding Users}"
-                SelectedItem="{Binding SelectedUser}">
+                ItemsSource="{Binding Contacts}"
+                SelectedItem="{Binding SelectedContact}">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -43,6 +45,7 @@
                                 <Label Content="{Binding Username}" 
                                                Foreground="Black"   
                                                FontSize="13"/>
+                                <Label Content="{Binding Id}"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
