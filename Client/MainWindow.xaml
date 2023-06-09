@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vms="clr-namespace:Client.ViewModels"
         xmlns:views="clr-namespace:Client.Views"
-        xmlns:local="clr-namespace:Client"
-        mc:Ignorable="d">
+        mc:Ignorable="d" d:DataContext="{d:DesignInstance }">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
             <views:RegistrationView/>

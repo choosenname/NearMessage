@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
+    <Folder Include="Styles\Theme\" />
   </ItemGroup>
 
   <ItemGroup>
