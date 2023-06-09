@@ -35,12 +35,14 @@ public class SendMediaCommand : CommandBase
         {
             var selectedFilePath = openFileDialog.FileName;
             var fileData = await File.ReadAllBytesAsync(selectedFilePath);
+            var fileName = Path.GetFileName(selectedFilePath);
 
             var message = new MediaModel(
                 Guid.NewGuid(),
                 _chatViewModel.MessageText,
                 _contactReceiver.Id,
-                fileData);
+                fileData,
+                fileName);
 
             var content = new StringContent(JsonConvert.SerializeObject(message),
                 Encoding.UTF8, "application/json");
