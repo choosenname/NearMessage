@@ -21,7 +21,7 @@ internal class GetMessagesQuery : CommandBase
         _httpClient = httpClient;
     }
 
-    public async override void Execute(object? parameter)
+    public override async void Execute(object? parameter)
     {
         var content = new StringContent(
             JsonConvert.SerializeObject(_chatViewModel.CurrentContact),

@@ -21,12 +21,12 @@ public class MessageModule : CarterModule
         app.MapPost("/get", async (Contact request, ISender sender,
             HttpContext context, CancellationToken cancellationToken) =>
         {
-            var result = await sender.Send(new GetMessagesQuery(request, context),
-                cancellationToken);
+            var result = (await sender.Send(new GetMessagesQuery(request, context),
+                cancellationToken)).Messages;
 
-            return result.Messages.IsSuccess ?
-            Results.Ok(result.Messages.Value) :
-            Results.BadRequest(result.Messages.Error);
+            return result.IsSuccess ?
+            Results.Ok(result.Value) :
+            Results.BadRequest(result.Error);
         });
 
         app.MapPost("/send", [Authorize] async (Message request, ISender sender,

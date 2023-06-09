@@ -33,7 +33,7 @@
             </StackPanel>
         </Grid>
 
-        <Button Style="{StaticResource WideButton}"
+        <Button Style="{StaticResource WideButtonStyle}"
                 Command="{Binding RegistrationCommand}"
                 Content="Registration" />
 
