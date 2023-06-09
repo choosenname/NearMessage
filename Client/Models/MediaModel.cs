@@ -4,17 +4,18 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Client.Models;
 
 public class MediaModel : MessageModel
 {
     public MediaModel(Guid id, string content, 
-        Guid receiver, StreamContent streamContent)
+        Guid receiver, byte[] fileData)
         : base(id, content, receiver)
     {
-        StreamContent = streamContent;
+        FileData = fileData;
     }
 
-    public StreamContent StreamContent { get; set; }
+    public byte[] FileData { get; set; }
 }

@@ -7,6 +7,5 @@ namespace NearMessage.Application.Abstraction;
 public interface IJwtProvider
 {
     string Generate(User user);
-
     Maybe<Guid> GetUserId(ClaimsPrincipal principal);
 }

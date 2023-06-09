@@ -8,4 +8,4 @@ namespace NearMessage.Application.Messages.Commands.SaveMedia;
 
 public sealed record SaveMediaCommand(
     Media Media,
-    HttpContext HttpContext) : ICommand<Result>;
+    HttpContext Context) : ICommand<Result>;

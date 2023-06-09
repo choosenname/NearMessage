@@ -34,13 +34,13 @@ public class SendMediaCommand : CommandBase
         if (result == true)
         {
             var selectedFilePath = openFileDialog.FileName;
-            var fs = File.OpenRead(selectedFilePath);
-            var streamContent = new StreamContent(fs);
+            var fileData = await File.ReadAllBytesAsync(selectedFilePath);
+
             var message = new MediaModel(
                 Guid.NewGuid(),
                 _chatViewModel.MessageText,
                 _contactReceiver.Id,
-                streamContent);
+                fileData);
 
             var content = new StringContent(JsonConvert.SerializeObject(message),
                 Encoding.UTF8, "application/json");

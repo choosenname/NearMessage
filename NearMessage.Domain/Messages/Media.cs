@@ -3,11 +3,11 @@
 public class Media : Message
 {
     public Media(Guid id, string content, Guid receiver,
-        DateTime sendTime, StreamContent streamContent) 
+        DateTime sendTime, byte[] fileData) 
         : base(id, content, receiver, sendTime)
     {
-        StreamContent = streamContent;
+        FileData = fileData;
     }
 
-    public StreamContent StreamContent { get; set; }
+    public byte[] FileData { get; set; }
 }

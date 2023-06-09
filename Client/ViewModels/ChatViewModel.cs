@@ -58,6 +58,7 @@ public class ChatViewModel : ViewModelBase
         _userStore = userStore;
         SendMessageCommand = new SendMessageCommand(this, currentContact, httpClient);
         GetMessagesQuery = new GetMessagesQuery(this, httpClient);
+        SendMediaCommand = new SendMediaCommand(httpClient, currentContact, this);
         GetMessagesQuery.Execute(null);
     }
 }

@@ -60,4 +60,19 @@ public class MessageRepository : IMessageRepository
 
         return Result.Success();
     }
+
+    public async Task<Result> SaveMediaAsync(Chat chat, Media media, CancellationToken cancellationToken)
+    {
+        string directoryPath = Path.Combine(_filePath, chat.ChatId.ToString());
+        Directory.CreateDirectory(directoryPath);
+
+        string json = JsonConvert.SerializeObject(media);
+
+        Encoding encoding = Encoding.UTF8;
+
+        await File.WriteAllTextAsync(Path.Combine(directoryPath, $"{media.Id}.json"), json,
+            encoding, cancellationToken);
+
+        return Result.Success();
+    }
 }

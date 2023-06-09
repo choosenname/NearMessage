@@ -20,15 +20,15 @@ public class GetMessagesQueryHandler : IQueryHandler<GetMessagesQuery, MessagesR
     public async Task<MessagesResponse> Handle(GetMessagesQuery request,
         CancellationToken cancellationToken)
     {
-        var maybeRecieverId = _jwtProvider.GetUserId(request.Context.User);
+        var maybeReceiverId = _jwtProvider.GetUserId(request.Context.User);
 
-        if (maybeRecieverId.HasNoValue)
+        if (maybeReceiverId.HasNoValue)
         {
             return new MessagesResponse(Result.Failure<IEnumerable<Message>>(
                 new("Can't find sender identifier")));
         }
 
-        return new MessagesResponse(await _messageRepository.GetMessagesAsync(maybeRecieverId.Value,
+        return new MessagesResponse(await _messageRepository.GetMessagesAsync(maybeReceiverId.Value,
             request.Sender.Id, cancellationToken));
     }
 }

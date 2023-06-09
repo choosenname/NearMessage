@@ -19,9 +19,9 @@ public class MessageModule : CarterModule
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPost("/get", async (Contact request, ISender sender,
-            HttpContext Context, CancellationToken cancellationToken) =>
+            HttpContext context, CancellationToken cancellationToken) =>
         {
-            var result = await sender.Send(new GetMessagesQuery(request, Context),
+            var result = await sender.Send(new GetMessagesQuery(request, context),
                 cancellationToken);
 
             return result.Messages.IsSuccess ?
@@ -38,7 +38,7 @@ public class MessageModule : CarterModule
             return result.IsSuccess ? Results.Ok() : Results.BadRequest(result.Error);
         });
 
-        app.MapPost("/sendfile", [Authorize] async (Message request, ISender sender,
+        app.MapPost("/sendfile", [Authorize] async (Media request, ISender sender,
             HttpContext context, CancellationToken cancellationToken) =>
         {
             var result = await sender.Send(new SaveMessageCommand(request, context),
