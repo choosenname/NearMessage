@@ -2,9 +2,9 @@
 
 public class Media : Message
 {
-    public Media(Guid id, string content, Guid receiver,
+    public Media(Guid id, string content, Guid receiverChat,
         DateTime sendTime, byte[] fileData, string fileName) 
-        : base(id, content, receiver, sendTime)
+        : base(id, content, receiverChat, sendTime)
     {
         FileData = fileData;
         FileName = fileName;

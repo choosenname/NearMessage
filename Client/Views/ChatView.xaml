@@ -23,7 +23,27 @@
         <Border Grid.Row="0"
                 Background="White">
 
-            <TextBlock Text="{Binding CurrentContact.Username}" />
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Height="38" Width="38"
+                        CornerRadius="25" Background="White"/>
+
+                <TextBlock Grid.Column="1" Text="{Binding CurrentContact.Username}" />
+
+                <Button Grid.Column="2"
+                        >
+                    <iconPacks:PackIconMaterialDesign Kind="Refresh"
+                                                      Width="15"
+                                                      Height="15"
+                                                      Foreground="{DynamicResource MainColor}"/>
+                </Button>
+            </Grid>
+
 
         </Border>
 
@@ -46,11 +66,11 @@
                                 </MultiBinding>
                             </Border.HorizontalAlignment>
 
-                            <StackPanel Margin="0" VerticalAlignment="Stretch">
+                            <StackPanel Margin="5 0 0 0" VerticalAlignment="Stretch">
                                 <TextBlock Foreground="{DynamicResource ItemForegroundColor}" 
                                            FontSize="13" 
                                            Text="{Binding Content}" />
-                                <Label Foreground="{DynamicResource MonirItemForegroundColor}" 
+                                <Label Foreground="{DynamicResource MinorItemForegroundColor}" 
                                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                        Content="{Binding SendTime}"
                                        FontSize="5" ContentStringFormat="HH:mm" />

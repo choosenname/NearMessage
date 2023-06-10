@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NearMessage.Common.Primitives.Errors;
+using NearMessage.Common.Primitives.Maybe;
 
 namespace NearMessage.Infrastructure.Repository;
 
@@ -36,7 +38,7 @@ internal class ChatRepository : IChatRepository
         return Result.Success(chat);
     }
 
-    public async Task<Result<Chat>> GetChatAsync(Guid sender, Guid receiver, CancellationToken cancellationToken)
+    public async Task<Maybe<Chat>> GetChatAsync(Guid sender, Guid receiver, CancellationToken cancellationToken)
     {
         var chat = await _nearMessageDbContext.Chats
         .FirstOrDefaultAsync(c =>
@@ -45,9 +47,9 @@ internal class ChatRepository : IChatRepository
 
         if (chat == null)
         {
-            return await CreateChatAsync(sender, receiver, cancellationToken);
+            return Maybe<Chat>.None;
         }
 
-        return Result<Chat>.Success(chat);
+        return Maybe<Chat>.From(chat);
     }
 }

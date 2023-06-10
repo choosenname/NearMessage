@@ -3,7 +3,7 @@
     <SolidColorBrush x:Key="PageBackgroundColor" Color="#e6e6e6"/>
     <SolidColorBrush x:Key="ItemBackgroundColor" Color="White" />
     <SolidColorBrush x:Key="ItemForegroundColor" Color="Black" />
-    <SolidColorBrush x:Key="MonirItemForegroundColor" Color="LightGray" />
+    <SolidColorBrush x:Key="MinorItemForegroundColor" Color="LightGray" />
     <SolidColorBrush x:Key="FilledItemForegroundColor" Color="White"/>
     <SolidColorBrush x:Key="MainColor" Color="#6666ff"/>
 </ResourceDictionary>
