@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <converter:MessageAlignmentConverter x:Key="MessageAlignmentConverter" />
     </UserControl.Resources>
-    <Grid Background="{DynamicResource BackgroundColor}">
+    <Grid Background="{DynamicResource PageBackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
@@ -32,8 +32,11 @@
 
                 <ItemsControl.Resources>
                     <DataTemplate DataType="{x:Type model:MessageModel}">
-                        <Border Background="Transparent"
-                                Height="65">
+                        <Border Background="{DynamicResource ItemBackgroundColor}"
+                                Margin="0 5 0 0"
+                                CornerRadius="15"
+                                MinHeight="30"
+                                MinWidth="180">
 
                             <Border.HorizontalAlignment>
                                 <MultiBinding Converter="{StaticResource MessageAlignmentConverter}">
@@ -43,18 +46,14 @@
                                 </MultiBinding>
                             </Border.HorizontalAlignment>
 
-                            <StackPanel Margin="5, 5, 0, 0">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding Content}"
-                                           Foreground="Black"
-                                           FontSize="13" />
-                                    <Label Content="{Binding Id}" />
-                                </StackPanel>
-
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding Receiver}" />
-                                    <Label Content="{Binding SendTime}" />
-                                </StackPanel>
+                            <StackPanel Margin="0" VerticalAlignment="Stretch">
+                                <TextBlock Foreground="{DynamicResource ItemForegroundColor}" 
+                                           FontSize="13" 
+                                           Text="{Binding Content}" />
+                                <Label Foreground="{DynamicResource MonirItemForegroundColor}" 
+                                       HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                       Content="{Binding SendTime}"
+                                       FontSize="5" ContentStringFormat="HH:mm" />
                             </StackPanel>
                         </Border>
                     </DataTemplate>

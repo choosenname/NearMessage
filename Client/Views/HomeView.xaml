@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="Client.Views.HomeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Client.ViewModels"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -16,16 +16,16 @@
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                
+
                 <Button Grid.Column="0"
                         Style="{StaticResource IconButtonStyle}"
                         Command="{Binding GetAllUsersQuery}">
@@ -34,29 +34,49 @@
                                                       Height="25"
                                                       RenderTransformOrigin="0.5,0.5">
                         <iconPacks:PackIconMaterialDesign.RenderTransform>
-                            <ScaleTransform ScaleX="-1"/>
+                            <ScaleTransform ScaleX="-1" />
                         </iconPacks:PackIconMaterialDesign.RenderTransform>
                     </iconPacks:PackIconMaterialDesign>
                 </Button>
-                
-                <TextBox Grid.Column="1" 
+
+                <TextBox Grid.Column="1"
                          Tag="Search" />
             </Grid>
 
             <ListView Grid.Row="1"
-                ItemsSource="{Binding Contacts}"
-                SelectedItem="{Binding SelectedContact}">
+                      ItemsSource="{Binding Contacts}"
+                      SelectedItem="{Binding SelectedContact}">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border Background="Transparent"
                                 Height="65">
-                            <StackPanel Margin="5, 5, 0, 0">
-                                <Label Content="{Binding Username}" 
-                                               Foreground="Black"   
-                                               FontSize="13"/>
-                                <Label Content="{Binding Id}"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0"
+                                        Width="40"
+                                        Height="40"
+                                        CornerRadius="25"
+                                        Background="White" />
+
+                                <StackPanel Grid.Column="1"  Margin="5, 5, 0, 0">
+                                    <Label Content="{Binding Username}"
+                                           Foreground="{DynamicResource ItemForegroundColor}"
+                                           FontSize="13" />
+                                    <Label Content="Last Message..." />
+                                </StackPanel>
+
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -64,8 +84,8 @@
             </ListView>
         </Grid>
 
-        <Frame Grid.Column="1" 
+        <Frame Grid.Column="1"
                Content="{Binding ChatViewModel}"
-               NavigationUIVisibility="Hidden"/>
+               NavigationUIVisibility="Hidden" />
     </Grid>
 </UserControl>

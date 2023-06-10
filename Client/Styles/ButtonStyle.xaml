@@ -11,6 +11,8 @@
 
     <Style x:Key="WideButtonStyle" TargetType="Button"
            BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Foreground" Value="{DynamicResource FilledItemForegroundColor}" />
+        <Setter Property="Background" Value="{DynamicResource MainColor}" />
         <Setter Property="Height" Value="42" />
         <Setter Property="Width" Value="200" />
 
@@ -55,8 +57,8 @@
 
     <Style x:Key="IconButtonStyle" TargetType="Button"
            BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Foreground" Value="{DynamicResource MainColor}" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource IconForegroundColor}" />
     </Style>
 
 
