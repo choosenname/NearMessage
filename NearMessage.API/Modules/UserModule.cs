@@ -24,10 +24,12 @@ public class UserModule : CarterModule
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
         }).RequireAuthorization();
 
-        app.MapPost("/search", async (SearchUserQuery request, ISender sender, HttpContext httpContext,
+        app.MapGet("/search", async (string  username, ISender sender, HttpContext httpContext,
             CancellationToken cancellationToken) =>
         {
-            var result = (await sender.Send(request, cancellationToken)).SearchedUsers;
+            var result = (await sender.Send(
+                new SearchUserQuery(username, httpContext),
+                cancellationToken)).SearchedUsers;
 
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
         });

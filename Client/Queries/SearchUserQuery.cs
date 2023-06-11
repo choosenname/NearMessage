@@ -30,7 +30,7 @@ public class SearchUserQuery : CommandBase
             _userStore.Token);
 
         var response = await _httpClient.GetAsync("/users/search"
-                                                  + $"?Username{_homeViewModel.SearchText}");
+                                                  + $"?Username={_homeViewModel.SearchText}");
 
         if (!response.IsSuccessStatusCode)
         {
