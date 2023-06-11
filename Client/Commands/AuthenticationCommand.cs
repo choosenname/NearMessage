@@ -42,7 +42,7 @@ public class AuthenticationCommand : CommandBase
         !string.IsNullOrEmpty(_authenticationViewModel.Username) &&
         !string.IsNullOrEmpty(_authenticationViewModel.Password);
 
-    public async override void Execute(object? parameter)
+    public override async void Execute(object? parameter)
     {
         _authenticationViewModel.IsLoading = true;
 

@@ -14,8 +14,8 @@ public static class DependencyInjection
         services.AddDbContext<NearMessageDbContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                builder => builder.MigrationsAssembly(typeof(NearMessageDbContext).Assembly.FullName));
-            options.UseLazyLoadingProxies();
+                    builder => builder.MigrationsAssembly(typeof(NearMessageDbContext).Assembly.FullName));
+                options.UseLazyLoadingProxies();
         });
 
         services.AddScoped<INearMessageDbContext>(provider =>

@@ -14,7 +14,7 @@ public class NearMessageDbContext : DbContext, INearMessageDbContext
     public DbSet<Chat> Chats { get; set; }
 
     public NearMessageDbContext(DbContextOptions<NearMessageDbContext> options)
-        : base(options) 
+        : base(options)
     {
         Database.EnsureCreated();
     }

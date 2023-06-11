@@ -74,9 +74,9 @@ public class MessageRepository : IMessageRepository
         return Maybe<IEnumerable<Message>>.From(messages);
     }
 
-    public async Task<Result> SaveMessageAsync(Chat chat, Message message, CancellationToken cancellationToken)
+    public async Task<Result> SaveMessageAsync(Message message, CancellationToken cancellationToken)
     {
-        var directoryPath = Path.Combine(_filePath, chat.ChatId.ToString());
+        var directoryPath = Path.Combine(_filePath, message.Contact.ChatId.ToString());
         Directory.CreateDirectory(directoryPath);
 
         string json = JsonConvert.SerializeObject(message);
@@ -89,9 +89,9 @@ public class MessageRepository : IMessageRepository
         return Result.Success();
     }
 
-    public async Task<Result> SaveMediaAsync(Chat chat, Media media, CancellationToken cancellationToken)
+    public async Task<Result> SaveMediaAsync(Media media, CancellationToken cancellationToken)
     {
-        string directoryPath = Path.Combine(_filePath, chat.ChatId.ToString());
+        string directoryPath = Path.Combine(_filePath, media.Contact.ChatId.ToString());
         Directory.CreateDirectory(directoryPath);
 
         string json = JsonConvert.SerializeObject(media);

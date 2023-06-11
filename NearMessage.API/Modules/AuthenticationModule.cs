@@ -19,11 +19,11 @@ public class AuthenticationModule : CarterModule
         app.MapPost("", async ([FromBody] UserAuthenticationCommand request,
             ISender sender, CancellationToken cancellationToken) =>
         {
-            Result<string> result = await sender.Send(request, cancellationToken);
+            var result = await sender.Send(request, cancellationToken);
 
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
         });
 
-        app.MapPost("/confirm", [Authorize] () => { });
+        app.MapPost("/confirm", () => { }).RequireAuthorization();
     }
 }

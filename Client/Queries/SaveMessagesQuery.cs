@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Client.Queries;
@@ -39,6 +40,11 @@ public class SaveMessagesQuery : CommandBase
         var messages = await response.Content
             .ReadAsAsync<ObservableCollection<MessageModel>>();
 
-        await SaveMessageService.SaveMessagesAsync(messages, _currentContact.ChatId, default);
+        if (!_currentContact.ChatId.HasValue)
+        {
+            return;
+        }
+
+        await SaveMessageService.SaveMessagesAsync(messages, _currentContact.ChatId.Value, CancellationToken.None);
     }
 }

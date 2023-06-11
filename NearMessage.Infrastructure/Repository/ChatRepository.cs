@@ -38,11 +38,19 @@ internal class ChatRepository : IChatRepository
         return Result.Success(chat);
     }
 
-    public async Task<Maybe<Chat>> GetChatAsync(Guid sender, Guid receiver, CancellationToken cancellationToken)
+    public async Task<Maybe<Chat>> GetChatByIdAsync(Guid chatId, CancellationToken cancellationToken)
+    {
+        var chat = await _nearMessageDbContext.Chats.SingleOrDefaultAsync(c =>
+            c.ChatId == chatId, cancellationToken);
+
+        return chat == null ? Maybe<Chat>.None : Maybe<Chat>.From(chat);
+    }
+
+    public async Task<Maybe<Chat>> GetChatByUsersAsync(Guid user1, Guid user2, CancellationToken cancellationToken)
     {
         var chat = await _nearMessageDbContext.Chats
         .FirstOrDefaultAsync(c =>
-        c.Sender.Id == sender && c.Receiver.Id == receiver,
+        c.Sender.Id == user1 && c.Receiver.Id == user2,
         cancellationToken);
 
         if (chat == null)
