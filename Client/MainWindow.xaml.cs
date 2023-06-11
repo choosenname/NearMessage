@@ -1,21 +1,21 @@
-﻿using Client.ViewModels;
+﻿using System.ComponentModel;
 using System.Windows;
+using Client.Properties;
 
-namespace Client
+namespace Client;
+
+/// <summary>
+///     Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Properties.Settings.Default.Save();
-        }
+    private void Window_Closing(object sender, CancelEventArgs e)
+    {
+        Settings.Default.Save();
     }
 }

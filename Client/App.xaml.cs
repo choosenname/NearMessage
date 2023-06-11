@@ -1,52 +1,48 @@
-﻿using Client.Stores;
-using Client.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Windows;
+using Client.Properties;
+using Client.Stores;
+using Client.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Client
+namespace Client;
+
+/// <summary>
+///     Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    private readonly IServiceProvider _serviceProvider;
+
+    public App()
     {
-        private readonly IServiceProvider _serviceProvider;
+        _serviceProvider = Client.Startup.Configure();
+    }
 
-        public App()
+    protected override async void OnStartup(StartupEventArgs e)
+    {
+        ViewModelBase viewModel = _serviceProvider.GetRequiredService<HomeViewModel>();
+
+        if (string.IsNullOrEmpty(Settings.Default.Token))
         {
-            _serviceProvider = Client.Startup.Configure();
+            viewModel = _serviceProvider.GetRequiredService<RegistrationViewModel>();
+        }
+        else
+        {
+            var httpClient = _serviceProvider.GetRequiredService<HttpClient>();
+            var response = await httpClient.PostAsync("/authentication/confirm", null);
+
+            if (!response.IsSuccessStatusCode)
+                viewModel = _serviceProvider.GetRequiredService<AuthenticationViewModel>();
         }
 
-        protected override async void OnStartup(StartupEventArgs e)
-        {
+        var navigationStore = _serviceProvider.GetRequiredService<NavigationStore>();
+        navigationStore.CurrentViewModel = viewModel;
 
-            ViewModelBase viewModel = _serviceProvider.GetRequiredService<HomeViewModel>();
+        MainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+        MainWindow.Show();
 
-            if (String.IsNullOrEmpty(Client.Properties.Settings.Default.Token))
-            {
-                viewModel = _serviceProvider.GetRequiredService<RegistrationViewModel>();
-            }
-            else
-            {
-                var httpClient = _serviceProvider.GetRequiredService<HttpClient>();
-                var response = await httpClient.PostAsync("/authentication/confirm", null);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    viewModel = _serviceProvider.GetRequiredService<AuthenticationViewModel>();
-                }
-
-            }
-
-            var navigationStore = _serviceProvider.GetRequiredService<NavigationStore>();
-            navigationStore.CurrentViewModel = viewModel;
-
-            MainWindow = _serviceProvider.GetRequiredService<MainWindow>();
-            MainWindow.Show();
-
-            base.OnStartup(e);
-        }
+        base.OnStartup(e);
     }
 }

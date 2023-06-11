@@ -1,16 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NearMessage.Application.Abstraction;
+using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Chats;
-using NearMessage.Domain.Messages;
-using NearMessage.Domain.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NearMessage.Common.Primitives.Errors;
-using NearMessage.Common.Primitives.Maybe;
 
 namespace NearMessage.Infrastructure.Repository;
 
@@ -49,14 +41,11 @@ internal class ChatRepository : IChatRepository
     public async Task<Maybe<Chat>> GetChatByUsersAsync(Guid user1, Guid user2, CancellationToken cancellationToken)
     {
         var chat = await _nearMessageDbContext.Chats
-        .FirstOrDefaultAsync(c =>
-        c.Sender.Id == user1 && c.Receiver.Id == user2,
-        cancellationToken);
+            .FirstOrDefaultAsync(c =>
+                    c.Sender.Id == user1 && c.Receiver.Id == user2,
+                cancellationToken);
 
-        if (chat == null)
-        {
-            return Maybe<Chat>.None;
-        }
+        if (chat == null) return Maybe<Chat>.None;
 
         return Maybe<Chat>.From(chat);
     }

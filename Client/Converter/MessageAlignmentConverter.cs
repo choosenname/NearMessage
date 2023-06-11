@@ -1,8 +1,8 @@
-﻿using Client.Stores;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using Client.Stores;
 
 namespace Client.Converter;
 
@@ -13,12 +13,8 @@ public class MessageAlignmentConverter : IMultiValueConverter
         if (values != null && values.Length == 2 &&
             values[0] is Guid receiver &&
             values[1] is UserStore user)
-        {
             if (receiver == user.User.Id)
-            {
                 return HorizontalAlignment.Left;
-            }
-        }
 
         return HorizontalAlignment.Right;
     }
@@ -28,4 +24,3 @@ public class MessageAlignmentConverter : IMultiValueConverter
         throw new NotImplementedException();
     }
 }
-

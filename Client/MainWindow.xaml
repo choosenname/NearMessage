@@ -8,18 +8,18 @@
         mc:Ignorable="d" d:DataContext="{d:DesignInstance }">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
-            <views:RegistrationView/>
+            <views:RegistrationView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vms:AuthenticationViewModel}">
-            <views:AuthenticationView/>
+            <views:AuthenticationView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vms:HomeViewModel}">
-            <views:HomeView/>
+            <views:HomeView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vms:ChatViewModel}">
-            <views:ChatView/>
+            <views:ChatView />
         </DataTemplate>
     </Window.Resources>
 
-    <ContentControl Content="{Binding CurrentViewModel}"/>
+    <ContentControl Content="{Binding CurrentViewModel}" />
 </Window>

@@ -9,7 +9,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="6, 3" />
-        <Setter Property="Margin" Value="0 5 0 5"/>
+        <Setter Property="Margin" Value="0 5 0 5" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -20,11 +20,12 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Background="{TemplateBinding Background}"
                             SnapsToDevicePixels="True">
-                
+
                         <Grid Margin="{TemplateBinding Padding}">
-                
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                
+
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+
                             <Label
                                 Content="{TemplateBinding Tag}"
                                 FontSize="{TemplateBinding FontSize}"
@@ -34,27 +35,27 @@
                                 Visibility="Collapsed"
                                 Foreground="{TemplateBinding Foreground}"
                                 Opacity="0.5"
-                                Padding="{TemplateBinding Padding}"/>
-                
+                                Padding="{TemplateBinding Padding}" />
+
                         </Grid>
-                
+
                     </Border>
-                
+
                     <ControlTemplate.Triggers>
-                
+
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="Text" Value=""></Condition>
+                                <Condition Property="Text" Value="" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Visibility" TargetName="WaterMarkerLabel" Value="Visible"></Setter>
+                            <Setter Property="Visibility" TargetName="WaterMarkerLabel" Value="Visible" />
                         </MultiTrigger>
-                
+
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Height" Value="45"></Setter>
-                            <Setter Property="BorderBrush" Value="White"/>
+                            <Setter Property="Height" Value="45" />
+                            <Setter Property="BorderBrush" Value="White" />
                         </Trigger>
-                
-                
+
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

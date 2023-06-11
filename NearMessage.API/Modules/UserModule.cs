@@ -1,7 +1,5 @@
-﻿using Azure.Identity;
-using Carter;
+﻿using Carter;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using NearMessage.Application.Users.Queries.GetAllUsers;
 using NearMessage.Application.Users.Queries.SearchUser;
 
@@ -24,7 +22,7 @@ public class UserModule : CarterModule
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
         }).RequireAuthorization();
 
-        app.MapGet("/search", async (string  username, ISender sender, HttpContext httpContext,
+        app.MapGet("/search", async (string username, ISender sender, HttpContext httpContext,
             CancellationToken cancellationToken) =>
         {
             var result = (await sender.Send(

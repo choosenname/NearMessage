@@ -1,16 +1,11 @@
-﻿using Client.Commands;
-using Client.Models;
-using Client.Services;
-using Client.ViewModels;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using Client.Commands;
+using Client.Models;
+using Client.Services;
+using Newtonsoft.Json;
 
 namespace Client.Queries;
 
@@ -33,17 +28,11 @@ public class SaveMessagesQuery : CommandBase
 
         var response = await _httpClient.PostAsync("/message/get", content);
 
-        if (!response.IsSuccessStatusCode)
-        {
-            return;
-        }
+        if (!response.IsSuccessStatusCode) return;
         var messages = await response.Content
             .ReadAsAsync<ObservableCollection<MessageModel>>();
 
-        if (!_currentContact.ChatId.HasValue)
-        {
-            return;
-        }
+        if (!_currentContact.ChatId.HasValue) return;
 
         await SaveMessageService.SaveMessagesAsync(messages, _currentContact.ChatId.Value, CancellationToken.None);
     }

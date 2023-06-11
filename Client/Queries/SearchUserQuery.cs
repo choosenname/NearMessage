@@ -1,10 +1,10 @@
-﻿using Client.Commands;
+﻿using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Client.Commands;
 using Client.Models;
 using Client.Stores;
 using Client.ViewModels;
-using System.Collections.ObjectModel;
-using System.Net.Http.Headers;
-using System.Net.Http;
 
 namespace Client.Queries;
 
@@ -32,10 +32,7 @@ public class SearchUserQuery : CommandBase
         var response = await _httpClient.GetAsync("/users/search"
                                                   + $"?Username={_homeViewModel.SearchText}");
 
-        if (!response.IsSuccessStatusCode)
-        {
-            return;
-        }
+        if (!response.IsSuccessStatusCode) return;
 
         var contacts = await response.Content
             .ReadAsAsync<ObservableCollection<ContactModel>>();

@@ -3,13 +3,13 @@ using NearMessage.Common.Abstractions.Messaging;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Users;
 
-namespace NearMessage.Application.Users.Commands.CreateUser;
+namespace NearMessage.Application.Users.Commands.UserRegistration;
 
 public sealed class UserRegistrationAsyncCommandHandler
     : ICommandHandler<UserRegistrationCommand, Result<string>>
 {
-    private readonly IUserRepository _userRepository;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IUserRepository _userRepository;
 
     public UserRegistrationAsyncCommandHandler(IUserRepository userRepository,
         IJwtProvider jwtProvider)
@@ -30,10 +30,7 @@ public sealed class UserRegistrationAsyncCommandHandler
 
         var result = await _userRepository.CreateUserAsync(user, cancellationToken);
 
-        if (result.IsFailure)
-        {
-            return Result.Failure<string>(result.Error);
-        }
+        if (result.IsFailure) return Result.Failure<string>(result.Error);
 
         var token = _jwtProvider.Generate(user);
 

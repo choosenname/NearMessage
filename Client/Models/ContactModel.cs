@@ -4,7 +4,6 @@ namespace Client.Models;
 
 public class ContactModel
 {
-
     public ContactModel(Guid id, string username, Guid? chatId)
     {
         Id = id;

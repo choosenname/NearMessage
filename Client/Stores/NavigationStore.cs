@@ -1,5 +1,5 @@
-﻿using Client.ViewModels;
-using System;
+﻿using System;
+using Client.ViewModels;
 
 namespace Client.Stores;
 

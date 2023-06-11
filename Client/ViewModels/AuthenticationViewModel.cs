@@ -1,16 +1,31 @@
-﻿using Client.Commands;
+﻿using System.Net.Http;
+using System.Windows.Input;
+using Client.Commands;
 using Client.Services;
 using Client.Stores;
-using System;
-using System.Net.Http;
-using System.Windows.Input;
 
 namespace Client.ViewModels;
 
 public class AuthenticationViewModel : ViewModelBase
 {
     private readonly UserStore _userStore;
-    private bool _isLoading = false;
+    private bool _isLoading;
+
+    public AuthenticationViewModel(HttpClient httpClient,
+        UserStore userStore, NavigationStore navigationStore)
+    {
+        _userStore = userStore;
+
+        NavigateCommand = new NavigateCommand<RegistrationViewModel>(
+            new NavigationService<RegistrationViewModel>(navigationStore,
+                () => new RegistrationViewModel(httpClient, userStore, navigationStore)));
+
+        var navigationService = new NavigationService<HomeViewModel>(
+            navigationStore,
+            () => new HomeViewModel(userStore, httpClient));
+
+        AuthenticationCommand = new AuthenticationCommand(this, httpClient, userStore, navigationService);
+    }
 
     public string Username
     {
@@ -44,20 +59,4 @@ public class AuthenticationViewModel : ViewModelBase
 
     public ICommand NavigateCommand { get; }
     public ICommand AuthenticationCommand { get; }
-
-    public AuthenticationViewModel(HttpClient httpClient,
-        UserStore userStore, NavigationStore navigationStore)
-    {
-        _userStore = userStore;
-
-        NavigateCommand = new NavigateCommand<RegistrationViewModel>(
-            new NavigationService<RegistrationViewModel>(navigationStore,
-            () => new RegistrationViewModel(httpClient, userStore, navigationStore)));
-
-        var navigationService = new NavigationService<HomeViewModel>(
-            navigationStore,
-            () => new HomeViewModel(userStore, httpClient));
-
-        AuthenticationCommand = new AuthenticationCommand(this, httpClient, userStore, navigationService);
-    }
 }

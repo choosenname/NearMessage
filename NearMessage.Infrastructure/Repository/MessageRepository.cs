@@ -1,21 +1,16 @@
-using Microsoft.EntityFrameworkCore;
-using NearMessage.Application.Abstraction;
+using System.Text;
+using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Chats;
 using NearMessage.Domain.Messages;
 using Newtonsoft.Json;
-using System.Text;
-using NearMessage.Common.Primitives.Maybe;
-using System.Collections.Generic;
-using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace NearMessage.Infrastructure.Repository;
 
 public class MessageRepository : IMessageRepository
 {
-    private readonly string _filePath;
     private readonly IChatRepository _chatRepository;
+    private readonly string _filePath;
 
     public MessageRepository(string filePath, IChatRepository chatRepository)
     {
@@ -26,14 +21,14 @@ public class MessageRepository : IMessageRepository
     public async Task<Result<IEnumerable<Message>>> GetMessagesAsync(Guid chatId,
         CancellationToken cancellationToken)
     {
-        string directoryPath = Path.Combine(_filePath, chatId.ToString());
-        string[] fileNames = Directory.GetFiles(directoryPath);
+        var directoryPath = Path.Combine(_filePath, chatId.ToString());
+        var fileNames = Directory.GetFiles(directoryPath);
 
         List<Message> messages = new();
 
-        foreach (string fileName in fileNames)
+        foreach (var fileName in fileNames)
         {
-            string json = await File.ReadAllTextAsync(fileName, cancellationToken);
+            var json = await File.ReadAllTextAsync(fileName, cancellationToken);
             var message = JsonConvert.DeserializeObject<Message>(json);
             if (message == null) continue;
 
@@ -47,23 +42,20 @@ public class MessageRepository : IMessageRepository
         DateTime lastMessageDate, CancellationToken cancellationToken)
     {
         var directoryPath = Path.Combine(_filePath, chatId.ToString());
-        DateTime lastModified = Directory.GetLastWriteTime(directoryPath);
+        var lastModified = Directory.GetLastWriteTime(directoryPath);
 
-        if (lastModified <= lastMessageDate)
-        {
-            return Maybe<IEnumerable<Message>>.None;
-        }
+        if (lastModified <= lastMessageDate) return Maybe<IEnumerable<Message>>.None;
 
-        string[] files = Directory.GetFiles(directoryPath);
+        var files = Directory.GetFiles(directoryPath);
         var messages = new List<Message>();
 
-        foreach (string file in files)
+        foreach (var file in files)
         {
-            DateTime creationTime = File.GetCreationTime(file);
+            var creationTime = File.GetCreationTime(file);
 
             if (creationTime > lastMessageDate)
             {
-                string json = await File.ReadAllTextAsync(file, cancellationToken);
+                var json = await File.ReadAllTextAsync(file, cancellationToken);
                 var message = JsonConvert.DeserializeObject<Message>(json);
                 if (message == null) continue;
 
@@ -79,9 +71,9 @@ public class MessageRepository : IMessageRepository
         var directoryPath = Path.Combine(_filePath, message.Contact.ChatId.ToString());
         Directory.CreateDirectory(directoryPath);
 
-        string json = JsonConvert.SerializeObject(message);
+        var json = JsonConvert.SerializeObject(message);
 
-        Encoding encoding = Encoding.UTF8;
+        var encoding = Encoding.UTF8;
 
         await File.WriteAllTextAsync(Path.Combine(directoryPath, $"{message.Id}.json"), json,
             encoding, cancellationToken);
@@ -91,12 +83,12 @@ public class MessageRepository : IMessageRepository
 
     public async Task<Result> SaveMediaAsync(Media media, CancellationToken cancellationToken)
     {
-        string directoryPath = Path.Combine(_filePath, media.Contact.ChatId.ToString());
+        var directoryPath = Path.Combine(_filePath, media.Contact.ChatId.ToString());
         Directory.CreateDirectory(directoryPath);
 
-        string json = JsonConvert.SerializeObject(media);
+        var json = JsonConvert.SerializeObject(media);
 
-        Encoding encoding = Encoding.UTF8;
+        var encoding = Encoding.UTF8;
 
         await File.WriteAllTextAsync(Path.Combine(directoryPath, $"{media.Id}.json"), json,
             encoding, cancellationToken);

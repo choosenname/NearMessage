@@ -1,10 +1,9 @@
-﻿using Client.Models;
-using Client.Stores;
-using Client.ViewModels;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Text;
+using Client.Models;
+using Client.ViewModels;
+using Newtonsoft.Json;
 
 namespace Client.Commands;
 

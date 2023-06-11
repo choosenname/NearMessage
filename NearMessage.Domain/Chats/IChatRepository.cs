@@ -1,7 +1,5 @@
 ﻿using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Common.Primitives.Result;
-using NearMessage.Domain.Messages;
-using NearMessage.Domain.Users;
 
 namespace NearMessage.Domain.Chats;
 

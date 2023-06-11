@@ -3,6 +3,6 @@ using NearMessage.Common.Primitives.Result;
 
 namespace NearMessage.Application.Users.Commands.UserAuthentication;
 
-public sealed record UserAuthenticationCommand (
+public sealed record UserAuthenticationCommand(
     string Username,
     string Password) : ICommand<Result<string>>;

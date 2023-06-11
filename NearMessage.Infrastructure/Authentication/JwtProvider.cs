@@ -1,12 +1,11 @@
-﻿using MediatR;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NearMessage.Application.Abstraction;
 using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Domain.Users;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace NearMessage.Infrastructure.Authentication;
 
@@ -23,8 +22,8 @@ public sealed class JwtProvider : IJwtProvider
     {
         var claims = new Claim[]
         {
-            new Claim(JwtRegisteredClaimNames.Name, user.Username),
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
+            new(JwtRegisteredClaimNames.Name, user.Username),
+            new(JwtRegisteredClaimNames.Sub, user.Id.ToString())
         };
 
         var signingCredentials = new SigningCredentials(
@@ -40,7 +39,7 @@ public sealed class JwtProvider : IJwtProvider
             DateTime.UtcNow.AddDays(1),
             signingCredentials);
 
-        string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
+        var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
 
         return tokenValue;
     }
@@ -49,7 +48,7 @@ public sealed class JwtProvider : IJwtProvider
     {
         var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier);
 
-        if (userIdClaim == null) { return Maybe<Guid>.None; }
+        if (userIdClaim == null) return Maybe<Guid>.None;
 
         return Maybe<Guid>.From(Guid.Parse(userIdClaim.Value));
     }

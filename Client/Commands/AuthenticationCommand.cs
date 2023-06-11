@@ -1,12 +1,13 @@
-﻿using Client.Models;
+﻿using System;
+using System.ComponentModel;
+using System.Net.Http;
+using System.Text;
+using Client.Models;
+using Client.Properties;
 using Client.Services;
 using Client.Stores;
 using Client.ViewModels;
 using Newtonsoft.Json;
-using System;
-using System.Net.Http;
-using System.Text;
-using System.Windows.Input;
 
 namespace Client.Commands;
 
@@ -29,18 +30,18 @@ public class AuthenticationCommand : CommandBase
     }
 
     private void OnPropertyChanged(object? sender,
-        System.ComponentModel.PropertyChangedEventArgs e)
+        PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(AuthenticationViewModel.Username) ||
             e.PropertyName == nameof(AuthenticationViewModel.Password))
-        {
             OnCanExecutedChanged();
-        }
     }
 
-    public override bool CanExecute(object? parameter) =>
-        !string.IsNullOrEmpty(_authenticationViewModel.Username) &&
-        !string.IsNullOrEmpty(_authenticationViewModel.Password);
+    public override bool CanExecute(object? parameter)
+    {
+        return !string.IsNullOrEmpty(_authenticationViewModel.Username) &&
+               !string.IsNullOrEmpty(_authenticationViewModel.Password);
+    }
 
     public override async void Execute(object? parameter)
     {
@@ -58,7 +59,7 @@ public class AuthenticationCommand : CommandBase
 
         response.EnsureSuccessStatusCode();
 
-        if(response.IsSuccessStatusCode)
+        if (response.IsSuccessStatusCode)
         {
             _userStore.Token = await response.Content.ReadAsStringAsync();
 
@@ -67,10 +68,10 @@ public class AuthenticationCommand : CommandBase
             _navigationService.Navigate();
         }
 
-        Properties.Settings.Default.Username = _userStore.User.Username;
-        Properties.Settings.Default.Password = _userStore.User.Password;
-        Properties.Settings.Default.Token = _userStore.Token;
-        Properties.Settings.Default.Save();
+        Settings.Default.Username = _userStore.User.Username;
+        Settings.Default.Password = _userStore.User.Password;
+        Settings.Default.Token = _userStore.Token;
+        Settings.Default.Save();
 
         _authenticationViewModel.IsLoading = false;
     }

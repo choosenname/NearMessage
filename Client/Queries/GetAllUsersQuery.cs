@@ -1,11 +1,10 @@
-﻿using Client.Commands;
+﻿using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Client.Commands;
 using Client.Models;
 using Client.Stores;
 using Client.ViewModels;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace Client.Queries;
 
@@ -32,10 +31,7 @@ public class GetAllUsersQuery : CommandBase
 
         var response = await _httpClient.GetAsync("/users/getall");
 
-        if (!response.IsSuccessStatusCode)
-        {
-            return;
-        }
+        if (!response.IsSuccessStatusCode) return;
 
         var contacts = await response.Content
             .ReadAsAsync<ObservableCollection<ContactModel>>();

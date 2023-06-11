@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using NearMessage.Common.Abstractions.Messaging;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Messages;

@@ -9,9 +9,9 @@ namespace NearMessage.Application.Messages.Commands.SaveMessage;
 
 public sealed class SaveMessageCommandHandler : ICommandHandler<SaveMessageCommand, Result>
 {
-    private readonly IMessageRepository _messageRepository;
     private readonly IChatRepository _chatRepository;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IMessageRepository _messageRepository;
 
     public SaveMessageCommandHandler(IMessageRepository messageRepository,
         IChatRepository chatRepository, IJwtProvider jwtProvider)
@@ -24,10 +24,7 @@ public sealed class SaveMessageCommandHandler : ICommandHandler<SaveMessageComma
     public async Task<Result> Handle(SaveMessageCommand request, CancellationToken cancellationToken)
     {
         var maybeSenderId = _jwtProvider.GetUserId(request.Context.User);
-        if (maybeSenderId.HasNoValue)
-        {
-            return Result.Failure(new Error("Can't find sender identifier"));
-        }
+        if (maybeSenderId.HasNoValue) return Result.Failure(new Error("Can't find sender identifier"));
 
         var result = await _messageRepository.SaveMessageAsync(
             request.Message,

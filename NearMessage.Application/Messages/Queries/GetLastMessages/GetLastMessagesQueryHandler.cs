@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic.CompilerServices;
-using NearMessage.Application.Abstraction;
+﻿using NearMessage.Application.Abstraction;
 using NearMessage.Common.Abstractions.Messaging;
 using NearMessage.Common.Primitives.Errors;
 using NearMessage.Common.Primitives.Result;
@@ -16,8 +10,8 @@ namespace NearMessage.Application.Messages.Queries.GetLastMessages;
 public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQuery, LastMessagesResponse>
 {
     private readonly IJwtProvider _jwtProvider;
-    private readonly IUserRepository _userRepository;
     private readonly IMessageRepository _messageRepository;
+    private readonly IUserRepository _userRepository;
 
     public GetLastMessagesQueryHandler(IJwtProvider jwtProvider,
         IUserRepository userRepository, IMessageRepository messageRepository)
@@ -32,18 +26,14 @@ public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQ
         var maybeUserId = _jwtProvider.GetUserId(request.HttpContext.User);
 
         if (maybeUserId.HasNoValue)
-        {
             return new LastMessagesResponse(Result.Failure<IDictionary<Guid, IEnumerable<Message>>>
                 (new Error("User don't recognized")));
-        }
 
         var maybeUser = await _userRepository.GetByIdAsync(maybeUserId.Value, cancellationToken);
 
         if (maybeUser.HasNoValue)
-        {
             return new LastMessagesResponse(Result.Failure<IDictionary<Guid, IEnumerable<Message>>>
                 (new Error("User doesn't exist")));
-        }
 
         var receivedChats = maybeUser.Value.ReceivedChats;
         var messages = new Dictionary<Guid, IEnumerable<Message>>();

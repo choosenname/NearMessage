@@ -1,13 +1,13 @@
-using Client.Commands;
-using Client.Models;
-using Client.Services;
-using Client.ViewModels;
-using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
+using Client.Commands;
+using Client.Models;
+using Client.Services;
+using Client.ViewModels;
+using Newtonsoft.Json;
 
 namespace Client.Queries;
 
@@ -30,20 +30,14 @@ internal class GetMessagesQuery : CommandBase
 
         var response = await _httpClient.PostAsync("/message/get", content);
 
-        if (!response.IsSuccessStatusCode)
-        {
-            return;
-        }
+        if (!response.IsSuccessStatusCode) return;
         var messages = await response.Content
             .ReadAsAsync<ObservableCollection<MessageModel>>();
 
         _chatViewModel.Messages = new ObservableCollection<MessageModel>(
             messages.OrderBy(i => i.SendTime));
 
-        if (!_chatViewModel.CurrentContact.ChatId.HasValue)
-        {
-            return;
-        }
+        if (!_chatViewModel.CurrentContact.ChatId.HasValue) return;
 
         await SaveMessageService.SaveMessagesAsync(
             messages,

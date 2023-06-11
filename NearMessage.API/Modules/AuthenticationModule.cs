@@ -1,9 +1,7 @@
 ﻿using Carter;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NearMessage.Application.Users.Commands.UserAuthentication;
-using NearMessage.Common.Primitives.Result;
 
 namespace NearMessage.API.Modules;
 

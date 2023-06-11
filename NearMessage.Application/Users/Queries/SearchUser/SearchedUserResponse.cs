@@ -1,6 +1,5 @@
 ﻿using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Contacts;
-using NearMessage.Domain.Users;
 
 namespace NearMessage.Application.Users.Queries.SearchUser;
 

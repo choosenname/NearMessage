@@ -1,5 +1,4 @@
-﻿using NearMessage.Domain.Primitives;
-using NearMessage.Domain.Users;
+﻿using NearMessage.Domain.Users;
 
 namespace NearMessage.Domain.Chats;
 
@@ -9,7 +8,7 @@ public class Chat
     {
         ChatId = chatId;
         SenderId = senderId;
-        ReceiverId = receiverId;    
+        ReceiverId = receiverId;
     }
 
     public int Id { get; set; }

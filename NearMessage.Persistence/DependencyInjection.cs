@@ -10,16 +10,15 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistence(this IServiceCollection services,
         IConfiguration configuration)
     {
-
         services.AddDbContext<NearMessageDbContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                    builder => builder.MigrationsAssembly(typeof(NearMessageDbContext).Assembly.FullName));
-                options.UseLazyLoadingProxies();
+                builder => builder.MigrationsAssembly(typeof(NearMessageDbContext).Assembly.FullName));
+            options.UseLazyLoadingProxies();
         });
 
         services.AddScoped<INearMessageDbContext>(provider =>
-        provider.GetRequiredService<NearMessageDbContext>());
+            provider.GetRequiredService<NearMessageDbContext>());
 
         return services;
     }

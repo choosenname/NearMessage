@@ -1,20 +1,22 @@
-﻿using Client.Models;
+﻿using System;
+using System.ComponentModel;
+using System.Net.Http;
+using System.Text;
+using Client.Models;
+using Client.Properties;
 using Client.Services;
 using Client.Stores;
 using Client.ViewModels;
 using Newtonsoft.Json;
-using System;
-using System.Net.Http;
-using System.Text;
 
 namespace Client.Commands;
 
 public class RegistrationCommand : CommandBase
 {
-    private readonly RegistrationViewModel _registrationViewModel;
     private readonly HttpClient _httpClient;
-    private readonly UserStore _userStore;
     private readonly NavigationService<HomeViewModel> _navigationService;
+    private readonly RegistrationViewModel _registrationViewModel;
+    private readonly UserStore _userStore;
 
     public RegistrationCommand(RegistrationViewModel registrationViewModel,
         HttpClient httpClient, UserStore userStore, NavigationService<HomeViewModel> navigationService)
@@ -29,21 +31,21 @@ public class RegistrationCommand : CommandBase
     }
 
     private void OnPropertyChanged(object? sender,
-        System.ComponentModel.PropertyChangedEventArgs e)
+        PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(RegistrationViewModel.Username) ||
             e.PropertyName == nameof(RegistrationViewModel.Password))
-        {
             OnCanExecutedChanged();
-        }
     }
 
-    public override bool CanExecute(object? parameter) =>
-        !string.IsNullOrEmpty(_registrationViewModel.Username) &&
-        !string.IsNullOrEmpty(_registrationViewModel.Password);
+    public override bool CanExecute(object? parameter)
+    {
+        return !string.IsNullOrEmpty(_registrationViewModel.Username) &&
+               !string.IsNullOrEmpty(_registrationViewModel.Password);
+    }
 
 
-    public async override void Execute(object? parameter)
+    public override async void Execute(object? parameter)
     {
         _registrationViewModel.IsLoading = true;
 
@@ -69,10 +71,10 @@ public class RegistrationCommand : CommandBase
         }
 
 
-        Properties.Settings.Default.Username = _userStore.User.Username;
-        Properties.Settings.Default.Password = _userStore.User.Password;
-        Properties.Settings.Default.Token = _userStore.Token;
-        Properties.Settings.Default.Save();
+        Settings.Default.Username = _userStore.User.Username;
+        Settings.Default.Password = _userStore.User.Password;
+        Settings.Default.Token = _userStore.Token;
+        Settings.Default.Save();
 
         _registrationViewModel.IsLoading = false;
     }

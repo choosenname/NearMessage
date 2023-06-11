@@ -1,20 +1,19 @@
-﻿using Client.Models;
-using Client.ViewModels;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.IO;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+using Client.Models;
+using Client.ViewModels;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 
 namespace Client.Commands;
 
 public class SendMediaCommand : CommandBase
 {
-    private readonly HttpClient _httpClient;
-    private readonly ContactModel _contactReceiver;
     private readonly ChatViewModel _chatViewModel;
+    private readonly ContactModel _contactReceiver;
+    private readonly HttpClient _httpClient;
 
     public SendMediaCommand(HttpClient httpClient, ContactModel contactReceiver,
         ChatViewModel chatViewModel)
@@ -26,10 +25,10 @@ public class SendMediaCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
-        OpenFileDialog openFileDialog = new OpenFileDialog();
+        var openFileDialog = new OpenFileDialog();
         openFileDialog.Filter = "Все файлы (*.*)|*.*";
 
-        bool? result = openFileDialog.ShowDialog();
+        var result = openFileDialog.ShowDialog();
 
         if (result == true)
         {

@@ -41,7 +41,7 @@
 
                 <TextBox Grid.Column="1"
                          Tag="Search"
-                         Text="{Binding SearchText}"/>
+                         Text="{Binding SearchText}" />
             </Grid>
 
             <ListView Grid.Row="1"
@@ -70,7 +70,7 @@
                                         CornerRadius="25"
                                         Background="White" />
 
-                                <StackPanel Grid.Column="1"  Margin="5, 5, 0, 0">
+                                <StackPanel Grid.Column="1" Margin="5, 5, 0, 0">
                                     <Label Content="{Binding Username}"
                                            Foreground="{DynamicResource ItemForegroundColor}"
                                            FontSize="13" />
