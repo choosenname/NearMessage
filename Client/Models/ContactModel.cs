@@ -18,5 +18,5 @@ public class ContactModel
 
     public string Username { get; set; }
 
-    public Guid? ChatId { get; set; }
+    public Guid ChatId { get; set; }
 }

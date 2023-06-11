@@ -22,11 +22,13 @@ public class UserRepository : IUserRepository
         CancellationToken cancellationToken)
     {
         var chat = await _context.Chats
-            .FirstOrDefaultAsync(c => c.SenderId == sender && c.ReceiverId == user.Id);
+            .FirstOrDefaultAsync(c => 
+                    c.SenderId == sender && c.ReceiverId == user.Id,
+                cancellationToken: cancellationToken);
 
         if (chat == null)
         {
-            return Result.Failure<Contact>(new($"Chat for contact {user.Id} doesn't exist"));
+            return Result.Failure<Contact>(new Error($"Chat for contact {user.Id} doesn't exist"));
         }
 
         return Result.Success(new Contact(
@@ -42,17 +44,14 @@ public class UserRepository : IUserRepository
         await _context.Users.AddAsync(user, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return Result<User>.Success(user);
+        return Result.Success(user);
     }
 
     public async Task<Maybe<User>> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
     {
         var user = await _context.Users.SingleOrDefaultAsync(i => i.Id == id, cancellationToken);
 
-        if (user == null)
-            return Maybe<User>.None;
-
-        return Maybe<User>.From(user);
+        return user == null ? Maybe<User>.None : Maybe<User>.From(user);
     }
 
     public async Task<Maybe<User>> GetByUsernameAsync(string userName, CancellationToken cancellationToken) =>
