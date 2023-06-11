@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using NearMessage.Application.Messages.Commands.SaveMessage;
+using NearMessage.Application.Messages.Queries.GetLastMessages;
 using NearMessage.Application.Messages.Queries.GetMessages;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Contacts;
@@ -24,9 +25,16 @@ public class MessageModule : CarterModule
             var result = (await sender.Send(new GetMessagesQuery(request, context),
                 cancellationToken)).Messages;
 
-            return result.IsSuccess ?
-            Results.Ok(result.Value) :
-            Results.BadRequest(result.Error);
+            return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
+        });
+
+        app.MapPost("/getlast", [Authorize] async (DateTime lastResponseTime, ISender sender,
+            HttpContext context, CancellationToken cancellationToken) =>
+        {
+            var result = (await sender.Send(new GetLastMessagesQuery(lastResponseTime, context),
+                cancellationToken)).Messages;
+
+            return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
         });
 
         app.MapPost("/send", [Authorize] async (Message request, ISender sender,

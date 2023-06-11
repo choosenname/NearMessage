@@ -19,7 +19,7 @@ public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQ
     private readonly IUserRepository _userRepository;
     private readonly IMessageRepository _messageRepository;
 
-    public GetLastMessagesQueryHandler(IJwtProvider jwtProvider, 
+    public GetLastMessagesQueryHandler(IJwtProvider jwtProvider,
         IUserRepository userRepository, IMessageRepository messageRepository)
     {
         _jwtProvider = jwtProvider;
@@ -33,7 +33,7 @@ public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQ
 
         if (maybeUserId.HasNoValue)
         {
-            return new LastMessagesResponse(Result.Failure<IEnumerable<IEnumerable<Message>>>
+            return new LastMessagesResponse(Result.Failure<IDictionary<Guid, IEnumerable<Message>>>
                 (new Error("User don't recognized")));
         }
 
@@ -41,24 +41,27 @@ public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQ
 
         if (maybeUser.HasNoValue)
         {
-            return new LastMessagesResponse(Result.Failure<IEnumerable<IEnumerable<Message>>>
+            return new LastMessagesResponse(Result.Failure<IDictionary<Guid, IEnumerable<Message>>>
                 (new Error("User doesn't exist")));
         }
 
         var receivedChats = maybeUser.Value.ReceivedChats;
-        var messages = new List<IEnumerable<Message>>();
+        var messages = new Dictionary<Guid, IEnumerable<Message>>();
+
+        if (receivedChats == null)
+            return new LastMessagesResponse(Result.Success<IDictionary<Guid, IEnumerable<Message>>>(messages));
 
         foreach (var receivedChat in receivedChats)
         {
             var lastMessages = await _messageRepository.GetLastMessagesAsync(
                 receivedChat.ChatId, request.LastResponseTime, cancellationToken);
-        
-            if(lastMessages.HasNoValue)
+
+            if (lastMessages.HasNoValue)
                 continue;
 
-            messages.Add(lastMessages.Value);
+            messages.Add(receivedChat.ChatId, lastMessages.Value);
         }
 
-        return new LastMessagesResponse(Result.Success<IEnumerable<IEnumerable<Message>>>(messages));
+        return new LastMessagesResponse(Result.Success<IDictionary<Guid, IEnumerable<Message>>>(messages));
     }
 }
