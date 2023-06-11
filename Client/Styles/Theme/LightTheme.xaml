@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="PageBackgroundColor" Color="#e6e6e6" />
+    <SolidColorBrush x:Key="PageBackgroundColor" Color="#e6e6e6"/>
     <SolidColorBrush x:Key="ItemBackgroundColor" Color="White" />
     <SolidColorBrush x:Key="ItemForegroundColor" Color="Black" />
     <SolidColorBrush x:Key="MinorItemForegroundColor" Color="LightGray" />
-    <SolidColorBrush x:Key="FilledItemForegroundColor" Color="White" />
-    <SolidColorBrush x:Key="MainColor" Color="#6666ff" />
+    <SolidColorBrush x:Key="FilledItemForegroundColor" Color="White"/>
+    <SolidColorBrush x:Key="MainColor" Color="#6666ff"/>
 </ResourceDictionary>

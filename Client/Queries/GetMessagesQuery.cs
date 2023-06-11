@@ -1,4 +1,4 @@
-﻿using Client.Commands;
+using Client.Commands;
 using Client.Models;
 using Client.Services;
 using Client.ViewModels;
