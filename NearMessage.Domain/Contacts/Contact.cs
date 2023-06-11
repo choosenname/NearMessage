@@ -9,14 +9,14 @@ namespace NearMessage.Domain.Contacts;
 
 public class Contact : Entity
 {
-    public Contact(Guid id, string username, Guid receiver)
+    public Contact(Guid id, string username, Guid chatId)
         : base(id)
     {
         Username = username;
-        Receiver = receiver;
+        ChatId = chatId;
     }
 
     public string Username { get; set; }
 
-    public Guid Receiver { get; set; }
+    public Guid ChatId { get; set; }
 }

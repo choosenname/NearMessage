@@ -39,6 +39,6 @@ internal class GetMessagesQuery : CommandBase
         _chatViewModel.Messages = new ObservableCollection<MessageModel>(
             messages.OrderBy(i => i.SendTime));
 
-        await SaveMessageService.SaveMessagesAsync(messages, _chatViewModel.CurrentContact, default);
+        await SaveMessageService.SaveMessagesAsync(messages, _chatViewModel.CurrentContact.ChatId, default);
     }
 }

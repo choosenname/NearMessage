@@ -12,14 +12,14 @@ namespace Client
     /// </summary>
     public partial class App : Application
     {
-        private IServiceProvider _serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
 
         public App()
         {
             _serviceProvider = Client.Startup.Configure();
         }
 
-        protected async override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
 
             ViewModelBase viewModel = _serviceProvider.GetRequiredService<HomeViewModel>(); ;

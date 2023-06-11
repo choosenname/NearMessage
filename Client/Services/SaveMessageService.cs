@@ -1,4 +1,5 @@
-﻿using Client.Models;
+﻿using System;
+using Client.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -10,23 +11,23 @@ namespace Client.Services;
 
 public class SaveMessageService
 {
-    public static async Task SaveMessagesAsync(IEnumerable<MessageModel> messages, ContactModel contact,
+    public static async Task SaveMessagesAsync(IEnumerable<MessageModel> messages, Guid chatId,
         CancellationToken cancellationToken)
     {
         foreach (var message in messages)
         {
-            await SaveMessageAsync(message, contact, cancellationToken);
+            await SaveMessageAsync(message, chatId, cancellationToken);
         }
 
         return;
     }
 
-    public static async Task SaveMessageAsync(MessageModel message, ContactModel contact,
+    public static async Task SaveMessageAsync(MessageModel message, Guid chatId,
         CancellationToken cancellationToken)
     {
         string directoryPath = Path.Combine(
             Properties.Settings.Default.DataPath,
-            contact.ChatId.ToString());
+            chatId.ToString());
 
         Directory.CreateDirectory(directoryPath);
 
