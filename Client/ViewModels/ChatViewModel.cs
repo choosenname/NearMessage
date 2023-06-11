@@ -11,9 +11,8 @@ namespace Client.ViewModels;
 public class ChatViewModel : ViewModelBase
 {
     private ContactModel _currentContact;
-    private readonly UserStore _userStore;
 
-    public UserStore UserStore => _userStore;
+    public UserStore UserStore { get; }
 
     public ContactModel CurrentContact
     {
@@ -51,11 +50,12 @@ public class ChatViewModel : ViewModelBase
     public ICommand SendMessageCommand { get; }
     public ICommand GetMessagesQuery { get; }
     public ICommand SendMediaCommand { get; }
+public ICommand RefreshCommand { get; }
 
     public ChatViewModel(ContactModel currentContact, UserStore userStore, HttpClient httpClient)
     {
         _currentContact = currentContact;
-        _userStore = userStore;
+        UserStore = userStore;
         SendMessageCommand = new SendMessageCommand(this, currentContact, httpClient);
         GetMessagesQuery = new GetMessagesQuery(this, httpClient);
         SendMediaCommand = new SendMediaCommand(httpClient, currentContact, this);

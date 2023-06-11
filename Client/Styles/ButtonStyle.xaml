@@ -2,42 +2,50 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style TargetType="Button">
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
-        <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource ItemForegroundColor}" />
+        <Setter Property="Background" Value="{DynamicResource ItemBackgroundColor}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="13" />
-        <Setter Property="Margin" Value="0 5 0 5"/>
+        <Setter Property="Margin" Value="0 5 0 5" />
+    </Style>
+
+    <Style x:Key="WideButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Foreground" Value="{DynamicResource FilledItemForegroundColor}" />
+        <Setter Property="Background" Value="{DynamicResource MainColor}" />
+        <Setter Property="Height" Value="42" />
+        <Setter Property="Width" Value="200" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
 
                     <Grid>
-                        <Border x:Name="border"
-                                Background="{TemplateBinding Background}" 
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="20"/>
+                                CornerRadius="20" />
 
                         <ContentPresenter x:Name="contentPresenter"
                                           Content="{TemplateBinding Content}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Margin="{TemplateBinding Padding}"/>
+                                          Margin="{TemplateBinding Padding}" />
                     </Grid>
                     <ControlTemplate.Triggers>
 
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#A0A2DA"/>
+                            <Setter TargetName="Border" Property="Background" Value="#A0A2DA" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="#606060"/>
-                            <Setter Property="Opacity" Value="0.5"/>
+                            <Setter TargetName="Border" Property="Background" Value="#606060" />
+                            <Setter Property="Opacity" Value="0.5" />
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#A0A8DA"/>
+                            <Setter TargetName="Border" Property="Background" Value="#A0A8DA" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>
@@ -46,11 +54,12 @@
             </Setter.Value>
         </Setter>
     </Style>
- 
-    <Style x:Key="WideButton" TargetType="Button"
+
+    <Style x:Key="IconButtonStyle" TargetType="Button"
            BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Height" Value="42" />
-        <Setter Property="Width" Value="200" />
+        <Setter Property="Foreground" Value="{DynamicResource MainColor}" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
+
 
 </ResourceDictionary>

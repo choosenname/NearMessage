@@ -27,7 +27,7 @@ public class Startup
         services.AddSingleton<HttpClient>(new HttpClient()
         {
             Timeout = TimeSpan.FromMilliseconds(System.Threading.Timeout.Infinite),
-            BaseAddress = new Uri("https://localhost:7196")
+            BaseAddress = new Uri(Properties.Settings.Default.HttpUriString)
         });
 
         services.AddSingleton<NavigationStore>();
@@ -37,7 +37,8 @@ public class Startup
                 Guid.Empty,
                 Properties.Settings.Default.Username,
                 Properties.Settings.Default.Password),
-            Token = Properties.Settings.Default.Token
+            Token = Properties.Settings.Default.Token,
+            LastResponseTime = DateTime.Now
         });
 
         return services.BuildServiceProvider();

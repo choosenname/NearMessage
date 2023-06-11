@@ -1,4 +1,4 @@
-﻿using Client.Commands;
+using Client.Commands;
 using Client.Models;
 using Client.Services;
 using Client.ViewModels;
@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 
 namespace Client.Queries;
 
@@ -21,7 +22,7 @@ internal class GetMessagesQuery : CommandBase
         _httpClient = httpClient;
     }
 
-    public async override void Execute(object? parameter)
+    public override async void Execute(object? parameter)
     {
         var content = new StringContent(
             JsonConvert.SerializeObject(_chatViewModel.CurrentContact),
@@ -39,6 +40,14 @@ internal class GetMessagesQuery : CommandBase
         _chatViewModel.Messages = new ObservableCollection<MessageModel>(
             messages.OrderBy(i => i.SendTime));
 
-        await SaveMessageService.SaveMessagesAsync(messages, _chatViewModel.CurrentContact, default);
+        if (!_chatViewModel.CurrentContact.ChatId.HasValue)
+        {
+            return;
+        }
+
+        await SaveMessageService.SaveMessagesAsync(
+            messages,
+            _chatViewModel.CurrentContact.ChatId.Value,
+            CancellationToken.None);
     }
 }

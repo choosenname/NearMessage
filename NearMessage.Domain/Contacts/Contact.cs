@@ -9,7 +9,7 @@ namespace NearMessage.Domain.Contacts;
 
 public class Contact : Entity
 {
-    public Contact(Guid id, string username, Guid chatId)
+    public Contact(Guid id, string username, Guid? chatId)
         : base(id)
     {
         Username = username;
@@ -18,5 +18,5 @@ public class Contact : Entity
 
     public string Username { get; set; }
 
-    public Guid ChatId { get; set; }
+    public Guid? ChatId { get; set; }
 }

@@ -67,5 +67,14 @@ namespace Client.Properties {
                 return ((string)(this["DataPath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:7196")]
+        public string HttpUriString {
+            get {
+                return ((string)(this["HttpUriString"]));
+            }
+        }
     }
 }

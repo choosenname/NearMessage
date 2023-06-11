@@ -29,16 +29,7 @@ public sealed class SaveMediaCommandHandler : ICommandHandler<SaveMediaCommand, 
             return Result.Failure(new Error("Can't find sender identifier"));
         }
 
-        var chatResult = await _chatRepository.GetChatAsync(maybeSenderId.Value,
-            request.Media.Receiver, cancellationToken);
-
-        if (chatResult.IsFailure)
-        {
-            return Result.Failure(chatResult.Error);
-        }
-
         var result = await _messageRepository.SaveMediaAsync(
-            chatResult.Value,
             request.Media,
             cancellationToken);
 
