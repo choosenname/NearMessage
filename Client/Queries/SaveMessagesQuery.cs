@@ -39,6 +39,11 @@ public class SaveMessagesQuery : CommandBase
         var messages = await response.Content
             .ReadAsAsync<ObservableCollection<MessageModel>>();
 
-        await SaveMessageService.SaveMessagesAsync(messages, _currentContact.ChatId, default);
+        if (!_currentContact.ChatId.HasValue)
+        {
+            return;
+        }
+
+        await SaveMessageService.SaveMessagesAsync(messages, _currentContact.ChatId.Value, default);
     }
 }

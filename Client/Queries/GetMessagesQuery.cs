@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 
 namespace Client.Queries;
 
@@ -39,6 +40,14 @@ internal class GetMessagesQuery : CommandBase
         _chatViewModel.Messages = new ObservableCollection<MessageModel>(
             messages.OrderBy(i => i.SendTime));
 
-        await SaveMessageService.SaveMessagesAsync(messages, _chatViewModel.CurrentContact.ChatId, default);
+        if (!_chatViewModel.CurrentContact.ChatId.HasValue)
+        {
+            return;
+        }
+
+        await SaveMessageService.SaveMessagesAsync(
+            messages,
+            _chatViewModel.CurrentContact.ChatId.Value,
+            CancellationToken.None);
     }
 }
