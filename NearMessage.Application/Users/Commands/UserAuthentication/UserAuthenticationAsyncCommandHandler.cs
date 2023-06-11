@@ -22,7 +22,7 @@ public sealed class UserAuthenticationAsyncCommandHandler
     public async Task<Result<string>> Handle(UserAuthenticationCommand request,
         CancellationToken cancellationToken)
     {
-        Maybe<User> maybeUser = await _userRepository.GetByUsernameAsync(request.UserName, cancellationToken);
+        var maybeUser = await _userRepository.GetByUsernameAsync(request.Username, cancellationToken);
 
         if (maybeUser.HasNoValue)
         {

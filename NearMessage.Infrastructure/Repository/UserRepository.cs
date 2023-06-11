@@ -54,6 +54,13 @@ public class UserRepository : IUserRepository
         return user == null ? Maybe<User>.None : Maybe<User>.From(user);
     }
 
-    public async Task<Maybe<User>> GetByUsernameAsync(string userName, CancellationToken cancellationToken) =>
-        await _context.Users.SingleOrDefaultAsync(i => i.Username == userName, cancellationToken);
+    public async Task<Maybe<User>> GetByUsernameAsync(string username, CancellationToken cancellationToken)
+    {
+        return await _context.Users.SingleOrDefaultAsync(i => i.Username == username, cancellationToken);
+    }
+
+    public async Task<IEnumerable<User>> GetUsersByUsernameAsync(string username, CancellationToken cancellationToken)
+    {
+        return await _context.Users.Where(u => u.Username.Contains(username)).ToListAsync(cancellationToken);
+    }
 }

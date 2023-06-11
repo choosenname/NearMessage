@@ -22,7 +22,7 @@ namespace Client
         protected override async void OnStartup(StartupEventArgs e)
         {
 
-            ViewModelBase viewModel = _serviceProvider.GetRequiredService<HomeViewModel>(); ;
+            ViewModelBase viewModel = _serviceProvider.GetRequiredService<HomeViewModel>();
 
             if (String.IsNullOrEmpty(Client.Properties.Settings.Default.Token))
             {

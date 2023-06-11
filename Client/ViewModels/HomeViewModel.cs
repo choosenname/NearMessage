@@ -14,6 +14,9 @@ public class HomeViewModel : ViewModelBase
     private readonly HttpClient _httpClient;
 
     private ObservableCollection<ContactModel> _contacts = new();
+    private ChatViewModel? _chatViewModel;
+    private ContactModel? _selectedContact;
+    private string _searchText;
 
     public ObservableCollection<ContactModel> Contacts
     {
@@ -25,7 +28,6 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    private ChatViewModel? _chatViewModel;
     public ChatViewModel? ChatViewModel
     {
         get => _chatViewModel;
@@ -36,7 +38,6 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    private ContactModel? _selectedContact;
     public ContactModel? SelectedContact
     {
         get => _selectedContact;
@@ -49,7 +50,19 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            _searchText = value;
+OnPropertyChanged(nameof(SearchText));
+        }
+    }
+
     public ICommand GetAllUsersQuery { get; }
+
+    public ICommand SearchUserQuery { get; }
 
     public HomeViewModel(UserStore userStore, HttpClient httpClient)
     {
