@@ -16,7 +16,7 @@ public class HomeViewModel : ViewModelBase
     private ObservableCollection<ContactModel> _contacts = new();
     private ChatViewModel? _chatViewModel;
     private ContactModel? _selectedContact;
-    private string _searchText;
+    private string? _searchText;
 
     public ObservableCollection<ContactModel> Contacts
     {
@@ -50,7 +50,7 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    public string SearchText
+    public string? SearchText
     {
         get => _searchText;
         set
@@ -68,6 +68,7 @@ OnPropertyChanged(nameof(SearchText));
     {
         _userStore = userStore;
         _httpClient = httpClient;
+        SearchUserQuery = new SearchUserQuery(this, httpClient, userStore);
         GetAllUsersQuery = new GetAllUsersQuery(this, httpClient, userStore);
         GetAllUsersQuery.Execute(null);
     }
