@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Client.Commands;
+using Client.Models;
+using Client.Services;
+using Client.Stores;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
-using Client.Commands;
-using Client.Models;
-using Client.Services;
-using Client.Stores;
 
 namespace Client.Queries;
 

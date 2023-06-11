@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
-using System.Text;
-using Client.Models;
+﻿using Client.Models;
 using Client.ViewModels;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Net.Http;
+using System.Text;
 
 namespace Client.Commands;
 
@@ -25,8 +25,10 @@ public class SendMediaCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
-        var openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "Все файлы (*.*)|*.*";
+        var openFileDialog = new OpenFileDialog
+        {
+            Filter = "Все файлы (*.*)|*.*"
+        };
 
         var result = openFileDialog.ShowDialog();
 
@@ -39,6 +41,7 @@ public class SendMediaCommand : CommandBase
             var message = new MediaModel(
                 Guid.NewGuid(),
                 _chatViewModel.MessageText,
+                Guid.Empty, 
                 _contactReceiver.Id,
                 fileData,
                 fileName);

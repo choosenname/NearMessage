@@ -1,8 +1,8 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NearMessage.Infrastructure.Authentication;
+using System.Text;
 
 namespace NearMessage.API.OptionsSetup;
 

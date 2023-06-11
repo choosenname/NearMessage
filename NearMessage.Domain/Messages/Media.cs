@@ -4,9 +4,9 @@ namespace NearMessage.Domain.Messages;
 
 public class Media : Message
 {
-    public Media(Guid id, string content, Contact contact,
-        DateTime sendTime, byte[] fileData, string fileName)
-        : base(id, content, sendTime, contact)
+    public Media(Guid id, string content, Guid sender,
+        Guid receiverChatId, byte[] fileData, string fileName)
+        : base(id, content, sender, receiverChatId)
     {
         FileData = fileData;
         FileName = fileName;

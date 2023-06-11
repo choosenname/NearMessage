@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Client.Commands;
+﻿using Client.Commands;
 using Client.Models;
 using Client.Stores;
 using Client.ViewModels;
+using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Client.Queries;
 

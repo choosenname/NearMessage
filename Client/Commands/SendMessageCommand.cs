@@ -1,9 +1,9 @@
-﻿using System;
-using System.Net.Http;
-using System.Text;
-using Client.Models;
+﻿using Client.Models;
 using Client.ViewModels;
 using Newtonsoft.Json;
+using System;
+using System.Net.Http;
+using System.Text;
 
 namespace Client.Commands;
 
@@ -26,6 +26,7 @@ public class SendMessageCommand : CommandBase
         var message = new MessageModel(
             Guid.NewGuid(),
             _chatViewModel.MessageText,
+            Guid.Empty,
             _contactReceiver.Id);
 
         var content = new StringContent(JsonConvert.SerializeObject(message),

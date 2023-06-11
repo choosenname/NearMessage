@@ -4,11 +4,12 @@ namespace Client.Models;
 
 public class MessageModel
 {
-    public MessageModel(Guid id, string content, Guid receiver)
+    public MessageModel(Guid id, string content, Guid sender, Guid receiverChatId)
     {
         Id = id;
         Content = content;
-        Receiver = receiver;
+        Sender = sender;
+        ReceiverChatId = receiverChatId;
         SendTime = DateTime.Now;
     }
 
@@ -18,7 +19,7 @@ public class MessageModel
 
     public Guid Sender { get; set; }
 
-    public Guid Receiver { get; set; }
+    public Guid ReceiverChatId { get; set; }
 
     public DateTime SendTime { get; set; }
 }

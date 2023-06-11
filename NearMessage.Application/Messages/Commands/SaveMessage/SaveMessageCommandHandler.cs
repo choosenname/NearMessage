@@ -26,6 +26,8 @@ public sealed class SaveMessageCommandHandler : ICommandHandler<SaveMessageComma
         var maybeSenderId = _jwtProvider.GetUserId(request.Context.User);
         if (maybeSenderId.HasNoValue) return Result.Failure(new Error("Can't find sender identifier"));
 
+        request.Message.Sender = maybeSenderId.Value;
+
         var result = await _messageRepository.SaveMessageAsync(
             request.Message,
             cancellationToken);

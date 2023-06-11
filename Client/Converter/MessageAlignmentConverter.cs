@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Client.Stores;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using Client.Stores;
 
 namespace Client.Converter;
 

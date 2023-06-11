@@ -1,6 +1,6 @@
-﻿using System.Security.Claims;
-using NearMessage.Common.Primitives.Maybe;
+﻿using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Domain.Users;
+using System.Security.Claims;
 
 namespace NearMessage.Application.Abstraction;
 

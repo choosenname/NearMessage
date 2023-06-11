@@ -4,9 +4,9 @@ namespace Client.Models;
 
 public class MediaModel : MessageModel
 {
-    public MediaModel(Guid id, string content,
-        Guid receiver, byte[] fileData, string fileName)
-        : base(id, content, receiver)
+    public MediaModel(Guid id, string content, Guid sender,
+        Guid receiverChatId, byte[] fileData, string fileName)
+        : base(id, content, sender, receiverChatId)
     {
         FileData = fileData;
         FileName = fileName;

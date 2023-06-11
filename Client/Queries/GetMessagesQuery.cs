@@ -1,13 +1,13 @@
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
 using Client.Commands;
 using Client.Models;
 using Client.Services;
 using Client.ViewModels;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
 
 namespace Client.Queries;
 

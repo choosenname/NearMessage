@@ -1,8 +1,8 @@
-﻿using System.Net.Http;
-using System.Windows.Input;
-using Client.Commands;
+﻿using Client.Commands;
 using Client.Services;
 using Client.Stores;
+using System.Net.Http;
+using System.Windows.Input;
 
 namespace Client.ViewModels;
 

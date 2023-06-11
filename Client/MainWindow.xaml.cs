@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Client.Properties;
+using System.ComponentModel;
 using System.Windows;
-using Client.Properties;
 
 namespace Client;
 

@@ -59,7 +59,7 @@
 
                             <Border.HorizontalAlignment>
                                 <MultiBinding Converter="{StaticResource MessageAlignmentConverter}">
-                                    <Binding Path="Receiver" />
+                                    <Binding Path="ReceiverChatId" />
                                     <Binding Path="DataContext.UserStore"
                                              RelativeSource="{RelativeSource AncestorType=UserControl}" />
                                 </MultiBinding>

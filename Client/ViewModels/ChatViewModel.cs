@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.Net.Http;
-using System.Windows.Input;
-using Client.Commands;
+﻿using Client.Commands;
 using Client.Models;
 using Client.Queries;
 using Client.Stores;
+using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Windows.Input;
 
 namespace Client.ViewModels;
 

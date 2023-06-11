@@ -57,6 +57,9 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetUsersByUsernameAsync(string username, CancellationToken cancellationToken)
     {
-        return await _context.Users.Where(u => u.Username.Contains(username)).ToListAsync(cancellationToken);
+        return await _context.Users
+            .AsNoTracking()
+            .Where(u => u.Username.StartsWith(username))
+            .ToListAsync(cancellationToken);
     }
 }

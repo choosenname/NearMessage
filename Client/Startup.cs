@@ -1,11 +1,11 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading;
-using Client.Models;
+﻿using Client.Models;
 using Client.Properties;
 using Client.Stores;
 using Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Net.Http;
+using System.Threading;
 
 namespace Client;
 

@@ -5,17 +5,20 @@ namespace NearMessage.Domain.Messages;
 
 public class Message : Entity
 {
-    public Message(Guid id, string content, DateTime sendTime, Contact contact)
+    public Message(Guid id, string content, Guid sender, Guid receiverChatId)
         : base(id)
     {
         Content = content;
-        SendTime = sendTime;
-        Contact = contact;
+        SendTime = DateTime.Now;
+        Sender = sender;
+        ReceiverChatId = receiverChatId;
     }
 
     public string Content { get; set; }
 
     public DateTime SendTime { get; set; }
 
-    public Contact Contact { get; set; }
+    public Guid Sender { get; set; }
+
+    public Guid ReceiverChatId { get; set; }
 }
