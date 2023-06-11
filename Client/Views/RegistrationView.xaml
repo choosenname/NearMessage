@@ -1,37 +1,41 @@
 ﻿<UserControl x:Class="Client.Views.RegistrationView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Client.Views" 
-      xmlns:converters="clr-namespace:Client.Converter" 
-      xmlns:custom="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
-      xmlns:viewModel="clr-namespace:Client.ViewModels"
-      mc:Ignorable="d">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:Client.Converter"
+             xmlns:custom="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
+             xmlns:viewModel="clr-namespace:Client.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModel:RegistrationViewModel}">
     <UserControl.Resources>
-        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </UserControl.Resources>
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
-        <TextBlock Text="Registration" 
-                   FontSize="30"/>
+        <TextBlock Text="Registration"
+                   FontSize="30" />
 
         <Grid>
             <custom:LoadingSpinner
-                IsLoading="{Binding IsLoading}"/>
-            
-            <StackPanel
-            Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                <TextBox Tag="Enter Name"
-                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+                IsLoading="{Binding IsLoading}" />
 
-                <TextBox Tag="Enter Password"
-                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel
+                Visibility="{Binding IsLoading,
+                Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+
+                <TextBox Style="{StaticResource WideTextBoxStyle}"
+                         Tag="Enter Name"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBox Style="{StaticResource WideTextBoxStyle}"
+                         Tag="Enter Password"
+                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
         </Grid>
 
-        <Button Command="{Binding RegistrationCommand}"
-                Content="Registration"/>
+        <Button Style="{StaticResource WideButtonStyle}"
+                Command="{Binding RegistrationCommand}"
+                Content="Registration" />
 
         <TextBlock HorizontalAlignment="Center">
             <Hyperlink Command="{Binding NavigateCommand}">

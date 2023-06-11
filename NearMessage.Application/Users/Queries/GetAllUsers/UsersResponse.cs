@@ -3,4 +3,4 @@ using NearMessage.Domain.Contacts;
 
 namespace NearMessage.Application.Users.Queries.GetAllUsers;
 
-public sealed record UsersResponse(Result<IEnumerable<Contact>?> Сontacts);
+public sealed record UsersResponse(Result<IEnumerable<Contact>?> Contacts);

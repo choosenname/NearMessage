@@ -1,14 +1,18 @@
-﻿namespace NearMessage.Domain.Messages;
+﻿using NearMessage.Domain.Contacts;
 
-public class Media
+namespace NearMessage.Domain.Messages;
+
+public class Media : Message
 {
-    public Media(Message message, StreamContent streamContent)
+    public Media(Guid id, string content, Guid sender,
+        Guid receiverChatId, byte[] fileData, string fileName)
+        : base(id, content, sender, receiverChatId)
     {
-        Message = message;
-        StreamContent = streamContent;
+        FileData = fileData;
+        FileName = fileName;
     }
 
-    public Message Message { get; set; }
+    public string FileName { get; set; }
 
-    public StreamContent StreamContent { get; set; }
+    public byte[] FileData { get; set; }
 }

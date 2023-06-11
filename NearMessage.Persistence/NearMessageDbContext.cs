@@ -3,21 +3,20 @@ using NearMessage.Application.Abstraction;
 using NearMessage.Domain.Chats;
 using NearMessage.Domain.Users;
 using NearMessage.Persistence.EntityTypeConfigurations;
-using System.Reflection;
 
 namespace NearMessage.Persistence;
 
 public class NearMessageDbContext : DbContext, INearMessageDbContext
 {
-    public DbSet<User> Users { get; set; }
-
-    public DbSet<Chat> Chats { get; set; }
-
     public NearMessageDbContext(DbContextOptions<NearMessageDbContext> options)
-        : base(options) 
+        : base(options)
     {
         Database.EnsureCreated();
     }
+
+    public DbSet<User> Users { get; set; }
+
+    public DbSet<Chat> Chats { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

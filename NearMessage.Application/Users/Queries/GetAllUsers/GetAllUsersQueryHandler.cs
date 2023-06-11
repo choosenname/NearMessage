@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NearMessage.Application.Abstraction;
+﻿using NearMessage.Application.Abstraction;
 using NearMessage.Common.Abstractions.Messaging;
+using NearMessage.Common.Primitives.Errors;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Contacts;
 using NearMessage.Domain.Users;
@@ -9,8 +9,8 @@ namespace NearMessage.Application.Users.Queries.GetAllUsers;
 
 public sealed class GetAllUsersQueryHandler : IQueryHandler<GetAllUsersQuery, UsersResponse>
 {
-    private readonly IUserRepository _userRepository;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IUserRepository _userRepository;
 
     public GetAllUsersQueryHandler(IUserRepository userRepository, IJwtProvider jwtProvider)
     {
@@ -20,24 +20,22 @@ public sealed class GetAllUsersQueryHandler : IQueryHandler<GetAllUsersQuery, Us
 
     public async Task<UsersResponse> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
     {
-        var maybeUser = _jwtProvider.GetUserId(request.HttpContext.User);
+        var maybeSenderId = _jwtProvider.GetUserId(request.HttpContext.User);
 
-        if (maybeUser.HasNoValue)
-        {
-            return new UsersResponse(Result.Failure<IEnumerable<Contact>?>(new("Used don't recognized")));
-        }
+        if (maybeSenderId.HasNoValue)
+            return new UsersResponse(
+                Result.Failure<IEnumerable<Contact>?>(new Error("Used don't recognized")));
 
-        var user = await _userRepository.GetByIdAsync(maybeUser.Value, cancellationToken);
+        var maybeSender = await _userRepository.GetByIdAsync(maybeSenderId.Value, cancellationToken);
 
-        if(user.HasNoValue)
-        {
-            return new UsersResponse(Result.Failure<IEnumerable<Contact>?>(new("Used doesn't exist")));
-        }
+        if (maybeSender.HasNoValue)
+            return new UsersResponse(
+                Result.Failure<IEnumerable<Contact>?>(new Error("Used doesn't exist")));
 
-        var contacts = user.Value.ReceivedChats
+        var contacts = maybeSender.Value.SentChats
             ?.Select(c => new Contact(
-                c.Sender.Id,
-                c.Sender.Username,
+                c.Receiver.Id,
+                c.Receiver.Username,
                 c.ChatId))
             .ToList();
 

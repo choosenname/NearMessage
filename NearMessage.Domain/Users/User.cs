@@ -1,5 +1,4 @@
 ﻿using NearMessage.Domain.Chats;
-using NearMessage.Domain.Contacts;
 using NearMessage.Domain.Primitives;
 
 namespace NearMessage.Domain.Users;
@@ -12,8 +11,6 @@ public class User : Entity
         Username = username;
         Password = password;
         CreatedAt = DateTime.Now;
-        SentChats = new List<Chat>();
-        ReceivedChats = new List<Chat>();
     }
 
     public string Username { get; set; }
@@ -26,5 +23,8 @@ public class User : Entity
 
     public virtual List<Chat>? ReceivedChats { get; set; }
 
-    public bool VerifyPassword(string password) => password == Password;
+    public bool VerifyPassword(string password)
+    {
+        return password == Password;
+    }
 }

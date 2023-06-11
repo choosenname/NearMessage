@@ -1,29 +1,48 @@
 ﻿<UserControl x:Class="Client.Views.ChatView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Client.Views" 
-             xmlns:viewmodels="clr-namespace:Client.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:Client.ViewModels"
              xmlns:converter="clr-namespace:Client.Converter"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:model="clr-namespace:Client.Models"
-             d:DataContext="{d:DesignInstance Type=viewmodels:ChatViewModel}"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:ChatViewModel }"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converter:MessageAlignmentConverter x:Key="MessageAlignmentConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid Background="{DynamicResource PageBackgroundColor}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="55"/>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="55" />
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0"
                 Background="White">
 
-            <TextBlock Text="{Binding CurrentContact.Username}"/>
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Height="38" Width="38"
+                        CornerRadius="25" Background="White" />
+
+                <TextBlock Grid.Column="1" Text="{Binding CurrentContact.Username}" />
+
+                <Button Grid.Column="2">
+                    <iconPacks:PackIconMaterialDesign Kind="Refresh"
+                                                      Width="15"
+                                                      Height="15"
+                                                      Foreground="{DynamicResource MainColor}" />
+                </Button>
+            </Grid>
+
 
         </Border>
 
@@ -32,29 +51,28 @@
 
                 <ItemsControl.Resources>
                     <DataTemplate DataType="{x:Type model:MessageModel}">
-                        <Border Background="Transparent"
-                                Height="65">
+                        <Border Background="{DynamicResource ItemBackgroundColor}"
+                                Margin="0 5 0 0"
+                                CornerRadius="15"
+                                MinHeight="30"
+                                MinWidth="180">
 
                             <Border.HorizontalAlignment>
                                 <MultiBinding Converter="{StaticResource MessageAlignmentConverter}">
-                                    <Binding Path="Receiver" />
+                                    <Binding Path="ReceiverChatId" />
                                     <Binding Path="DataContext.UserStore"
-                                     RelativeSource="{RelativeSource AncestorType=UserControl}" />
+                                             RelativeSource="{RelativeSource AncestorType=UserControl}" />
                                 </MultiBinding>
                             </Border.HorizontalAlignment>
 
-                            <StackPanel Margin="5, 5, 0, 0">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding Content}" 
-                                               Foreground="Black"   
-                                               FontSize="13"/>
-                                    <Label Content="{Binding Id}"/>
-                                </StackPanel>
-
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding Receiver}"/>
-                                    <Label Content="{Binding SendTime}"/>
-                                </StackPanel>
+                            <StackPanel Margin="5 0 0 0" VerticalAlignment="Stretch">
+                                <TextBlock Foreground="{DynamicResource ItemForegroundColor}"
+                                           FontSize="13"
+                                           Text="{Binding Content}" />
+                                <Label Foreground="{DynamicResource MinorItemForegroundColor}"
+                                       HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                       Content="{Binding SendTime}"
+                                       FontSize="5" ContentStringFormat="HH:mm" />
                             </StackPanel>
                         </Border>
                     </DataTemplate>
@@ -64,15 +82,30 @@
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0"
-                     Text="{Binding MessageText}"/>
+            <Button Grid.Column="0"
+                    Style="{StaticResource IconButtonStyle}"
+                    Command="{Binding SendMediaCommand}">
+                <iconPacks:PackIconMaterialDesign Kind="Attachment"
+                                                  Width="25"
+                                                  Height="25"
+                                                  RotationAngle="315" />
+            </Button>
 
-            <Button Grid.Column="1"
-                    Command="{Binding SendMessageCommand}"/>
+            <Button Grid.Column="2"
+                    Style="{StaticResource IconButtonStyle}"
+                    Command="{Binding SendMessageCommand}">
+                <iconPacks:PackIconMaterialDesign Kind="Send"
+                                                  Width="25"
+                                                  Height="25" />
+            </Button>
+
+            <TextBox Grid.Column="1"
+                     Text="{Binding MessageText}" />
 
         </Grid>
     </Grid>

@@ -1,14 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NearMessage.Application.Abstraction;
+using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Chats;
-using NearMessage.Domain.Messages;
-using NearMessage.Domain.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NearMessage.Infrastructure.Repository;
 
@@ -36,18 +30,23 @@ internal class ChatRepository : IChatRepository
         return Result.Success(chat);
     }
 
-    public async Task<Result<Chat>> GetChatAsync(Guid sender, Guid receiver, CancellationToken cancellationToken)
+    public async Task<Maybe<Chat>> GetChatByIdAsync(Guid chatId, CancellationToken cancellationToken)
+    {
+        var chat = await _nearMessageDbContext.Chats.SingleOrDefaultAsync(c =>
+            c.ChatId == chatId, cancellationToken);
+
+        return chat == null ? Maybe<Chat>.None : Maybe<Chat>.From(chat);
+    }
+
+    public async Task<Maybe<Chat>> GetChatByUsersAsync(Guid user1, Guid user2, CancellationToken cancellationToken)
     {
         var chat = await _nearMessageDbContext.Chats
-        .FirstOrDefaultAsync(c =>
-        c.Sender.Id == sender && c.Receiver.Id == receiver,
-        cancellationToken);
+            .FirstOrDefaultAsync(c =>
+                    c.Sender.Id == user1 && c.Receiver.Id == user2,
+                cancellationToken);
 
-        if (chat == null)
-        {
-            return await CreateChatAsync(sender, receiver, cancellationToken);
-        }
+        if (chat == null) return Maybe<Chat>.None;
 
-        return Result<Chat>.Success(chat);
+        return Maybe<Chat>.From(chat);
     }
 }

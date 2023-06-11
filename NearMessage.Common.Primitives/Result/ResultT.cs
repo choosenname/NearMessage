@@ -1,5 +1,4 @@
-﻿using System;
-using NearMessage.Common.Primitives.Errors;
+﻿using NearMessage.Common.Primitives.Errors;
 
 namespace NearMessage.Common.Primitives.Result;
 
@@ -9,7 +8,9 @@ public class Result<TValue> : Result
 
     protected internal Result(TValue? value, bool isSuccess, Error error)
         : base(isSuccess, error)
-        => _value = value;
+    {
+        _value = value;
+    }
 
     public TValue Value => IsSuccess
         ? _value!

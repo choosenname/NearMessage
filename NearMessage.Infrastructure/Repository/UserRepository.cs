@@ -3,7 +3,6 @@ using NearMessage.Application.Abstraction;
 using NearMessage.Common.Primitives.Errors;
 using NearMessage.Common.Primitives.Maybe;
 using NearMessage.Common.Primitives.Result;
-using NearMessage.Domain.Chats;
 using NearMessage.Domain.Contacts;
 using NearMessage.Domain.Users;
 
@@ -18,16 +17,15 @@ public class UserRepository : IUserRepository
         _context = nearMessageDbContext;
     }
 
-    public async Task<Result<Contact>> ConvertToContactAsync( User user, Guid sender,
+    public async Task<Result<Contact>> ConvertToContactAsync(User user, Guid sender,
         CancellationToken cancellationToken)
     {
         var chat = await _context.Chats
-            .FirstOrDefaultAsync(c => c.SenderId == sender && c.ReceiverId == user.Id);
+            .FirstOrDefaultAsync(c =>
+                    c.SenderId == sender && c.ReceiverId == user.Id,
+                cancellationToken);
 
-        if (chat == null)
-        {
-            return Result.Failure<Contact>(new($"Chat for contact {user.Id} doesn't exist"));
-        }
+        if (chat == null) return Result.Failure<Contact>(new Error($"Chat for contact {user.Id} doesn't exist"));
 
         return Result.Success(new Contact(
             user.Id,
@@ -42,19 +40,26 @@ public class UserRepository : IUserRepository
         await _context.Users.AddAsync(user, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return Result<User>.Success(user);
+        return Result.Success(user);
     }
 
-    public async Task<Maybe<User>> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
+    public async Task<Maybe<User>> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var user = await _context.Users.SingleOrDefaultAsync(i => i.Id == id, cancellationToken);
 
-        if (user == null)
-            return Maybe<User>.None;
-
-        return Maybe<User>.From(user);
+        return user == null ? Maybe<User>.None : Maybe<User>.From(user);
     }
 
-    public async Task<Maybe<User>> GetByUsernameAsync(string userName, CancellationToken cancellationToken) =>
-        await _context.Users.SingleOrDefaultAsync(i => i.Username == userName, cancellationToken);
+    public async Task<Maybe<User>> GetByUsernameAsync(string username, CancellationToken cancellationToken)
+    {
+        return await _context.Users.SingleOrDefaultAsync(i => i.Username == username, cancellationToken);
+    }
+
+    public async Task<IEnumerable<User>> GetUsersByUsernameAsync(string username, CancellationToken cancellationToken)
+    {
+        return await _context.Users
+            .AsNoTracking()
+            .Where(u => u.Username.StartsWith(username))
+            .ToListAsync(cancellationToken);
+    }
 }

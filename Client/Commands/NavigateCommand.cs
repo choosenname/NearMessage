@@ -2,7 +2,7 @@
 using Client.Services;
 using Client.ViewModels;
 
-class NavigateCommand<TViewModel> : CommandBase
+internal class NavigateCommand<TViewModel> : CommandBase
     where TViewModel : ViewModelBase
 {
     private readonly NavigationService<TViewModel> _navigationService;

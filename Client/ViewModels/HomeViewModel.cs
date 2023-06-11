@@ -1,5 +1,4 @@
-﻿using Client.Commands;
-using Client.Models;
+﻿using Client.Models;
 using Client.Queries;
 using Client.Stores;
 using System.Collections.ObjectModel;
@@ -10,10 +9,22 @@ namespace Client.ViewModels;
 
 public class HomeViewModel : ViewModelBase
 {
-    private readonly UserStore _userStore;
     private readonly HttpClient _httpClient;
+    private readonly UserStore _userStore;
+    private ChatViewModel? _chatViewModel;
 
     private ObservableCollection<ContactModel> _contacts = new();
+    private string? _searchText;
+    private ContactModel? _selectedContact;
+
+    public HomeViewModel(UserStore userStore, HttpClient httpClient)
+    {
+        _userStore = userStore;
+        _httpClient = httpClient;
+        SearchUserQuery = new SearchUserQuery(this, httpClient, userStore);
+        GetAllUsersQuery = new GetAllUsersQuery(this, httpClient, userStore);
+        GetAllUsersQuery.Execute(null);
+    }
 
     public ObservableCollection<ContactModel> Contacts
     {
@@ -25,7 +36,6 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    private ChatViewModel? _chatViewModel;
     public ChatViewModel? ChatViewModel
     {
         get => _chatViewModel;
@@ -36,7 +46,6 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    private ContactModel? _selectedContact;
     public ContactModel? SelectedContact
     {
         get => _selectedContact;
@@ -49,14 +58,17 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    public ICommand GetAllUsersQuery { get; }
-
-    public HomeViewModel(UserStore userStore, HttpClient httpClient)
+    public string? SearchText
     {
-        _userStore = userStore;
-        _httpClient = httpClient;
-        GetAllUsersQuery = new GetAllUsersQuery(this, httpClient, userStore);
-        GetAllUsersQuery.Execute(null);
+        get => _searchText;
+        set
+        {
+            _searchText = value;
+            OnPropertyChanged(nameof(SearchText));
+        }
     }
 
+    public ICommand GetAllUsersQuery { get; }
+
+    public ICommand SearchUserQuery { get; }
 }

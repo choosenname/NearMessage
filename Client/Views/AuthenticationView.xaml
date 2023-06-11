@@ -1,36 +1,41 @@
 ﻿<UserControl x:Class="Client.Views.AuthenticationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:viewModel="clr-namespace:Client.ViewModels" 
-             xmlns:converters="clr-namespace:Client.Converter" 
+             xmlns:viewModel="clr-namespace:Client.ViewModels"
+             xmlns:converters="clr-namespace:Client.Converter"
              xmlns:custom="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
-             mc:Ignorable="d">
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModel:AuthenticationViewModel}">
     <UserControl.Resources>
-        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </UserControl.Resources>
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
-        <TextBlock Text="Authentication" 
-                   FontSize="30"/>
+        <TextBlock Text="Authentication"
+                   FontSize="30" />
 
         <Grid>
             <custom:LoadingSpinner
-                IsLoading="{Binding IsLoading}"/>
+                IsLoading="{Binding IsLoading}" />
 
             <StackPanel
-            Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                <TextBox Tag="Enter Name"
-                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+                Visibility="{Binding IsLoading,
+                Converter={StaticResource InverseBooleanToVisibilityConverter}}">
 
-                <TextBox Tag="Enter Password"
-                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Style="{StaticResource WideTextBoxStyle}"
+                         Tag="Enter Name"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBox Style="{StaticResource WideTextBoxStyle}"
+                         Tag="Enter Password"
+                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
         </Grid>
 
-        <Button Command="{Binding AuthenticationCommand}"
-                Content="Authentication"/>
+        <Button Style="{StaticResource WideButtonStyle}"
+                Command="{Binding AuthenticationCommand}"
+                Content="Authentication" />
 
         <TextBlock HorizontalAlignment="Center">
             <Hyperlink Command="{Binding NavigateCommand}">

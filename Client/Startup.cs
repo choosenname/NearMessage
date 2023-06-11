@@ -1,10 +1,11 @@
 ﻿using Client.Models;
-using Client.Services;
+using Client.Properties;
 using Client.Stores;
 using Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
+using System.Threading;
 
 namespace Client;
 
@@ -24,20 +25,21 @@ public class Startup
             DataContext = provider.GetRequiredService<MainViewModel>()
         });
 
-        services.AddSingleton<HttpClient>(new HttpClient()
+        services.AddSingleton(new HttpClient
         {
-            Timeout = TimeSpan.FromMilliseconds(System.Threading.Timeout.Infinite),
-            BaseAddress = new Uri("https://localhost:7196")
+            Timeout = TimeSpan.FromMilliseconds(Timeout.Infinite),
+            BaseAddress = new Uri(Settings.Default.HttpUriString)
         });
 
         services.AddSingleton<NavigationStore>();
-        services.AddSingleton(new UserStore()
+        services.AddSingleton(new UserStore
         {
             User = new UserModel(
                 Guid.Empty,
-                Properties.Settings.Default.Username,
-                Properties.Settings.Default.Password),
-            Token = Properties.Settings.Default.Token
+                Settings.Default.Username,
+                Settings.Default.Password),
+            Token = Settings.Default.Token,
+            LastResponseTime = DateTime.Now
         });
 
         return services.BuildServiceProvider();

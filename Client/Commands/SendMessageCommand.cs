@@ -1,5 +1,4 @@
 ﻿using Client.Models;
-using Client.Stores;
 using Client.ViewModels;
 using Newtonsoft.Json;
 using System;
@@ -11,23 +10,24 @@ namespace Client.Commands;
 public class SendMessageCommand : CommandBase
 {
     private readonly ChatViewModel _chatViewModel;
-    private readonly ContactModel _receiver;
+    private readonly ContactModel _contactReceiver;
     private readonly HttpClient _httpClient;
 
-    public SendMessageCommand(ChatViewModel chatViewModel, ContactModel receiver,
+    public SendMessageCommand(ChatViewModel chatViewModel, ContactModel contactReceiver,
         HttpClient httpClient)
     {
         _chatViewModel = chatViewModel;
-        _receiver = receiver;
+        _contactReceiver = contactReceiver;
         _httpClient = httpClient;
     }
 
-    public async override void Execute(object? parameter)
+    public override async void Execute(object? parameter)
     {
         var message = new MessageModel(
             Guid.NewGuid(),
             _chatViewModel.MessageText,
-            _receiver.Id);
+            Guid.Empty,
+            _contactReceiver.Id);
 
         var content = new StringContent(JsonConvert.SerializeObject(message),
             Encoding.UTF8, "application/json");

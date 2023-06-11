@@ -11,9 +11,22 @@ namespace Client.ViewModels;
 public class ChatViewModel : ViewModelBase
 {
     private ContactModel _currentContact;
-    private readonly UserStore _userStore;
 
-    public UserStore UserStore => _userStore;
+    private ObservableCollection<MessageModel> _messages = new();
+
+    private string _messageText = string.Empty;
+
+    public ChatViewModel(ContactModel currentContact, UserStore userStore, HttpClient httpClient)
+    {
+        _currentContact = currentContact;
+        UserStore = userStore;
+        SendMessageCommand = new SendMessageCommand(this, currentContact, httpClient);
+        GetMessagesQuery = new GetMessagesQuery(this, httpClient);
+        SendMediaCommand = new SendMediaCommand(httpClient, currentContact, this);
+        GetMessagesQuery.Execute(null);
+    }
+
+    public UserStore UserStore { get; }
 
     public ContactModel CurrentContact
     {
@@ -25,8 +38,6 @@ public class ChatViewModel : ViewModelBase
         }
     }
 
-    private string _messageText = string.Empty;
-
     public string MessageText
     {
         get => _messageText;
@@ -37,7 +48,6 @@ public class ChatViewModel : ViewModelBase
         }
     }
 
-    private ObservableCollection<MessageModel> _messages = new();
     public ObservableCollection<MessageModel> Messages
     {
         get => _messages;
@@ -50,13 +60,6 @@ public class ChatViewModel : ViewModelBase
 
     public ICommand SendMessageCommand { get; }
     public ICommand GetMessagesQuery { get; }
-
-    public ChatViewModel(ContactModel currentContact, UserStore userStore, HttpClient httpClient)
-    {
-        _currentContact = currentContact;
-        _userStore = userStore;
-        SendMessageCommand = new SendMessageCommand(this, currentContact, httpClient);
-        GetMessagesQuery = new GetMessagesQuery(this, httpClient);
-        GetMessagesQuery.Execute(null);
-    }
+    public ICommand SendMediaCommand { get; }
+    public ICommand RefreshCommand { get; }
 }
