@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using NearMessage.Application.Messages.Commands.SaveMessage;
 using NearMessage.Application.Messages.Queries.GetLastMessages;
 using NearMessage.Application.Messages.Queries.GetMessages;
-using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Contacts;
 using NearMessage.Domain.Messages;
 

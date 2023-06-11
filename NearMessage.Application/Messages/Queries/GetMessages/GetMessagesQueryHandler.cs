@@ -31,6 +31,13 @@ public class GetMessagesQueryHandler : IQueryHandler<GetMessagesQuery, MessagesR
                 new("Can't find sender identifier")));
         }
 
-        return new MessagesResponse(await _messageRepository.GetMessagesAsync(request.Sender.ChatId, cancellationToken));
+        if (!request.Sender.ChatId.HasValue)
+        {
+            return new MessagesResponse(Result.Failure<IEnumerable<Message>>(
+                new("Chat not exist")));
+        }
+
+        return new MessagesResponse(await _messageRepository.GetMessagesAsync(
+            request.Sender.ChatId.Value, cancellationToken));
     }
 }

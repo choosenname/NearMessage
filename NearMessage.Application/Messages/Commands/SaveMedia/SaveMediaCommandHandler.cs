@@ -2,7 +2,6 @@
 using NearMessage.Common.Abstractions.Messaging;
 using NearMessage.Common.Primitives.Errors;
 using NearMessage.Common.Primitives.Result;
-using NearMessage.Domain.Chats;
 using NearMessage.Domain.Messages;
 
 namespace NearMessage.Application.Messages.Commands.SaveMedia;
@@ -10,14 +9,12 @@ namespace NearMessage.Application.Messages.Commands.SaveMedia;
 public sealed class SaveMediaCommandHandler : ICommandHandler<SaveMediaCommand, Result>
 {
     private readonly IJwtProvider _jwtProvider;
-    private readonly IChatRepository _chatRepository;
     private readonly IMessageRepository _messageRepository;
 
-    public SaveMediaCommandHandler(IJwtProvider jwtProvider, IChatRepository chatRepository,
+    public SaveMediaCommandHandler(IJwtProvider jwtProvider,
         IMessageRepository messageRepository)
     {
         _jwtProvider = jwtProvider;
-        _chatRepository = chatRepository;
         _messageRepository = messageRepository;
     }
 
