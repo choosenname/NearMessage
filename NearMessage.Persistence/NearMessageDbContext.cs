@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace NearMessage.Persistence;
 
-public class NearMessageDbContext : DbContext, INearMessageDbContext
+public sealed class NearMessageDbContext : DbContext, INearMessageDbContext
 {
     public DbSet<User> Users { get; set; }
 
