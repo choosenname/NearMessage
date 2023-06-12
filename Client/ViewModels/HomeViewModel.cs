@@ -1,7 +1,9 @@
-﻿using Client.Models;
+﻿using System;
+using Client.Models;
 using Client.Queries;
 using Client.Stores;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Net.Http;
 using System.Windows.Input;
 
@@ -15,14 +17,17 @@ public class HomeViewModel : ViewModelBase
 
     private ObservableCollection<ContactModel> _contacts = new();
     private string? _searchText;
-    private ContactModel? _selectedContact;
+    private ContactModel _selectedContact;
 
     public HomeViewModel(UserStore userStore, HttpClient httpClient)
     {
         _userStore = userStore;
         _httpClient = httpClient;
-        SearchUserQuery = new SearchUserQuery(this, httpClient, userStore);
-        GetAllUsersQuery = new GetAllUsersQuery(this, httpClient, userStore);
+        _selectedContact = new ContactModel(Guid.Empty, String.Empty, null);
+
+        GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
+        SearchUserQuery = new SearchUserQuery(this, httpClient);
+
         GetAllUsersQuery.Execute(null);
     }
 
@@ -46,7 +51,7 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    public ContactModel? SelectedContact
+    public ContactModel SelectedContact
     {
         get => _selectedContact;
         set
@@ -54,7 +59,7 @@ public class HomeViewModel : ViewModelBase
             _selectedContact = value;
             OnPropertyChanged(nameof(SelectedContact));
 
-            ChatViewModel = new ChatViewModel(value, _userStore, _httpClient);
+            ChatViewModel = new ChatViewModel(this, _userStore, _httpClient, ref value);
         }
     }
 

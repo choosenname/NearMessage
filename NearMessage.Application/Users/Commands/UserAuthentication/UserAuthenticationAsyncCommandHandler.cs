@@ -29,7 +29,8 @@ public sealed class UserAuthenticationAsyncCommandHandler
 
         var user = maybeUser.Value;
 
-        if (!user.VerifyPassword(request.Password)) return Result.Failure<string>(new Error("Password wasn't match"));
+        if (!user.VerifyPassword(request.Password))
+            return Result.Failure<string>(new Error("Password wasn't match"));
 
         var token = _jwtProvider.Generate(user);
 

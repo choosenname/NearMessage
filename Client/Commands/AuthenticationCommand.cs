@@ -29,8 +29,7 @@ public class AuthenticationCommand : CommandBase
         authenticationViewModel.PropertyChanged += OnPropertyChanged;
     }
 
-    private void OnPropertyChanged(object? sender,
-        PropertyChangedEventArgs e)
+    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(AuthenticationViewModel.Username) ||
             e.PropertyName == nameof(AuthenticationViewModel.Password))
