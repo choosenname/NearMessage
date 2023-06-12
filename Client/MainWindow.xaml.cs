@@ -13,9 +13,4 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
-
-    private void Window_Closing(object sender, CancelEventArgs e)
-    {
-        Settings.Default.Save();
-    }
 }

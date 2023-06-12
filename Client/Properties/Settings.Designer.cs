@@ -85,5 +85,16 @@ namespace Client.Properties {
                 return ((string)(this["UserDataPath"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime LastResponseTime {
+            get {
+                return ((global::System.DateTime)(this["LastResponseTime"]));
+            }
+            set {
+                this["LastResponseTime"] = value;
+            }
+        }
     }
 }

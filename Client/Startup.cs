@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading;
+using Client.Services;
 
 namespace Client;
 
@@ -32,15 +33,7 @@ public class Startup
         });
 
         services.AddSingleton<NavigationStore>();
-        services.AddSingleton(new UserStore
-        {
-            User = new UserModel(
-                Guid.Empty,
-                Settings.Default.Username,
-                Settings.Default.Password),
-            Token = Settings.Default.Token,
-            LastResponseTime = DateTime.Now
-        });
+        services.AddSingleton(UserStoreSettingsService.GetUserStore());
 
         return services.BuildServiceProvider();
     }
