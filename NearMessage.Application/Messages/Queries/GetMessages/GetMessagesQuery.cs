@@ -5,4 +5,4 @@ using NearMessage.Domain.Contacts;
 namespace NearMessage.Application.Messages.Queries.GetMessages;
 
 public sealed record GetMessagesQuery(
-    HttpContext HttpContext) : IQuery<MessagesResponse>;
+    Contact Sender) : IQuery<MessagesResponse>;

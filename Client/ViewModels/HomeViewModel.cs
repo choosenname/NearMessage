@@ -23,8 +23,8 @@ public class HomeViewModel : ViewModelBase
         _userStore = userStore;
         _httpClient = httpClient;
 
-        SearchUserQuery = new SearchUserQuery(this, httpClient, userStore);
         GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
+        SearchUserQuery = new SearchUserQuery(this, httpClient);
 
         GetAllUsersQuery.Execute(null);
     }

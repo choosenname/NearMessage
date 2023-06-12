@@ -21,13 +21,11 @@ public class GetMessagesQueryHandler : IQueryHandler<GetMessagesQuery, MessagesR
     public async Task<MessagesResponse> Handle(GetMessagesQuery request,
         CancellationToken cancellationToken)
     {
-        var maybeReceiverId = _jwtProvider.GetUserId(request.HttpContext.User);
-
-        if (maybeReceiverId.HasNoValue)
+        if (!request.Sender.ChatId.HasValue)
             return new MessagesResponse(Result.Failure<IEnumerable<Message>>(
-                new Error("Can't find sender identifier")));
+                new Error("Chat not exist")));
 
         return new MessagesResponse(await _messageRepository.GetMessagesAsync(
-            maybeReceiverId.Value, cancellationToken));
+            request.Sender.ChatId.Value, cancellationToken));
     }
 }
