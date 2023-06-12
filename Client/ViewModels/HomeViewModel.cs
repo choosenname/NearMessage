@@ -1,4 +1,5 @@
-﻿using Client.Models;
+﻿using System;
+using Client.Models;
 using Client.Queries;
 using Client.Stores;
 using System.Collections.ObjectModel;
@@ -16,12 +17,13 @@ public class HomeViewModel : ViewModelBase
 
     private ObservableCollection<ContactModel> _contacts = new();
     private string? _searchText;
-    private ContactModel? _selectedContact;
+    private ContactModel _selectedContact;
 
     public HomeViewModel(UserStore userStore, HttpClient httpClient)
     {
         _userStore = userStore;
         _httpClient = httpClient;
+        _selectedContact = new ContactModel(Guid.Empty, String.Empty, null);
 
         GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
         SearchUserQuery = new SearchUserQuery(this, httpClient);
@@ -49,7 +51,7 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    public ContactModel? SelectedContact
+    public ContactModel SelectedContact
     {
         get => _selectedContact;
         set

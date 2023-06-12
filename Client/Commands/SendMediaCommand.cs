@@ -8,6 +8,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 
 namespace Client.Commands;
 
@@ -36,7 +37,7 @@ public class SendMediaCommand : CommandBase
 
         if (result != true) return;
 
-        _contactReceiver.ChatId ??= await ChatService.CreateChatAsync(_httpClient, _contactReceiver);
+        _contactReceiver.ChatId ??= await ChatService.CreateChatAsync(_httpClient, _contactReceiver, CancellationToken.None);
 
         var selectedFilePath = openFileDialog.FileName;
         var fileData = await File.ReadAllBytesAsync(selectedFilePath);
