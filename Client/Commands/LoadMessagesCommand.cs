@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading;
 using Client.Models;
 using Client.Services;
@@ -19,9 +20,14 @@ public class LoadMessagesCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
-        _chatViewModel.Messages =
-            await MessageService.LoadLocalMessagesAsync(_chatViewModel.CurrentContact, CancellationToken.None)
-            ?? await MessageService.SaveMessagesAsync(
-                _chatViewModel.CurrentContact, _httpClient, CancellationToken.None);
+        var messages =
+            await MessageService.LoadLocalMessagesAsync(_chatViewModel.CurrentContact, CancellationToken.None);
+
+        if (messages != null) return;
+
+        messages = await MessageService.SaveMessagesAsync(
+    _chatViewModel.CurrentContact, _httpClient, CancellationToken.None);
+
+_chatViewModel.Messages = messages;
     }
 }

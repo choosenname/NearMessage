@@ -5,6 +5,7 @@ using Client.Stores;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Client.ViewModels;
@@ -23,12 +24,24 @@ public class HomeViewModel : ViewModelBase
     {
         _userStore = userStore;
         _httpClient = httpClient;
+        GetLastMessagesQuery = new GetLastMessagesQuery(httpClient, userStore);
         _selectedContact = new ContactModel(Guid.Empty, String.Empty, null);
 
         GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
         SearchUserQuery = new SearchUserQuery(this, httpClient);
 
         GetAllUsersQuery.Execute(null);
+
+        Task.Run(GetLastMessages);
+    }
+
+    private async Task GetLastMessages()
+    {
+        while (true)
+        {
+            GetLastMessagesQuery.Execute(null);
+            await Task.Delay(1000);
+        }
     }
 
     public ObservableCollection<ContactModel> Contacts
@@ -74,6 +87,6 @@ public class HomeViewModel : ViewModelBase
     }
 
     public ICommand GetAllUsersQuery { get; }
-
     public ICommand SearchUserQuery { get; }
+    public ICommand GetLastMessagesQuery { get; }
 }

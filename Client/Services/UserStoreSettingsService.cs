@@ -14,7 +14,8 @@ public static class UserStoreSettingsService
                 Guid.Empty,
                 Settings.Default.Username,
                 Settings.Default.Password),
-            Token = Settings.Default.Token,
+            // Token = Settings.Default.Token,
+            Token = String.Empty,
             LastResponseTime = Settings.Default.LastResponseTime
         };
 

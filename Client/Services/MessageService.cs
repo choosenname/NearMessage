@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
@@ -7,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Client.Models;
 using Client.Properties;
+using Client.Stores;
 using Client.ViewModels;
 using Newtonsoft.Json;
 
@@ -23,6 +25,8 @@ public static class MessageService
         var directoryPath = Path.Combine(
             Settings.Default.MessagesDataPath,
             contact.ChatId.ToString()!);
+
+        Directory.CreateDirectory(directoryPath);
 
         var fileNames = Directory.GetFiles(directoryPath);
 

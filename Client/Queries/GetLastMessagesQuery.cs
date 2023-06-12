@@ -1,5 +1,6 @@
 ﻿using Client.Commands;
 using Client.Models;
+using Client.Properties;
 using Client.Services;
 using Client.Stores;
 using System;
