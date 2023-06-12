@@ -39,7 +39,7 @@ internal class GetMessagesQuery : CommandBase
 
         if (!_chatViewModel.CurrentContact.ChatId.HasValue) return;
 
-        await SaveEntityService.SaveMessagesAsync(
+        await SaveEntityModelService.SaveMessagesAsync(
             messages,
             _chatViewModel.CurrentContact.ChatId.Value,
             CancellationToken.None);

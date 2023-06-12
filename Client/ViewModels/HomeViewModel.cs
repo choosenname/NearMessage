@@ -2,6 +2,7 @@
 using Client.Queries;
 using Client.Stores;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Net.Http;
 using System.Windows.Input;
 
@@ -21,8 +22,10 @@ public class HomeViewModel : ViewModelBase
     {
         _userStore = userStore;
         _httpClient = httpClient;
+
         SearchUserQuery = new SearchUserQuery(this, httpClient, userStore);
         GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
+
         GetAllUsersQuery.Execute(null);
     }
 
@@ -54,7 +57,7 @@ public class HomeViewModel : ViewModelBase
             _selectedContact = value;
             OnPropertyChanged(nameof(SelectedContact));
 
-            ChatViewModel = new ChatViewModel(value, _userStore, _httpClient);
+            ChatViewModel = new ChatViewModel(this, _userStore, _httpClient, ref value);
         }
     }
 

@@ -1,10 +1,12 @@
 ﻿using Client.Models;
+using Client.Services;
 using Client.ViewModels;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace Client.Commands;
@@ -32,26 +34,27 @@ public class SendMediaCommand : CommandBase
 
         var result = openFileDialog.ShowDialog();
 
-        if (result == true)
-        {
-            var selectedFilePath = openFileDialog.FileName;
-            var fileData = await File.ReadAllBytesAsync(selectedFilePath);
-            var fileName = Path.GetFileName(selectedFilePath);
+        if (result != true) return;
 
-            var message = new MediaModel(
-                Guid.NewGuid(),
-                _chatViewModel.MessageText,
-                Guid.Empty, 
-                _contactReceiver.Id,
-                fileData,
-                fileName);
+        _contactReceiver.ChatId ??= await ChatService.CreateChatAsync(_httpClient, _contactReceiver);
 
-            var content = new StringContent(JsonConvert.SerializeObject(message),
-                Encoding.UTF8, "application/json");
+        var selectedFilePath = openFileDialog.FileName;
+        var fileData = await File.ReadAllBytesAsync(selectedFilePath);
+        var fileName = Path.GetFileName(selectedFilePath);
 
-            var response = await _httpClient.PostAsync("/message/sendfile", content);
+        var message = new MediaModel(
+            Guid.NewGuid(),
+            _chatViewModel.MessageText,
+            Guid.Empty, 
+            _contactReceiver.ChatId.Value,
+            fileData,
+            fileName);
 
-            response.EnsureSuccessStatusCode();
-        }
+        var content = new StringContent(JsonConvert.SerializeObject(message),
+            Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync("/message/sendfile", content);
+
+        response.EnsureSuccessStatusCode();
     }
 }
