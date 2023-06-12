@@ -7,4 +7,4 @@ namespace NearMessage.Application.Messages.Commands.SaveMessage;
 
 public sealed record class SaveMessageCommand(
     Message Message,
-    HttpContext Context) : ICommand<Result>;
+    HttpContext HttpContext) : ICommand<Result>;

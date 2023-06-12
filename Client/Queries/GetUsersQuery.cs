@@ -1,14 +1,19 @@
 ﻿using Client.Commands;
 using Client.Models;
+using Client.Services;
 using Client.Stores;
 using Client.ViewModels;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
+using System.Threading;
 
 namespace Client.Queries;
 
-public class GetAllUsersQuery : CommandBase
+public class GetUsersQuery : CommandBase
 {
     private readonly HomeViewModel _homeViewModel;
 
@@ -16,7 +21,7 @@ public class GetAllUsersQuery : CommandBase
 
     private readonly UserStore _userStore;
 
-    public GetAllUsersQuery(HomeViewModel homeViewModel,
+    public GetUsersQuery(HomeViewModel homeViewModel,
         HttpClient httpClient, UserStore userStore)
     {
         _homeViewModel = homeViewModel;
@@ -37,5 +42,7 @@ public class GetAllUsersQuery : CommandBase
             .ReadAsAsync<ObservableCollection<ContactModel>>();
 
         _homeViewModel.Contacts = contacts;
+
+        foreach (var contact in contacts) await SaveEntityModelService.SaveEntityAsync(contact, CancellationToken.None);
     }
 }

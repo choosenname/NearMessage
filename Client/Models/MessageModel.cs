@@ -2,18 +2,17 @@
 
 namespace Client.Models;
 
-public class MessageModel
+public class MessageModel : EntityModel
 {
-    public MessageModel(Guid id, string content, Guid sender, Guid receiverChatId)
+    public MessageModel(Guid id, string content,
+        Guid sender, Guid receiverChatId)
+        : base(id)
     {
-        Id = id;
         Content = content;
         Sender = sender;
         ReceiverChatId = receiverChatId;
         SendTime = DateTime.Now;
     }
-
-    public Guid Id { get; set; }
 
     public string Content { get; set; }
 

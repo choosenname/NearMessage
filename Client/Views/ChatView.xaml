@@ -12,6 +12,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converter:MessageAlignmentConverter x:Key="MessageAlignmentConverter" />
+        <converter:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
+        <converter:InverseNullableToVisibilityConverter x:Key="InverseNullableToVisibilityConverter" />
     </UserControl.Resources>
     <Grid Background="{DynamicResource PageBackgroundColor}">
         <Grid.RowDefinitions>
@@ -35,18 +37,30 @@
 
                 <TextBlock Grid.Column="1" Text="{Binding CurrentContact.Username}" />
 
-                <Button Grid.Column="2">
+                <Button Grid.Column="2"
+                        Style="{StaticResource IconButtonStyle}"
+                        Command="{Binding GetMessagesCommand}">
                     <iconPacks:PackIconMaterialDesign Kind="Refresh"
                                                       Width="15"
-                                                      Height="15"
-                                                      Foreground="{DynamicResource MainColor}" />
+                                                      Height="15" />
                 </Button>
             </Grid>
 
 
         </Border>
 
-        <ScrollViewer Grid.Row="1">
+        <StackPanel Grid.Row="1" VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Visibility="{Binding Messages,
+            Converter={StaticResource NullableToVisibilityConverter}}">
+
+            <TextBlock Text="There are no messages yet, do you want to write first?" />
+
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1"
+                      Visibility="{Binding Messages,
+            Converter={StaticResource InverseNullableToVisibilityConverter}}">
             <ItemsControl ItemsSource="{Binding Messages}">
 
                 <ItemsControl.Resources>
@@ -59,8 +73,8 @@
 
                             <Border.HorizontalAlignment>
                                 <MultiBinding Converter="{StaticResource MessageAlignmentConverter}">
-                                    <Binding Path="ReceiverChatId" />
-                                    <Binding Path="DataContext.UserStore"
+                                    <Binding Path="Sender" />
+                                    <Binding Path="DataContext.UserStore.User.Id"
                                              RelativeSource="{RelativeSource AncestorType=UserControl}" />
                                 </MultiBinding>
                             </Border.HorizontalAlignment>

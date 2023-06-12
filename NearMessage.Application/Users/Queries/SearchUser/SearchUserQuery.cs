@@ -5,4 +5,4 @@ namespace NearMessage.Application.Users.Queries.SearchUser;
 
 public sealed record SearchUserQuery(
     string Username,
-    HttpContext Context) : IQuery<SearchedUserResponse>;
+    HttpContext HttpContext) : IQuery<SearchedUserResponse>;

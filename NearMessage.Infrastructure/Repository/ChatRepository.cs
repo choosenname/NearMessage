@@ -38,7 +38,7 @@ internal class ChatRepository : IChatRepository
         return chat == null ? Maybe<Chat>.None : Maybe<Chat>.From(chat);
     }
 
-    public async Task<Maybe<Chat>> GetChatByUsersAsync(Guid user1, Guid user2, CancellationToken cancellationToken)
+    public async Task<Maybe<Chat>> GetChatByUsersIdAsync(Guid user1, Guid user2, CancellationToken cancellationToken)
     {
         var chat = await _nearMessageDbContext.Chats
             .FirstOrDefaultAsync(c =>

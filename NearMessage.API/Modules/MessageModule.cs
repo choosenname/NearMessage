@@ -17,16 +17,16 @@ public class MessageModule : CarterModule
 
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/get", async (Contact request, ISender sender,
-            HttpContext context, CancellationToken cancellationToken) =>
+        app.MapPost("/get", async (Contact request,
+            ISender sender, CancellationToken cancellationToken) =>
         {
-            var result = (await sender.Send(new GetMessagesQuery(request, context),
+            var result = (await sender.Send(new GetMessagesQuery(request),
                 cancellationToken)).Messages;
 
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
         });
 
-        app.MapPost("/getlast", async (DateTime lastResponseTime, ISender sender,
+        app.MapGet("/getlast", async (DateTime lastResponseTime, ISender sender,
             HttpContext context, CancellationToken cancellationToken) =>
         {
             var result = (await sender.Send(new GetLastMessagesQuery(lastResponseTime, context),

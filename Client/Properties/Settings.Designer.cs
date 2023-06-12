@@ -61,10 +61,10 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\ClientData\\\\")]
-        public string DataPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\ClientData\\\\Messages")]
+        public string MessagesDataPath {
             get {
-                return ((string)(this["DataPath"]));
+                return ((string)(this["MessagesDataPath"]));
             }
         }
         
@@ -74,6 +74,15 @@ namespace Client.Properties {
         public string HttpUriString {
             get {
                 return ((string)(this["HttpUriString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\ClientData\\\\Users")]
+        public string UserDataPath {
+            get {
+                return ((string)(this["UserDataPath"]));
             }
         }
     }
