@@ -12,26 +12,40 @@ namespace Client.Services;
 
 public class SaveEntityModelService
 {
-    public static async Task SaveMessagesAsync(IEnumerable<EntityModel> entities, Guid chatId,
+    public static async Task SaveMessagesAsync(IEnumerable<MessageModel> messages, Guid chatId,
         CancellationToken cancellationToken)
     {
-        foreach (var entity in entities) await SaveMessageAsync(entity, chatId, cancellationToken);
+        foreach (var message in messages) await SaveEntityAsync(message, cancellationToken);
     }
 
-    public static async Task SaveMessageAsync(EntityModel entity, Guid chatId,
-        CancellationToken cancellationToken)
+    public static async Task SaveEntityAsync(MessageModel message, CancellationToken cancellationToken)
     {
         var directoryPath = Path.Combine(
             Settings.Default.MessagesDataPath,
-            chatId.ToString());
+            message.ReceiverChatId.ToString());
 
         Directory.CreateDirectory(directoryPath);
 
-        var json = JsonConvert.SerializeObject(entity);
+        var json = JsonConvert.SerializeObject(message);
 
         var encoding = Encoding.UTF8;
 
-        await File.WriteAllTextAsync(Path.Combine(directoryPath, $"{entity.Id}.json"), json,
+        await File.WriteAllTextAsync(Path.Combine(directoryPath, $"{message.Id}.json"), json,
+            encoding, cancellationToken);
+    }
+
+    public static async Task SaveEntityAsync(ContactModel contact, CancellationToken cancellationToken)
+    {
+        var directoryPath = Path.Combine(
+            Settings.Default.UserDataPath);
+
+        Directory.CreateDirectory(directoryPath);
+
+        var json = JsonConvert.SerializeObject(contact);
+
+        var encoding = Encoding.UTF8;
+
+        await File.WriteAllTextAsync(Path.Combine(directoryPath, $"{contact.Id}.json"), json,
             encoding, cancellationToken);
     }
 }
