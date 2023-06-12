@@ -39,7 +39,7 @@
 
                 <Button Grid.Column="2"
                         Style="{StaticResource IconButtonStyle}"
-                        Command="{Binding GetMessagesQuery}">
+                        Command="{Binding GetMessagesCommand}">
                     <iconPacks:PackIconMaterialDesign Kind="Refresh"
                                                       Width="15"
                                                       Height="15" />

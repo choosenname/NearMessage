@@ -19,11 +19,9 @@ public class LoadMessagesCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
-        var messages =
+        _chatViewModel.Messages =
             await MessageService.LoadLocalMessagesAsync(_chatViewModel.CurrentContact, CancellationToken.None)
             ?? await MessageService.SaveMessagesAsync(
                 _chatViewModel.CurrentContact, _httpClient, CancellationToken.None);
-
-        _chatViewModel.Messages = messages;
     }
 }

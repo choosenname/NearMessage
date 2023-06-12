@@ -20,11 +20,11 @@ public class ChatViewModel : ViewModelBase
         UserStore = userStore;
         _homeViewModel = homeViewModel;
 
-        GetMessagesQuery = new GetMessagesQuery(this, httpClient);
+        GetMessagesCommand = new LoadMessagesCommand(this, httpClient);
         SendMessageCommand = new SendMessageCommand(this, _homeViewModel.SelectedContact, httpClient);
         SendMediaCommand = new SendMediaCommand(httpClient, _homeViewModel.SelectedContact, this);
 
-        GetMessagesQuery.Execute(null);
+        GetMessagesCommand.Execute(null);
     }
 
     public UserStore UserStore { get; }
@@ -60,7 +60,7 @@ public class ChatViewModel : ViewModelBase
     }
 
     public ICommand SendMessageCommand { get; }
-    public ICommand GetMessagesQuery { get; }
+    public ICommand GetMessagesCommand { get; }
     public ICommand SendMediaCommand { get; }
     public ICommand RefreshCommand { get; }
 }

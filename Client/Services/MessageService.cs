@@ -17,7 +17,7 @@ public static class MessageService
     public static async Task<ObservableCollection<MessageModel>?> LoadLocalMessagesAsync(
         ContactModel contact, CancellationToken cancellationToken)
     {
-        if (!contact.ChatId.HasValue)
+        if (contact.ChatId == null)
             return null;
 
         var directoryPath = Path.Combine(
