@@ -17,10 +17,10 @@ public class MessageModule : CarterModule
 
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/get", async (Contact request, ISender sender,
-            HttpContext context, CancellationToken cancellationToken) =>
+        app.MapPost("/get", async (Contact request,
+            ISender sender, CancellationToken cancellationToken) =>
         {
-            var result = (await sender.Send(new GetMessagesQuery(context),
+            var result = (await sender.Send(new GetMessagesQuery(request),
                 cancellationToken)).Messages;
 
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);

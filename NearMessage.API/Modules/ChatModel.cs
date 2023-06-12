@@ -18,7 +18,7 @@ public class ChatModel : CarterModule
         app.MapPost("/create", async (Contact request, HttpContext httpContext,
             ISender sender, CancellationToken cancellationToken) =>
         {
-                var result = await sender.Send(
+            var result = await sender.Send(
                 new CreateChatCommand(request, httpContext), cancellationToken);
 
             return result.IsSuccess ? Results.Ok(result.Value.ChatId) : Results.BadRequest(result.Error);
