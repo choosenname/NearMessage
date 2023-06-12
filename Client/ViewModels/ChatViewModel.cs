@@ -10,19 +10,20 @@ namespace Client.ViewModels;
 
 public class ChatViewModel : ViewModelBase
 {
-    private ContactModel _currentContact;
-
-    private ObservableCollection<MessageModel> _messages = new();
-
+    private ObservableCollection<MessageModel>? _messages;
     private string _messageText = string.Empty;
+    private readonly HomeViewModel _homeViewModel;
 
-    public ChatViewModel(ContactModel currentContact, UserStore userStore, HttpClient httpClient)
+    public ChatViewModel(HomeViewModel homeViewModel, UserStore userStore, HttpClient httpClient,
+        ref ContactModel contactModel)
     {
-        _currentContact = currentContact;
         UserStore = userStore;
-        SendMessageCommand = new SendMessageCommand(this, currentContact, httpClient);
+        _homeViewModel = homeViewModel;
+
         GetMessagesQuery = new GetMessagesQuery(this, httpClient);
-        SendMediaCommand = new SendMediaCommand(httpClient, currentContact, this);
+        SendMessageCommand = new SendMessageCommand(this, _homeViewModel.SelectedContact, httpClient);
+        SendMediaCommand = new SendMediaCommand(httpClient, _homeViewModel.SelectedContact, this);
+
         GetMessagesQuery.Execute(null);
     }
 
@@ -30,10 +31,10 @@ public class ChatViewModel : ViewModelBase
 
     public ContactModel CurrentContact
     {
-        get => _currentContact;
+        get => _homeViewModel.SelectedContact;
         set
         {
-            _currentContact = value;
+            _homeViewModel.SelectedContact = value;
             OnPropertyChanged(nameof(CurrentContact));
         }
     }
@@ -48,7 +49,7 @@ public class ChatViewModel : ViewModelBase
         }
     }
 
-    public ObservableCollection<MessageModel> Messages
+    public ObservableCollection<MessageModel>? Messages
     {
         get => _messages;
         set
