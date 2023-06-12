@@ -43,9 +43,6 @@ public class GetUsersQuery : CommandBase
 
         _homeViewModel.Contacts = contacts;
 
-        foreach (var contact in contacts)
-        {
-            await SaveEntityModelService.SaveEntityAsync(contact, CancellationToken.None);
-        }
+        foreach (var contact in contacts) await SaveEntityModelService.SaveEntityAsync(contact, CancellationToken.None);
     }
 }

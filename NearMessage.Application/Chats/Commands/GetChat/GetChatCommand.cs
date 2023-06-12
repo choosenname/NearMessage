@@ -9,5 +9,5 @@ using NearMessage.Domain.Users;
 namespace NearMessage.Application.Chats.Commands.GetChat;
 
 public sealed record GetChatCommand(
-    HttpContext HttpContext,
-    Contact Contact) : ICommand<Result<Chat>>;
+    Contact Contact,
+    HttpContext HttpContext) : ICommand<Result<Chat>>;

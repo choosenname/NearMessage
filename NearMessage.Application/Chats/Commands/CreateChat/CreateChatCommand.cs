@@ -7,5 +7,5 @@ using NearMessage.Domain.Contacts;
 namespace NearMessage.Application.Chats.Commands.CreateChat;
 
 public sealed record CreateChatCommand(
-    HttpContext HttpContext,
-    Contact Contact) : ICommand<Result<Chat>>;
+    Contact Contact,
+    HttpContext HttpContext) : ICommand<Result<Chat>>;

@@ -48,8 +48,6 @@ public sealed class JwtProvider : IJwtProvider
     {
         var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier);
 
-        if (userIdClaim == null) return Maybe<Guid>.None;
-
-        return Maybe<Guid>.From(Guid.Parse(userIdClaim.Value));
+        return userIdClaim == null ? Maybe<Guid>.None : Maybe<Guid>.From(Guid.Parse(userIdClaim.Value));
     }
 }

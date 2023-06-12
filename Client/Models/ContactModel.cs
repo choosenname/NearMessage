@@ -5,7 +5,7 @@ namespace Client.Models;
 public class ContactModel : EntityModel
 {
     public ContactModel(Guid id, string username, Guid? chatId)
-    :base (id)
+        : base(id)
     {
         Username = username;
         ChatId = chatId;

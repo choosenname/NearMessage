@@ -15,11 +15,11 @@ public class ChatModel : CarterModule
 
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/create", async (Contact contact, HttpContext httpContext,
+        app.MapPost("/create", async (Contact request, HttpContext httpContext,
             ISender sender, CancellationToken cancellationToken) =>
         {
                 var result = await sender.Send(
-                new CreateChatCommand(httpContext, contact), cancellationToken);
+                new CreateChatCommand(request, httpContext), cancellationToken);
 
             return result.IsSuccess ? Results.Ok(result.Value.ChatId) : Results.BadRequest(result.Error);
         }).RequireAuthorization();

@@ -45,7 +45,7 @@ public class SendMediaCommand : CommandBase
         var message = new MediaModel(
             Guid.NewGuid(),
             _chatViewModel.MessageText,
-            Guid.Empty, 
+            Guid.Empty,
             _contactReceiver.ChatId.Value,
             fileData,
             fileName);
