@@ -10,28 +10,28 @@ using System.Threading.Tasks;
 
 namespace Client.Services;
 
-public class SaveMessageService
+public class SaveEntityModelService
 {
-    public static async Task SaveMessagesAsync(IEnumerable<MessageModel> messages, Guid chatId,
+    public static async Task SaveMessagesAsync(IEnumerable<EntityModel> entities, Guid chatId,
         CancellationToken cancellationToken)
     {
-        foreach (var message in messages) await SaveMessageAsync(message, chatId, cancellationToken);
+        foreach (var entity in entities) await SaveMessageAsync(entity, chatId, cancellationToken);
     }
 
-    public static async Task SaveMessageAsync(MessageModel message, Guid chatId,
+    public static async Task SaveMessageAsync(EntityModel entity, Guid chatId,
         CancellationToken cancellationToken)
     {
         var directoryPath = Path.Combine(
-            Settings.Default.DataPath,
+            Settings.Default.MessagesDataPath,
             chatId.ToString());
 
         Directory.CreateDirectory(directoryPath);
 
-        var json = JsonConvert.SerializeObject(message);
+        var json = JsonConvert.SerializeObject(entity);
 
         var encoding = Encoding.UTF8;
 
-        await File.WriteAllTextAsync(Path.Combine(directoryPath, $"{message.Id}.json"), json,
+        await File.WriteAllTextAsync(Path.Combine(directoryPath, $"{entity.Id}.json"), json,
             encoding, cancellationToken);
     }
 }

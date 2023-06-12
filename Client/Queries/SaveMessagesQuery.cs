@@ -34,6 +34,6 @@ public class SaveMessagesQuery : CommandBase
 
         if (!_currentContact.ChatId.HasValue) return;
 
-        await SaveMessageService.SaveMessagesAsync(messages, _currentContact.ChatId.Value, CancellationToken.None);
+        await SaveEntityModelService.SaveMessagesAsync(messages, _currentContact.ChatId.Value, CancellationToken.None);
     }
 }
