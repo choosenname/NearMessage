@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Client.Commands;
+using Client.Interfaces;
 
 namespace Client.ViewModels;
 
@@ -19,7 +21,7 @@ public class HomeViewModel : ViewModelBase
     private string? _searchText;
     private ContactModel _selectedContact;
 
-    public HomeViewModel(UserStore userStore, HttpClient httpClient)
+    public HomeViewModel(UserStore userStore, HttpClient httpClient, INavigationService settingsNavigationService)
     {
         _userStore = userStore;
         _httpClient = httpClient;
@@ -28,6 +30,7 @@ public class HomeViewModel : ViewModelBase
         GetLastMessagesQuery = new GetLastMessagesQuery(httpClient, userStore);
         GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
         SearchUserQuery = new SearchUserQuery(this, httpClient);
+        SettingsNavigateCommand = new NavigateCommand(settingsNavigationService);
 
         GetAllUsersQuery.Execute(null);
 
@@ -88,4 +91,5 @@ public class HomeViewModel : ViewModelBase
     public ICommand GetAllUsersQuery { get; }
     public ICommand SearchUserQuery { get; }
     public ICommand GetLastMessagesQuery { get; }
+    public ICommand SettingsNavigateCommand { get; }
 }

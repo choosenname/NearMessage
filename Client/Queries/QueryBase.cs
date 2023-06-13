@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Client.Commands;
+namespace Client.Queries;
 
-public abstract class CommandBase : ICommand
+public abstract class QueryBase : ICommand
 {
     public event EventHandler? CanExecuteChanged;
 

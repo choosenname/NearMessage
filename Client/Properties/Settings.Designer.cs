@@ -108,5 +108,14 @@ namespace Client.Properties {
                 this["Id"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ClientData\\\\UsersInformation")]
+        public string UserInformationPath {
+            get {
+                return ((string)(this["UserInformationPath"]));
+            }
+        }
     }
 }

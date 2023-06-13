@@ -5,27 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vms="clr-namespace:Client.ViewModels"
         xmlns:views="clr-namespace:Client.Views"
+        xmlns:modal="clr-namespace:ModalControl;assembly=ModalControl"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        mc:Ignorable="d" d:DataContext="{d:DesignInstance vms:MainViewModel}">
-    <Window.Resources>
-        <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
-            <views:RegistrationView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vms:AuthenticationViewModel}">
-            <views:AuthenticationView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vms:HomeViewModel}">
-            <views:HomeView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vms:ChatViewModel}">
-            <views:ChatView />
-        </DataTemplate>
-    </Window.Resources>
-    <b:Interaction.Triggers>
-        <b:EventTrigger EventName="Closing">
-            <b:InvokeCommandAction Command="{Binding ClosingCommand}" />
-        </b:EventTrigger>
-    </b:Interaction.Triggers>
+        mc:Ignorable="d"
+        Height="450"
+        Width="800"
+        d:DataContext="{d:DesignInstance vms:MainViewModel}">
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
+                <views:RegistrationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:AuthenticationViewModel}">
+                <views:AuthenticationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:HomeViewModel}">
+                <views:HomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ChatViewModel}">
+                <views:ChatView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
+                <views:SettingsView />
+            </DataTemplate>
+        </Grid.Resources>
 
-    <ContentControl Content="{Binding CurrentViewModel}" />
+        <b:Interaction.Triggers>
+            <b:EventTrigger EventName="Closing">
+                <b:InvokeCommandAction Command="{Binding ClosingCommand}" />
+            </b:EventTrigger>
+        </b:Interaction.Triggers>
+
+        <modal:Modal Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
+            <ContentControl Content="{Binding CurrentModalViewModel}" />
+        </modal:Modal>
+
+        <ContentControl Content="{Binding CurrentViewModel}" />
+    </Grid>
 </Window>

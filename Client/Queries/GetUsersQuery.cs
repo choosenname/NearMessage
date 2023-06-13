@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace Client.Queries;
 
-public class GetUsersQuery : CommandBase
+public class GetUsersQuery : QueryBase
 {
     private readonly HomeViewModel _homeViewModel;
 

@@ -6,6 +6,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Windows;
+using Client.Interfaces;
 
 namespace Client;
 
@@ -44,8 +45,8 @@ public partial class App : Application
                 viewModel = _serviceProvider.GetRequiredService<HomeViewModel>();
         }
 
-        var navigationStore = _serviceProvider.GetRequiredService<NavigationStore>();
-        navigationStore.CurrentViewModel = viewModel;
+        var navigationStore = _serviceProvider.GetRequiredService<INavigationService>();
+        navigationStore.Navigate();
 
         MainWindow = _serviceProvider.GetRequiredService<MainWindow>();
         MainWindow.Show();
