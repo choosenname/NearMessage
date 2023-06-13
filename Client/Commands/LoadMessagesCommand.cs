@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using Client.Models;
@@ -27,8 +29,10 @@ public class LoadMessagesCommand : CommandBase
         {
             messages = await MessageService.SaveMessagesAsync(
                 _chatViewModel.CurrentContact, _httpClient, CancellationToken.None);
-        } 
+        }
 
-        _chatViewModel.Messages = messages;
+        if (messages != null)
+            _chatViewModel.Messages = new ObservableCollection<MessageModel>(
+                messages.OrderByDescending(m => m.SendTime));
     }
 }
