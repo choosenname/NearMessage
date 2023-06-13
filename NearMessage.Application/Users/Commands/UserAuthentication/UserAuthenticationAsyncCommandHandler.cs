@@ -7,7 +7,7 @@ using NearMessage.Domain.Users;
 namespace NearMessage.Application.Users.Commands.UserAuthentication;
 
 public sealed class UserAuthenticationAsyncCommandHandler
-    : ICommandHandler<UserAuthenticationCommand, Result<string>>
+    : ICommandHandler<UserAuthenticationCommand, Result<AuthenticationResponse>>
 {
     private readonly IJwtProvider _jwtProvider;
     private readonly IUserRepository _userRepository;
@@ -19,21 +19,22 @@ public sealed class UserAuthenticationAsyncCommandHandler
         _jwtProvider = jwtProvider;
     }
 
-    public async Task<Result<string>> Handle(UserAuthenticationCommand request,
+    public async Task<Result<AuthenticationResponse>> Handle(UserAuthenticationCommand request,
         CancellationToken cancellationToken)
     {
         var maybeUser = await _userRepository.GetByUsernameAsync(request.Username, cancellationToken);
 
         if (maybeUser.HasNoValue)
-            return Result.Failure<string>(new Error("The user with the specified user name was not found."));
+            return Result.Failure<AuthenticationResponse>
+                (new Error("The user with the specified user name was not found."));
 
         var user = maybeUser.Value;
 
         if (!user.VerifyPassword(request.Password))
-            return Result.Failure<string>(new Error("Password wasn't match"));
+            return Result.Failure<AuthenticationResponse>(new Error("Password wasn't match"));
 
         var token = _jwtProvider.Generate(user);
 
-        return Result.Success(token);
+        return Result.Success(new AuthenticationResponse(token, user.Id));
     }
 }

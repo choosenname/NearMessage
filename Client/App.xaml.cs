@@ -4,6 +4,7 @@ using Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Windows;
 
 namespace Client;
@@ -22,7 +23,7 @@ public partial class App : Application
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        ViewModelBase viewModel = _serviceProvider.GetRequiredService<HomeViewModel>();
+        ViewModelBase viewModel;
 
         if (string.IsNullOrEmpty(Settings.Default.Token))
         {
@@ -31,10 +32,16 @@ public partial class App : Application
         else
         {
             var httpClient = _serviceProvider.GetRequiredService<HttpClient>();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                    "Bearer", 
+                    _serviceProvider.GetRequiredService<UserStore>().Token );
+
             var response = await httpClient.PostAsync("/authentication/confirm", null);
 
             if (!response.IsSuccessStatusCode)
                 viewModel = _serviceProvider.GetRequiredService<AuthenticationViewModel>();
+            else
+                viewModel = _serviceProvider.GetRequiredService<HomeViewModel>();
         }
 
         var navigationStore = _serviceProvider.GetRequiredService<NavigationStore>();

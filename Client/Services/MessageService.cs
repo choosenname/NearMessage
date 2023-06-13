@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
@@ -7,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Client.Models;
 using Client.Properties;
+using Client.Stores;
 using Client.ViewModels;
 using Newtonsoft.Json;
 
@@ -17,12 +19,14 @@ public static class MessageService
     public static async Task<ObservableCollection<MessageModel>?> LoadLocalMessagesAsync(
         ContactModel contact, CancellationToken cancellationToken)
     {
-        if (contact.ChatId == null)
+        if (contact?.ChatId == null)
             return null;
 
         var directoryPath = Path.Combine(
             Settings.Default.MessagesDataPath,
             contact.ChatId.ToString()!);
+
+        Directory.CreateDirectory(directoryPath);
 
         var fileNames = Directory.GetFiles(directoryPath);
 
@@ -55,11 +59,8 @@ public static class MessageService
 
         if (!contact.ChatId.HasValue) return null;
 
-        await SaveEntityModelService.SaveMessagesAsync(
-        messages,
-            contact.ChatId.Value,
-            CancellationToken.None);
+            await SaveEntityModelService.SaveMessagesAsync(messages, cancellationToken);
 
-        return messages;
+            return messages;
     }
 }

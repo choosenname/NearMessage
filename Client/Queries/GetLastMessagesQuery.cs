@@ -1,5 +1,6 @@
 ﻿using Client.Commands;
 using Client.Models;
+using Client.Properties;
 using Client.Services;
 using Client.Stores;
 using System;
@@ -26,17 +27,16 @@ public class GetLastMessagesQuery : CommandBase
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
             _userStore.Token);
 
-        var response = await _httpClient.GetAsync($"/messages/getlast"
-                                                  + $"?LastResponseTime ={_userStore.LastResponseTime:yyyy-MM-ddTHH:mm:ss}");
+        var response = await _httpClient.GetAsync($"/message/getlast"
+                                                  + $"?LastResponseTime={_userStore.LastResponseTime:yyyy-MM-ddTHH:mm:ss}");
 
         _userStore.LastResponseTime = DateTime.Now;
 
         if (!response.IsSuccessStatusCode) return;
 
         var contacts = await response.Content
-            .ReadAsAsync<IDictionary<Guid, IEnumerable<MessageModel>>>();
+            .ReadAsAsync<IEnumerable<MessageModel>>();
 
-        foreach (var contact in contacts)
-            await SaveEntityModelService.SaveMessagesAsync(contact.Value, contact.Key, CancellationToken.None);
+            SaveEntityModelService.SaveMessages(contacts);
     }
 }

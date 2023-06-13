@@ -1,6 +1,7 @@
 ﻿using Client.Properties;
 using System.ComponentModel;
 using System.Windows;
+using Client.ViewModels;
 
 namespace Client;
 
@@ -12,10 +13,5 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-    }
-
-    private void Window_Closing(object sender, CancelEventArgs e)
-    {
-        Settings.Default.Save();
     }
 }

@@ -7,7 +7,7 @@ using NearMessage.Domain.Users;
 using NearMessage.Infrastructure.Authentication;
 using NearMessage.Infrastructure.Repository;
 
-namespace NearMessage.Persistence;
+namespace NearMessage.Infrastructure;
 
 public static class DependencyInjection
 {

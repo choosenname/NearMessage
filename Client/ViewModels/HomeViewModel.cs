@@ -3,8 +3,8 @@ using Client.Models;
 using Client.Queries;
 using Client.Stores;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Client.ViewModels;
@@ -25,10 +25,22 @@ public class HomeViewModel : ViewModelBase
         _httpClient = httpClient;
         _selectedContact = new ContactModel(Guid.Empty, String.Empty, null);
 
+        GetLastMessagesQuery = new GetLastMessagesQuery(httpClient, userStore);
         GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
         SearchUserQuery = new SearchUserQuery(this, httpClient);
 
         GetAllUsersQuery.Execute(null);
+
+        Task.Run(GetLastMessages);
+    }
+
+    private async Task GetLastMessages()
+    {
+        while (true)
+        {
+            GetLastMessagesQuery.Execute(null);
+            await Task.Delay(1000);
+        }
     }
 
     public ObservableCollection<ContactModel> Contacts
@@ -59,7 +71,7 @@ public class HomeViewModel : ViewModelBase
             _selectedContact = value;
             OnPropertyChanged(nameof(SelectedContact));
 
-            ChatViewModel = new ChatViewModel(this, _userStore, _httpClient, ref value);
+            ChatViewModel = new ChatViewModel(this, _userStore, _httpClient);
         }
     }
 
@@ -74,6 +86,6 @@ public class HomeViewModel : ViewModelBase
     }
 
     public ICommand GetAllUsersQuery { get; }
-
     public ICommand SearchUserQuery { get; }
+    public ICommand GetLastMessagesQuery { get; }
 }

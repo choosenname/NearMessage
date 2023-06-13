@@ -1,4 +1,7 @@
-﻿using Client.Stores;
+﻿using System.Windows.Input;
+using Client.Commands;
+using Client.Services;
+using Client.Stores;
 
 namespace Client.ViewModels;
 
@@ -6,9 +9,11 @@ public class MainViewModel : ViewModelBase
 {
     private readonly NavigationStore _navigationStore;
 
-    public MainViewModel(NavigationStore navigationStore)
+    public MainViewModel(NavigationStore navigationStore, UserStore userStore)
     {
         _navigationStore = navigationStore;
+
+        ClosingCommand = new SaveUserStoreChangesCommand(userStore);
 
         _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
     }
@@ -19,4 +24,6 @@ public class MainViewModel : ViewModelBase
     {
         OnPropertyChanged(nameof(CurrentViewModel));
     }
+
+    public ICommand ClosingCommand { get; }
 }
