@@ -38,6 +38,6 @@ public class GetLastMessagesQuery : CommandBase
             .ReadAsAsync<IDictionary<Guid, IEnumerable<MessageModel>>>();
 
         foreach (var contact in contacts)
-            await SaveEntityModelService.SaveMessagesAsync(contact.Value, contact.Key, CancellationToken.None);
+            SaveEntityModelService.SaveMessages(contact.Value);
     }
 }

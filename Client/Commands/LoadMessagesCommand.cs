@@ -22,7 +22,7 @@ public class LoadMessagesCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
-        var messages =
+        var messages = 
             await MessageService.LoadLocalMessagesAsync(_chatViewModel.CurrentContact, CancellationToken.None);
 
         if (messages == null || messages.Count == 0)
@@ -33,6 +33,11 @@ public class LoadMessagesCommand : CommandBase
 
         if (messages != null)
             _chatViewModel.Messages = new ObservableCollection<MessageModel>(
-                messages.OrderByDescending(m => m.SendTime));
+                messages.OrderBy(m => m.SendTime));
+    }
+
+    public async void Execute(object? parameter, EventArgs e)
+    {
+        Execute(parameter);
     }
 }

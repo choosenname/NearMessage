@@ -6,7 +6,7 @@
         xmlns:vms="clr-namespace:Client.ViewModels"
         xmlns:views="clr-namespace:Client.Views"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        mc:Ignorable="d" d:DataContext="{d:DesignInstance }">
+        mc:Ignorable="d" d:DataContext="{d:DesignInstance vms:MainViewModel}">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
             <views:RegistrationView />

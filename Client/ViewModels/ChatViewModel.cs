@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Client.Services;
+using System;
 
 namespace Client.ViewModels;
 
@@ -24,16 +26,14 @@ public class ChatViewModel : ViewModelBase
         SendMessageCommand = new SendMessageCommand(this, _homeViewModel.SelectedContact, httpClient);
         SendMediaCommand = new SendMediaCommand(httpClient, _homeViewModel.SelectedContact, this);
 
-        Task.Run(LoadLastMessages);
+        GetMessagesCommand.Execute(null);
+
+        SaveEntityModelService.MessagesSaved += OnMessagesSaved;
     }
 
-    private async Task LoadLastMessages()
+    private void OnMessagesSaved(object? sender, EventArgs e)
     {
-        while (true)
-        {
-            GetMessagesCommand.Execute(null);
-            await Task.Delay(1000);
-        }
+        GetMessagesCommand.Execute(null);
     }
 
     public UserStore UserStore { get; }

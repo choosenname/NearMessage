@@ -59,11 +59,8 @@ public static class MessageService
 
         if (!contact.ChatId.HasValue) return null;
 
-        await SaveEntityModelService.SaveMessagesAsync(
-        messages,
-            contact.ChatId.Value,
-            CancellationToken.None);
+            await SaveEntityModelService.SaveMessagesAsync(messages, cancellationToken);
 
-        return messages;
+            return messages;
     }
 }
