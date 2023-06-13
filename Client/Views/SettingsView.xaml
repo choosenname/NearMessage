@@ -35,6 +35,7 @@
 
         <StackPanel Grid.Row="1">
             <TextBox Style="{StaticResource {x:Type TextBox}}"
+                     Text="{Binding About}"
                      Height="75"
                      Tag="О себе"/>
         </StackPanel>

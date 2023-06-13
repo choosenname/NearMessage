@@ -9,6 +9,7 @@ public class MainViewModel : ViewModelBase
 {
     private readonly NavigationStore _navigationStore;
     private readonly ModalNavigationStore _modalNavigationStore;
+
     public MainViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore, UserStore userStore)
     {
         _navigationStore = navigationStore;

@@ -37,7 +37,7 @@ public static class LoadEntityModelService
 
         Directory.CreateDirectory(directoryPath);
 
-        var fileName = Path.Combine(directoryPath, userId.ToString());
+        var fileName = Path.Combine(directoryPath, $"{userId.ToString()}.json");
 
         if (!File.Exists(fileName)) return new UserInformationModel(userId, null);
 
