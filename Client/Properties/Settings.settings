@@ -12,13 +12,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="MessagesDataPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">D:\\ClientData\\Messages</Value>
+      <Value Profile="(Default)">ClientData\\Messages</Value>
     </Setting>
     <Setting Name="HttpUriString" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://localhost:7196</Value>
     </Setting>
     <Setting Name="UserDataPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">D:\\ClientData\\Users</Value>
+      <Value Profile="(Default)">ClientData\\Users</Value>
     </Setting>
     <Setting Name="LastResponseTime" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)" />

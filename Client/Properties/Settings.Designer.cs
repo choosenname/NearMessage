@@ -61,7 +61,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\ClientData\\\\Messages")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ClientData\\\\Messages")]
         public string MessagesDataPath {
             get {
                 return ((string)(this["MessagesDataPath"]));
@@ -79,7 +79,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\ClientData\\\\Users")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ClientData\\\\Users")]
         public string UserDataPath {
             get {
                 return ((string)(this["UserDataPath"]));
