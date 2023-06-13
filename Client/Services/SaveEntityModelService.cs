@@ -91,6 +91,22 @@ public class SaveEntityModelService
             await File.WriteAllTextAsync(filePath, json, encoding, cancellationToken);
         }
 
+    public static async Task SaveEntityAsync(UserInformationModel contact, CancellationToken cancellationToken)
+    {
+        var directoryPath = Path.Combine(
+            Settings.Default.UserInformationPath);
+
+        Directory.CreateDirectory(directoryPath);
+
+        var json = JsonConvert.SerializeObject(contact);
+
+        var encoding = Encoding.UTF8;
+
+        var filePath = Path.Combine(directoryPath, $"{contact.Id}.json");
+
+        await File.WriteAllTextAsync(filePath, json, encoding, cancellationToken);
+    }
+
     public static async Task SaveMessagesAsync(IEnumerable<MessageModel> messages, CancellationToken cancellationToken)
     {
         foreach (var message in messages)

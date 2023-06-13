@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 
 namespace Client.Queries;
 
-public class SearchUserQuery : CommandBase
+public class SearchUserQuery : QueryBase
 {
     private readonly HomeViewModel _homeViewModel;
 

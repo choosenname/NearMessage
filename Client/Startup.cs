@@ -19,6 +19,7 @@ public class Startup
         var services = new ServiceCollection();
 
         services.AddSingleton<NavigationStore>();
+        services.AddSingleton<ModalNavigationStore>();
         //services.AddSingleton<UserStore>();
         services.AddSingleton(UserStoreSettingsService.GetUserStore());
 
@@ -29,6 +30,7 @@ public class Startup
         });
 
         services.AddSingleton<INavigationService>(CreateHomeNavigationService);
+        services.AddSingleton<CloseModalNavigationService>();
 
         services.AddSingleton<RegistrationViewModel>(s => new RegistrationViewModel(
             s.GetRequiredService<HttpClient>(),
@@ -45,7 +47,10 @@ public class Startup
 
         services.AddSingleton<HomeViewModel>(s => new HomeViewModel(
             s.GetRequiredService<UserStore>(),
-            s.GetRequiredService<HttpClient>()));
+            s.GetRequiredService<HttpClient>(),
+            CreateSettingsNavigationService(s)));
+
+        services.AddTransient<SettingsViewModel>(CreateSettingsViewModel);
 
         services.AddSingleton<MainViewModel>();
         services.AddSingleton<MainWindow>(provider => new MainWindow
@@ -75,5 +80,23 @@ public class Startup
         return new NavigationService<HomeViewModel>(
             serviceProvider.GetRequiredService<NavigationStore>(),
             serviceProvider.GetRequiredService<HomeViewModel>);
+    }
+
+    private static INavigationService CreateSettingsNavigationService(IServiceProvider serviceProvider)
+    {
+        return new ModalNavigationService<SettingsViewModel>(
+            serviceProvider.GetRequiredService<ModalNavigationStore>(),
+            serviceProvider.GetRequiredService<SettingsViewModel>);
+    }
+
+    private static SettingsViewModel CreateSettingsViewModel(IServiceProvider serviceProvider)
+    {
+        var navigationService = new CompositeNavigationService(
+            serviceProvider.GetRequiredService<CloseModalNavigationService>(),
+            CreateHomeNavigationService(serviceProvider));
+
+        return new SettingsViewModel(
+            serviceProvider.GetRequiredService<UserStore>(),
+            navigationService);
     }
 }

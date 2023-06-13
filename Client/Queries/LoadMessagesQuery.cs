@@ -7,14 +7,14 @@ using Client.Models;
 using Client.Services;
 using Client.ViewModels;
 
-namespace Client.Commands;
+namespace Client.Queries;
 
-public class LoadMessagesCommand : CommandBase
+public class LoadMessagesQuery : QueryBase
 {
     private readonly ChatViewModel _chatViewModel;
     private readonly HttpClient _httpClient;
 
-    public LoadMessagesCommand(ChatViewModel chatViewModel, HttpClient httpClient)
+    public LoadMessagesQuery(ChatViewModel chatViewModel, HttpClient httpClient)
     {
         _chatViewModel = chatViewModel;
         _httpClient = httpClient;
@@ -22,7 +22,7 @@ public class LoadMessagesCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
-        var messages = 
+        var messages =
             await MessageService.LoadLocalMessagesAsync(_chatViewModel.CurrentContact, CancellationToken.None);
 
         if (messages == null || messages.Count == 0)

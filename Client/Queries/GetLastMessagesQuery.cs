@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace Client.Queries;
 
-public class GetLastMessagesQuery : CommandBase
+public class GetLastMessagesQuery : QueryBase
 {
     private readonly HttpClient _httpClient;
     private readonly UserStore _userStore;
