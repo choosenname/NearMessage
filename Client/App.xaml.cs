@@ -4,6 +4,7 @@ using Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Windows;
 
 namespace Client;
@@ -31,6 +32,10 @@ public partial class App : Application
         else
         {
             var httpClient = _serviceProvider.GetRequiredService<HttpClient>();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                    "Bearer", 
+                    _serviceProvider.GetRequiredService<UserStore>().Token );
+
             var response = await httpClient.PostAsync("/authentication/confirm", null);
 
             if (!response.IsSuccessStatusCode)

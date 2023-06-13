@@ -5,6 +5,7 @@ using Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using Client.Services;
 using Client.Interfaces;
@@ -18,8 +19,8 @@ public class Startup
         var services = new ServiceCollection();
 
         services.AddSingleton<NavigationStore>();
-        services.AddSingleton<UserStore>();
-        //services.AddSingleton(UserStoreSettingsService.GetUserStore());
+        //services.AddSingleton<UserStore>();
+        services.AddSingleton(UserStoreSettingsService.GetUserStore());
 
         services.AddSingleton(new HttpClient
         {
