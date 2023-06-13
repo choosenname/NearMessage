@@ -20,7 +20,7 @@ public class HomeViewModel : ViewModelBase
     private string? _searchText;
     private ContactModel _selectedContact;
 
-    public HomeViewModel(ref UserStore userStore, HttpClient httpClient)
+    public HomeViewModel(UserStore userStore, HttpClient httpClient)
     {
         _userStore = userStore;
         _httpClient = httpClient;
@@ -72,7 +72,7 @@ public class HomeViewModel : ViewModelBase
             _selectedContact = value;
             OnPropertyChanged(nameof(SelectedContact));
 
-            ChatViewModel = new ChatViewModel(this, _userStore, _httpClient, ref value);
+            ChatViewModel = new ChatViewModel(this, _userStore, _httpClient);
         }
     }
 
