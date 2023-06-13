@@ -8,6 +8,7 @@ using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Text;
+using Client.Interfaces;
 
 namespace Client.Commands;
 
@@ -15,11 +16,11 @@ public class AuthenticationCommand : CommandBase
 {
     private readonly AuthenticationViewModel _authenticationViewModel;
     private readonly HttpClient _httpClient;
-    private readonly NavigationService<HomeViewModel> _navigationService;
+    private readonly INavigationService _navigationService;
     private readonly UserStore _userStore;
 
     public AuthenticationCommand(AuthenticationViewModel authenticationViewModel,
-        HttpClient httpClient, UserStore userStore, NavigationService<HomeViewModel> navigationService)
+        HttpClient httpClient, UserStore userStore, INavigationService navigationService)
     {
         _authenticationViewModel = authenticationViewModel;
         _httpClient = httpClient;

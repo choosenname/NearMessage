@@ -15,8 +15,7 @@ public class ChatViewModel : ViewModelBase
     private string _messageText = string.Empty;
     private readonly HomeViewModel _homeViewModel;
 
-    public ChatViewModel(HomeViewModel homeViewModel, UserStore userStore, HttpClient httpClient,
-        ref ContactModel contactModel)
+    public ChatViewModel(HomeViewModel homeViewModel, UserStore userStore, HttpClient httpClient)
     {
         UserStore = userStore;
         _homeViewModel = homeViewModel;
