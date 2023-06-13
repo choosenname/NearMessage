@@ -61,13 +61,16 @@ public class AuthenticationCommand : CommandBase
 
         if (response.IsSuccessStatusCode)
         {
-            _userStore.Token = await response.Content.ReadAsStringAsync();
+             var receivedData = await response.Content.ReadAsAsync<ReceivedData>();
 
-            _userStore.Token = _userStore.Token.Trim('"');
+            _userStore.Token = receivedData.Token.Trim('"');
+            _userStore.User.Id = receivedData.Id;
 
             _navigationService.Navigate();
         }
 
         _authenticationViewModel.IsLoading = false;
     }
+
+    public record ReceivedData(string Token, Guid Id);
 }

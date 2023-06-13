@@ -9,5 +9,5 @@ public class EntityModel
         Id = id;
     }
 
-    public Guid Id { get; protected set; }
+    public Guid Id { get; set; }
 }
