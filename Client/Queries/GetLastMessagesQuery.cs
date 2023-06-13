@@ -35,9 +35,8 @@ public class GetLastMessagesQuery : CommandBase
         if (!response.IsSuccessStatusCode) return;
 
         var contacts = await response.Content
-            .ReadAsAsync<IDictionary<Guid, IEnumerable<MessageModel>>>();
+            .ReadAsAsync<IEnumerable<MessageModel>>();
 
-        foreach (var contact in contacts)
-            SaveEntityModelService.SaveMessages(contact.Value);
+            SaveEntityModelService.SaveMessages(contacts);
     }
 }
