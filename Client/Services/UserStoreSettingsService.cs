@@ -11,16 +11,17 @@ public static class UserStoreSettingsService
         new()
         {
             User = new UserModel(
-                Guid.Empty,
+                Settings.Default.Id,
                 Settings.Default.Username,
                 Settings.Default.Password),
-            // Token = Settings.Default.Token,
-            Token = String.Empty,
+            Token = Settings.Default.Token,
+            //Token = String.Empty,
             LastResponseTime = Settings.Default.LastResponseTime
         };
 
     public static void SaveUserStore(UserStore userStore)
     {
+        Settings.Default.Id = userStore.User.Id;
         Settings.Default.Username = userStore.User.Username;
         Settings.Default.Password = userStore.User.Password;
         Settings.Default.Token = userStore.Token;

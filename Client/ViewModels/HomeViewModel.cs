@@ -20,7 +20,7 @@ public class HomeViewModel : ViewModelBase
     private string? _searchText;
     private ContactModel _selectedContact;
 
-    public HomeViewModel(UserStore userStore, HttpClient httpClient)
+    public HomeViewModel(ref UserStore userStore, HttpClient httpClient)
     {
         _userStore = userStore;
         _httpClient = httpClient;

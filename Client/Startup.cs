@@ -33,7 +33,8 @@ public class Startup
         });
 
         services.AddSingleton<NavigationStore>();
-        services.AddSingleton(UserStoreSettingsService.GetUserStore());
+        services.AddSingleton<UserStore>();
+        //services.AddSingleton(UserStoreSettingsService.GetUserStore());
 
         return services.BuildServiceProvider();
     }
