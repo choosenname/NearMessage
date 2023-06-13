@@ -74,7 +74,7 @@
                                     <Label Content="{Binding Username}"
                                            Foreground="{DynamicResource ItemForegroundColor}"
                                            FontSize="13" />
-                                    <Label Content="Last Message..." />
+                                    <Label Content="{Binding ChatId}" />
                                 </StackPanel>
 
                             </Grid>

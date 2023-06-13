@@ -1,6 +1,7 @@
 ﻿using Client.Properties;
 using System.ComponentModel;
 using System.Windows;
+using Client.ViewModels;
 
 namespace Client;
 

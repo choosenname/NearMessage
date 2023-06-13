@@ -3,7 +3,6 @@ using Client.Models;
 using Client.Queries;
 using Client.Stores;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -24,9 +23,9 @@ public class HomeViewModel : ViewModelBase
     {
         _userStore = userStore;
         _httpClient = httpClient;
-        GetLastMessagesQuery = new GetLastMessagesQuery(httpClient, userStore);
         _selectedContact = new ContactModel(Guid.Empty, String.Empty, null);
 
+        GetLastMessagesQuery = new GetLastMessagesQuery(httpClient, userStore);
         GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
         SearchUserQuery = new SearchUserQuery(this, httpClient);
 

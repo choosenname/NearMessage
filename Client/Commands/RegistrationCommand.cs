@@ -71,9 +71,6 @@ public class RegistrationCommand : CommandBase
             _navigationService.Navigate();
         }
 
-
-        UserStoreSettingsService.SaveUserStore(_userStore);
-
         _registrationViewModel.IsLoading = false;
     }
 }

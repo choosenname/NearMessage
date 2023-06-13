@@ -47,7 +47,7 @@ public class Startup
             s.GetRequiredService<HttpClient>()));
 
         services.AddSingleton<MainViewModel>();
-        services.AddSingleton(provider => new MainWindow
+        services.AddSingleton<MainWindow>(provider => new MainWindow
         {
             DataContext = provider.GetRequiredService<MainViewModel>()
         });

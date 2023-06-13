@@ -27,7 +27,7 @@ public class GetLastMessagesQuery : CommandBase
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
             _userStore.Token);
 
-        var response = await _httpClient.GetAsync($"/messages/getlast"
+        var response = await _httpClient.GetAsync($"/message/getlast"
                                                   + $"?LastResponseTime ={_userStore.LastResponseTime:yyyy-MM-ddTHH:mm:ss}");
 
         _userStore.LastResponseTime = DateTime.Now;

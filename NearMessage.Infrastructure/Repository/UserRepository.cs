@@ -60,6 +60,7 @@ public class UserRepository : IUserRepository
         return await _context.Users
             .AsNoTracking()
             .Where(u => u.Username.StartsWith(username))
+            .Include(u => u.SentChats)
             .ToListAsync(cancellationToken);
     }
 }

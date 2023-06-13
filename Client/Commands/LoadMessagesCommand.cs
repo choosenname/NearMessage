@@ -23,11 +23,12 @@ public class LoadMessagesCommand : CommandBase
         var messages =
             await MessageService.LoadLocalMessagesAsync(_chatViewModel.CurrentContact, CancellationToken.None);
 
-        if (messages != null) return;
+        if (messages == null || messages.Count == 0)
+        {
+            messages = await MessageService.SaveMessagesAsync(
+                _chatViewModel.CurrentContact, _httpClient, CancellationToken.None);
+        } 
 
-        messages = await MessageService.SaveMessagesAsync(
-    _chatViewModel.CurrentContact, _httpClient, CancellationToken.None);
-
-_chatViewModel.Messages = messages;
+        _chatViewModel.Messages = messages;
     }
 }

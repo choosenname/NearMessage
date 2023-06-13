@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vms="clr-namespace:Client.ViewModels"
         xmlns:views="clr-namespace:Client.Views"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d" d:DataContext="{d:DesignInstance }">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
@@ -20,6 +21,11 @@
             <views:ChatView />
         </DataTemplate>
     </Window.Resources>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Closing">
+            <b:InvokeCommandAction Command="{Binding ClosingCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <ContentControl Content="{Binding CurrentViewModel}" />
 </Window>

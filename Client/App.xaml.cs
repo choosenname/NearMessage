@@ -22,7 +22,7 @@ public partial class App : Application
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        ViewModelBase viewModel = _serviceProvider.GetRequiredService<HomeViewModel>();
+        ViewModelBase viewModel;
 
         if (string.IsNullOrEmpty(Settings.Default.Token))
         {
@@ -35,6 +35,8 @@ public partial class App : Application
 
             if (!response.IsSuccessStatusCode)
                 viewModel = _serviceProvider.GetRequiredService<AuthenticationViewModel>();
+            else
+                viewModel = _serviceProvider.GetRequiredService<HomeViewModel>();
         }
 
         var navigationStore = _serviceProvider.GetRequiredService<NavigationStore>();

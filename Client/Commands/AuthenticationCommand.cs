@@ -68,8 +68,6 @@ public class AuthenticationCommand : CommandBase
             _navigationService.Navigate();
         }
 
-        UserStoreSettingsService.SaveUserStore(_userStore);
-
         _authenticationViewModel.IsLoading = false;
     }
 }
