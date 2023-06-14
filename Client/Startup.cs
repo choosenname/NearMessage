@@ -108,12 +108,17 @@ public class Startup
 
     private static SettingsViewModel CreateSettingsViewModel(IServiceProvider serviceProvider)
     {
-        var navigationService = new CompositeNavigationService(
+        var navigationService1 = new CompositeNavigationService(
             serviceProvider.GetRequiredService<CloseModalNavigationService>(),
             CreateHomeNavigationService(serviceProvider));
 
+        var navigationService2 = new CompositeNavigationService(
+            serviceProvider.GetRequiredService<CloseModalNavigationService>(),
+            CreateAuthenticationNavigationService(serviceProvider));
+
         return new SettingsViewModel(
             serviceProvider.GetRequiredService<UserStore>(),
-            navigationService);
+            navigationService1,
+            navigationService2);
     }
 }

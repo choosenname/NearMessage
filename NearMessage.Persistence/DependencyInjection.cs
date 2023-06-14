@@ -7,18 +7,22 @@ namespace NearMessage.Persistence;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddPersistence(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
+        string? connectionString = configuration.GetConnectionString("DefaultConnection");
+
         services.AddDbContext<NearMessageDbContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                builder => builder.MigrationsAssembly(typeof(NearMessageDbContext).Assembly.FullName));
+            options.UseSqlServer(connectionString, sqlServerOptions =>
+            {
+                sqlServerOptions.MigrationsAssembly(typeof(NearMessageDbContext).Assembly.FullName);
+                sqlServerOptions.EnableRetryOnFailure(
+                    maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+            });
             options.UseLazyLoadingProxies();
         });
 
-        services.AddScoped<INearMessageDbContext>(provider =>
-            provider.GetRequiredService<NearMessageDbContext>());
+        services.AddScoped<INearMessageDbContext, NearMessageDbContext>();
 
         return services;
     }

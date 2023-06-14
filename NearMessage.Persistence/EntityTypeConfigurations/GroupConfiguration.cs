@@ -19,7 +19,6 @@ public class GroupConfiguration : IEntityTypeConfiguration<Group>
         builder.Property(g => g.CreatedAt)
             .IsRequired();
 
-        
         builder.HasMany(g => g.UserGroups)
             .WithOne(ug => ug.Group)
             .HasForeignKey(ug => ug.GroupId);
