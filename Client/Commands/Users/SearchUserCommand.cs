@@ -20,6 +20,7 @@ public class SearchUserCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
+        _homeViewModel.IsSearching = true;
         var response = await _httpClient.GetAsync("/users/search"
                                                   + $"?Username={_homeViewModel.SearchText}");
 
