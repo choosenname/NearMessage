@@ -11,7 +11,7 @@ namespace Client.ViewModels;
 
 public class ChatViewModel : ViewModelBase
 {
-    private ObservableCollection<MessageModel>? _messages;
+    private ObservableCollection<MediaModel>? _messages;
     private string _messageText = string.Empty;
     private readonly HomeViewModel _homeViewModel;
 
@@ -56,7 +56,7 @@ public class ChatViewModel : ViewModelBase
         }
     }
 
-    public ObservableCollection<MessageModel>? Messages
+    public ObservableCollection<MediaModel>? Messages
     {
         get => _messages;
         set

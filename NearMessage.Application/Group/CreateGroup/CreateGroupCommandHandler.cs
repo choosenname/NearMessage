@@ -52,7 +52,7 @@ public sealed record CreateGroupCommandHandler
         if (userGroupResult.IsFailure)
             Result.Failure<Domain.Groups.Group>(userGroupResult.Error);
 
-        var message = new Message(
+        var message = new Media(
             Guid.NewGuid(),
             $"Created new group {request.Name}",
             Guid.Empty,

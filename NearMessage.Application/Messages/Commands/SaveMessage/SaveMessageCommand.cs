@@ -6,5 +6,5 @@ using NearMessage.Domain.Messages;
 namespace NearMessage.Application.Messages.Commands.SaveMessage;
 
 public sealed record class SaveMessageCommand(
-    Message Message,
+    Media Media,
     HttpContext HttpContext) : ICommand<Result>;
