@@ -1,11 +1,16 @@
 ﻿using System;
 using Client.Models;
-using Client.Queries;
 using Client.Stores;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Client.Interfaces;
+using System.Windows;
+using Client.Commands.Croup;
+using Client.Commands.Messages;
+using Client.Commands.Navigation;
+using Client.Commands.Users;
 
 namespace Client.ViewModels;
 
@@ -19,16 +24,31 @@ public class HomeViewModel : ViewModelBase
     private string? _searchText;
     private ContactModel _selectedContact;
 
-    public HomeViewModel(UserStore userStore, HttpClient httpClient)
+    public HomeViewModel(UserStore userStore, HttpClient httpClient, 
+        INavigationService settingsNavigationService, INavigationService createGroupNavigationService)
     {
         _userStore = userStore;
         _httpClient = httpClient;
-        _selectedContact = new ContactModel(Guid.Empty, String.Empty, null);
+        _selectedContact = new ContactModel(Guid.Empty, string.Empty, null);
 
-        GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
-        SearchUserQuery = new SearchUserQuery(this, httpClient);
+        GetLastMessagesCommand = new GetLastMessagesCommand(httpClient, userStore);
+        GetAllUsersCommand = new GetUsersCommand(this, httpClient, userStore);
+        SearchUserCommand = new SearchUserCommand(this, httpClient);
+        SettingsNavigateCommand = new NavigateCommand(settingsNavigationService);
+        CreateGroupCommand = new NavigateCommand(createGroupNavigationService);
 
-        GetAllUsersQuery.Execute(null);
+        GetAllUsersCommand.Execute(null);
+
+        Task.Run(GetLastMessages);
+    }
+
+    private async Task GetLastMessages()
+    {
+        while (true)
+        {
+            GetLastMessagesCommand.Execute(null);
+            await Task.Delay(1000);
+        }
     }
 
     public ObservableCollection<ContactModel> Contacts
@@ -59,7 +79,7 @@ public class HomeViewModel : ViewModelBase
             _selectedContact = value;
             OnPropertyChanged(nameof(SelectedContact));
 
-            ChatViewModel = new ChatViewModel(this, _userStore, _httpClient, ref value);
+            ChatViewModel = new ChatViewModel(this, _userStore, _httpClient);
         }
     }
 
@@ -73,7 +93,14 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    public ICommand GetAllUsersQuery { get; }
+    public override void Dispose()
+    {
+        base.Dispose();
+    }
 
-    public ICommand SearchUserQuery { get; }
+    public ICommand GetAllUsersCommand { get; }
+    public ICommand SearchUserCommand { get; }
+    public ICommand GetLastMessagesCommand { get; }
+    public ICommand SettingsNavigateCommand { get; }
+    public ICommand CreateGroupCommand { get; }
 }

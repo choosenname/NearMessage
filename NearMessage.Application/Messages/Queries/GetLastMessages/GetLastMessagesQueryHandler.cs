@@ -26,20 +26,20 @@ public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQ
         var maybeUserId = _jwtProvider.GetUserId(request.HttpContext.User);
 
         if (maybeUserId.HasNoValue)
-            return new LastMessagesResponse(Result.Failure<IDictionary<Guid, IEnumerable<Message>>>
+            return new LastMessagesResponse(Result.Failure<IEnumerable<Message>>
                 (new Error("User don't recognized")));
 
         var maybeUser = await _userRepository.GetByIdAsync(maybeUserId.Value, cancellationToken);
 
         if (maybeUser.HasNoValue)
-            return new LastMessagesResponse(Result.Failure<IDictionary<Guid, IEnumerable<Message>>>
+            return new LastMessagesResponse(Result.Failure<IEnumerable<Message>>
                 (new Error("User doesn't exist")));
 
         var receivedChats = maybeUser.Value.ReceivedChats;
-        var messages = new Dictionary<Guid, IEnumerable<Message>>();
+        var messages = new List<Message>();
 
         if (receivedChats == null)
-            return new LastMessagesResponse(Result.Success<IDictionary<Guid, IEnumerable<Message>>>(messages));
+            return new LastMessagesResponse(Result.Success<IEnumerable<Message>>(messages));
 
         foreach (var receivedChat in receivedChats)
         {
@@ -49,9 +49,25 @@ public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQ
             if (lastMessages.HasNoValue)
                 continue;
 
-            messages.Add(receivedChat.ChatId, lastMessages.Value);
+            messages.AddRange(lastMessages.Value);
         }
 
-        return new LastMessagesResponse(Result.Success<IDictionary<Guid, IEnumerable<Message>>>(messages));
+        var receivedGroups = maybeUser.Value.UserGroups;
+
+        if (receivedGroups == null)
+            return new LastMessagesResponse(Result.Success<IEnumerable<Message>>(messages));
+
+        foreach (var receivedGroup in receivedGroups)
+        {
+            var lastMessages = await _messageRepository.GetLastMessagesAsync(
+                receivedGroup.GroupId, request.LastResponseTime, cancellationToken);
+
+            if (lastMessages.HasNoValue)
+                continue;
+
+            messages.AddRange(lastMessages.Value);
+        }
+
+        return new LastMessagesResponse(Result.Success<IEnumerable<Message>>(messages));
     }
 }

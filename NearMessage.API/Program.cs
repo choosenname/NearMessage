@@ -1,7 +1,11 @@
 using Carter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using NearMessage.API.OptionsSetup;
 using NearMessage.Application;
+using NearMessage.Application.Abstraction;
+using NearMessage.Infrastructure;
 using NearMessage.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);

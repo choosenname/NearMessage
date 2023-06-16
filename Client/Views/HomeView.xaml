@@ -6,11 +6,12 @@
              xmlns:viewModels="clr-namespace:Client.ViewModels"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance viewModels:HomeViewModel}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:HomeViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="40*" />
             <ColumnDefinition Width="100*" />
         </Grid.ColumnDefinitions>
 
@@ -18,17 +19,29 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="25" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0"
                         Style="{StaticResource IconButtonStyle}"
-                        Command="{Binding SearchUserQuery}">
+                        Command="{Binding SettingsNavigateCommand}">
+                    <iconPacks:PackIconMaterialDesign Kind="Menu"
+                                                      Width="30"
+                                                      Height="15"
+                                                      RenderTransformOrigin="0.5,0.5" />
+                </Button>
+
+                <Button Grid.Column="1"
+                        Style="{StaticResource IconButtonStyle}"
+                        Command="{Binding SearchUserCommand}">
                     <iconPacks:PackIconMaterialDesign Kind="Search"
                                                       Width="40"
                                                       Height="25"
@@ -39,7 +52,7 @@
                     </iconPacks:PackIconMaterialDesign>
                 </Button>
 
-                <TextBox Grid.Column="1"
+                <TextBox Grid.Column="2"
                          Tag="Search"
                          Text="{Binding SearchText}" />
             </Grid>
@@ -74,15 +87,21 @@
                                     <Label Content="{Binding Username}"
                                            Foreground="{DynamicResource ItemForegroundColor}"
                                            FontSize="13" />
-                                    <Label Content="Last Message..." />
+                                    <Label Content="{Binding ChatId}" />
                                 </StackPanel>
 
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
             </ListView>
+
+            <Button Style="{StaticResource {x:Type Button}}"
+                    Grid.Row="2"
+                    Margin="0"
+                    Command="{Binding CreateGroupCommand}">
+                <iconPacks:Modern Kind="Add" />
+            </Button>
         </Grid>
 
         <Frame Grid.Column="1"

@@ -1,5 +1,7 @@
 ﻿using NearMessage.Domain.Chats;
+using NearMessage.Domain.Groups;
 using NearMessage.Domain.Primitives;
+using NearMessage.Domain.UserGroups;
 
 namespace NearMessage.Domain.Users;
 
@@ -22,6 +24,8 @@ public class User : Entity
     public virtual List<Chat>? SentChats { get; set; }
 
     public virtual List<Chat>? ReceivedChats { get; set; }
+
+    public virtual List<UserGroup>? UserGroups { get; set; }
 
     public bool VerifyPassword(string password)
     {

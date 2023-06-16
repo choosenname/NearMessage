@@ -33,11 +33,30 @@ public sealed class GetAllUsersQueryHandler : IQueryHandler<GetAllUsersQuery, Us
                 Result.Failure<IEnumerable<Contact>?>(new Error("Used doesn't exist")));
 
         var contacts = maybeSender.Value.SentChats
-            ?.Select(c => new Contact(
-                c.Receiver.Id,
-                c.Receiver.Username,
-                c.ChatId))
+            ?.Select(c =>
+            {
+                if (c.Receiver != null)
+                    return new Contact(
+                        c.Receiver.Id,
+                        c.Receiver.Username,
+                        c.ChatId);
+                return null;
+            })
             .ToList();
+
+        var groupContacts = maybeSender.Value.UserGroups
+            ?.Select(ug =>
+            {
+                if (ug.Group != null)
+                    return new Contact(
+                        ug.GroupId,
+                        ug.Group.Name,
+                        ug.GroupId);
+                return null;
+            })
+            .ToList();
+
+        if (groupContacts != null) contacts?.AddRange(groupContacts);
 
         return new UsersResponse(Result.Success<IEnumerable<Contact>?>(contacts));
     }

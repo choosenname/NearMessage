@@ -8,18 +8,19 @@ using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Text;
+using Client.Interfaces;
 
-namespace Client.Commands;
+namespace Client.Commands.Users;
 
 public class RegistrationCommand : CommandBase
 {
     private readonly HttpClient _httpClient;
-    private readonly NavigationService<HomeViewModel> _navigationService;
+    private readonly INavigationService _navigationService;
     private readonly RegistrationViewModel _registrationViewModel;
     private readonly UserStore _userStore;
 
     public RegistrationCommand(RegistrationViewModel registrationViewModel,
-        HttpClient httpClient, UserStore userStore, NavigationService<HomeViewModel> navigationService)
+        HttpClient httpClient, UserStore userStore, INavigationService homeNavigationService)
     {
         _registrationViewModel = registrationViewModel;
 
@@ -27,7 +28,7 @@ public class RegistrationCommand : CommandBase
         _httpClient = httpClient;
 
         _userStore = userStore;
-        _navigationService = navigationService;
+        _navigationService = homeNavigationService;
     }
 
     private void OnPropertyChanged(object? sender,
@@ -69,12 +70,6 @@ public class RegistrationCommand : CommandBase
 
             _navigationService.Navigate();
         }
-
-
-        Settings.Default.Username = _userStore.User.Username;
-        Settings.Default.Password = _userStore.User.Password;
-        Settings.Default.Token = _userStore.Token;
-        Settings.Default.Save();
 
         _registrationViewModel.IsLoading = false;
     }

@@ -1,10 +1,13 @@
-﻿using Client.Properties;
+﻿using Client.Interfaces;
+using Client.Properties;
 using Client.Stores;
 using Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Windows;
+using Client.Services;
 
 namespace Client;
 
@@ -22,23 +25,8 @@ public partial class App : Application
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        ViewModelBase viewModel = _serviceProvider.GetRequiredService<HomeViewModel>();
-
-        if (string.IsNullOrEmpty(Settings.Default.Token))
-        {
-            viewModel = _serviceProvider.GetRequiredService<RegistrationViewModel>();
-        }
-        else
-        {
-            var httpClient = _serviceProvider.GetRequiredService<HttpClient>();
-            var response = await httpClient.PostAsync("/authentication/confirm", null);
-
-            if (!response.IsSuccessStatusCode)
-                viewModel = _serviceProvider.GetRequiredService<AuthenticationViewModel>();
-        }
-
-        var navigationStore = _serviceProvider.GetRequiredService<NavigationStore>();
-        navigationStore.CurrentViewModel = viewModel;
+        var navigation = _serviceProvider.GetRequiredService<INavigationService>();
+        navigation.Navigate();
 
         MainWindow = _serviceProvider.GetRequiredService<MainWindow>();
         MainWindow.Show();

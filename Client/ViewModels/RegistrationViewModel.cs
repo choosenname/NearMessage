@@ -3,6 +3,9 @@ using Client.Services;
 using Client.Stores;
 using System.Net.Http;
 using System.Windows.Input;
+using Client.Commands.Navigation;
+using Client.Commands.Users;
+using Client.Interfaces;
 
 namespace Client.ViewModels;
 
@@ -11,19 +14,15 @@ public class RegistrationViewModel : ViewModelBase
     private readonly UserStore _userStore;
     private bool _isLoading;
 
-    public RegistrationViewModel(HttpClient httpClient, UserStore userStore, NavigationStore navigationStore)
+    public RegistrationViewModel(HttpClient httpClient, UserStore userStore,
+        INavigationService authenticationNavigationService, INavigationService homeNavigationService)
     {
         _userStore = userStore;
 
-        NavigateCommand = new NavigateCommand<AuthenticationViewModel>(
-            new NavigationService<AuthenticationViewModel>(navigationStore,
-                () => new AuthenticationViewModel(httpClient, userStore, navigationStore)));
+        NavigateCommand = new NavigateCommand(authenticationNavigationService);
 
-        var navigateService = new NavigationService<HomeViewModel>(
-            navigationStore,
-            () => new HomeViewModel(userStore, httpClient));
-
-        RegistrationCommand = new RegistrationCommand(this, httpClient, userStore, navigateService);
+        RegistrationCommand = new RegistrationCommand(
+            this, httpClient, userStore, homeNavigationService);
     }
 
     public string Username

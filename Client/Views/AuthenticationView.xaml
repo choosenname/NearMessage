@@ -6,7 +6,10 @@
              xmlns:viewModel="clr-namespace:Client.ViewModels"
              xmlns:converters="clr-namespace:Client.Converter"
              xmlns:custom="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
-             mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModel:AuthenticationViewModel}">
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModel:AuthenticationViewModel}">
     <UserControl.Resources>
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </UserControl.Resources>

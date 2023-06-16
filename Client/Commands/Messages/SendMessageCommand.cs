@@ -9,7 +9,7 @@ using System.Threading;
 using Client.Services;
 using Client.Stores;
 
-namespace Client.Commands;
+namespace Client.Commands.Messages;
 
 public class SendMessageCommand : CommandBase
 {
@@ -26,7 +26,8 @@ public class SendMessageCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
-        _contactReceiver.ChatId ??= await ChatService.CreateChatAsync(_httpClient, _contactReceiver, CancellationToken.None);
+        _contactReceiver.ChatId ??=
+            await ChatService.CreateChatAsync(_httpClient, _contactReceiver, CancellationToken.None);
 
         var message = new MessageModel(
             Guid.NewGuid(),

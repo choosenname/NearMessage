@@ -16,7 +16,7 @@ public sealed class Error : IEquatable<Error>
         return other is not null && Message == other.Message;
     }
 
-    public static bool operator ==(Error a, Error b)
+    public static bool operator ==(Error? a, Error? b)
     {
         if (a is null && b is null) return true;
 

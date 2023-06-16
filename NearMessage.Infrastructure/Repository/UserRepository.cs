@@ -57,9 +57,12 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetUsersByUsernameAsync(string username, CancellationToken cancellationToken)
     {
-        return await _context.Users
+        var users = await _context.Users
             .AsNoTracking()
             .Where(u => u.Username.StartsWith(username))
+            .Include(u => u.SentChats)
             .ToListAsync(cancellationToken);
+
+        return users;
     }
 }

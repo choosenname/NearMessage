@@ -5,21 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vms="clr-namespace:Client.ViewModels"
         xmlns:views="clr-namespace:Client.Views"
-        mc:Ignorable="d" d:DataContext="{d:DesignInstance }">
-    <Window.Resources>
-        <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
-            <views:RegistrationView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vms:AuthenticationViewModel}">
-            <views:AuthenticationView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vms:HomeViewModel}">
-            <views:HomeView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vms:ChatViewModel}">
-            <views:ChatView />
-        </DataTemplate>
-    </Window.Resources>
+        xmlns:modal="clr-namespace:ModalControl;assembly=ModalControl"
+        mc:Ignorable="d"
+        Height="450"
+        Width="800"
+        d:DataContext="{d:DesignInstance vms:MainViewModel}">
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
+                <views:RegistrationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:AuthenticationViewModel}">
+                <views:AuthenticationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:HomeViewModel}">
+                <views:HomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ChatViewModel}">
+                <views:ChatView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
+                <views:SettingsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:WelcomeViewModel}">
+                <views:WelcomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CreateGroupViewModel}">
+                <views:CreateGroupView />
+            </DataTemplate>
+        </Grid.Resources>
 
-    <ContentControl Content="{Binding CurrentViewModel}" />
+        <modal:Modal Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
+            <ContentControl Content="{Binding CurrentModalViewModel}" />
+        </modal:Modal>
+
+        <ContentControl Content="{Binding CurrentViewModel}" />
+    </Grid>
 </Window>
