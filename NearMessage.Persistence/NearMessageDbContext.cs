@@ -14,7 +14,7 @@ public sealed class NearMessageDbContext : DbContext, INearMessageDbContext
     public NearMessageDbContext(DbContextOptions<NearMessageDbContext> options)
         : base(options)
     {
-        Database.EnsureCreated();
+        //Database.EnsureCreated();
     }
 
     public DbSet<User> Users { get; set; }

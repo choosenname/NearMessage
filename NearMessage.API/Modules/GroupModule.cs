@@ -14,12 +14,12 @@ public class GroupModule : CarterModule
 
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/create", async ([FromBody]String name, HttpContext httpContext,
+        app.MapPost("/create", async ([FromBody] String name, HttpContext httpContext,
             ISender sender, CancellationToken cancellationToken) =>
         {
             var result = await sender.Send(new CreateGroupCommand(name, httpContext), cancellationToken);
 
-            return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
+            return result.IsSuccess ? Results.Ok() : Results.BadRequest(result.Error);
         }).RequireAuthorization();
     }
 }
