@@ -52,6 +52,22 @@ public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQ
             messages.AddRange(lastMessages.Value);
         }
 
+        var receivedGroups = maybeUser.Value.UserGroups;
+
+        if (receivedGroups == null)
+            return new LastMessagesResponse(Result.Success<IEnumerable<Message>>(messages));
+
+        foreach (var receivedGroup in receivedGroups)
+        {
+            var lastMessages = await _messageRepository.GetLastMessagesAsync(
+                receivedGroup.GroupId, request.LastResponseTime, cancellationToken);
+
+            if (lastMessages.HasNoValue)
+                continue;
+
+            messages.AddRange(lastMessages.Value);
+        }
+
         return new LastMessagesResponse(Result.Success<IEnumerable<Message>>(messages));
     }
 }

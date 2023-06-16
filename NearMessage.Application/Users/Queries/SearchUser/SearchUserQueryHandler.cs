@@ -47,7 +47,7 @@ public sealed class SearchUserQueryHandler : IQueryHandler<SearchUserQuery, Sear
 
         var groupContacts = groups.Select(g =>
             new Contact(
-                Guid.Empty,
+                g.Id,
                 g.Name,
                 g.Id))
             .ToList();

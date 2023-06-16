@@ -49,7 +49,7 @@ public sealed class GetAllUsersQueryHandler : IQueryHandler<GetAllUsersQuery, Us
             {
                 if (ug.Group != null)
                     return new Contact(
-                        Guid.Empty,
+                        ug.GroupId,
                         ug.Group.Name,
                         ug.GroupId);
                 return null;
