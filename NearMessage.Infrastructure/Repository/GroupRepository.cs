@@ -22,4 +22,15 @@ public class GroupRepository : IGroupRepository
 
         return Result.Success(group);
     }
+
+    public async Task<IEnumerable<Group>> GetGroupsByUsernameAsync(string groupName, CancellationToken cancellationToken)
+    {
+        var groups = await _context.Groups
+            .AsNoTracking()
+            .Where(g => g.Name.StartsWith(groupName))
+            .Include(g => g.UserGroups)
+            .ToListAsync(cancellationToken);
+
+        return groups;
+    }
 }
