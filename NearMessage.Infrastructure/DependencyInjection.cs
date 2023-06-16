@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NearMessage.Application.Abstraction;
 using NearMessage.Domain.Chats;
+using NearMessage.Domain.Groups;
 using NearMessage.Domain.Messages;
 using NearMessage.Domain.Users;
 using NearMessage.Infrastructure.Authentication;
@@ -19,6 +20,7 @@ public static class DependencyInjection
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<IMessageRepository, MessageRepository>();
         services.AddTransient<IChatRepository, ChatRepository>();
+        services.AddTransient<IGroupRepository, GroupRepository>();
 
         services.AddTransient<JwtOptions>();
         services.AddScoped<IJwtProvider, JwtProvider>();

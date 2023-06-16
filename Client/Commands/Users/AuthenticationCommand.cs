@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text;
 using Client.Interfaces;
 
-namespace Client.Commands;
+namespace Client.Commands.Users;
 
 public class AuthenticationCommand : CommandBase
 {
@@ -61,16 +61,17 @@ public class AuthenticationCommand : CommandBase
 
         if (response.IsSuccessStatusCode)
         {
-             var receivedData = await response.Content.ReadAsAsync<ReceivedData>();
+            var receivedData = await response.Content.ReadAsAsync<ReceivedData>();
 
             _userStore.Token = receivedData.Token.Trim('"');
             _userStore.User.Id = receivedData.Id;
 
-            _navigationService.Navigate();
+        _navigationService.Navigate();
         }
 
         _authenticationViewModel.IsLoading = false;
     }
 
     public record ReceivedData(string Token, Guid Id);
+    public record ResponseData(string Username, string Password);
 }

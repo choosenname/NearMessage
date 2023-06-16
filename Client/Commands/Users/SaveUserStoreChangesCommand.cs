@@ -1,7 +1,7 @@
 ﻿using Client.Services;
 using Client.Stores;
 
-namespace Client.Commands;
+namespace Client.Commands.Users;
 
 public class SaveUserStoreChangesCommand : CommandBase
 {
@@ -14,6 +14,6 @@ public class SaveUserStoreChangesCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-            UserStoreSettingsService.SaveUserStore(_userStore);
-        }
+        UserStoreSettingsService.SaveUserStore(_userStore);
+    }
 }

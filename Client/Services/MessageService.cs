@@ -45,7 +45,7 @@ public static class MessageService
     }
 
     public static async Task<ObservableCollection<MessageModel>?> SaveMessagesAsync(
-        ContactModel contact,HttpClient httpClient, CancellationToken cancellationToken)
+        ContactModel contact, HttpClient httpClient, CancellationToken cancellationToken)
     {
         var content = new StringContent(
             JsonConvert.SerializeObject(contact),
@@ -59,8 +59,8 @@ public static class MessageService
 
         if (!contact.ChatId.HasValue) return null;
 
-            await SaveEntityModelService.SaveMessagesAsync(messages, cancellationToken);
+        await SaveEntityModelService.SaveMessagesAsync(messages, cancellationToken);
 
-            return messages;
+        return messages;
     }
 }

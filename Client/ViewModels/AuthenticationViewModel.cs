@@ -3,6 +3,8 @@ using Client.Services;
 using Client.Stores;
 using System.Net.Http;
 using System.Windows.Input;
+using Client.Commands.Navigation;
+using Client.Commands.Users;
 using Client.Interfaces;
 
 namespace Client.ViewModels;
@@ -19,7 +21,8 @@ public class AuthenticationViewModel : ViewModelBase
 
         NavigateCommand = new NavigateCommand(registrationNavigationService);
 
-        AuthenticationCommand = new AuthenticationCommand(this, httpClient, userStore, homeNavigationService);
+        AuthenticationCommand = new AuthenticationCommand(
+            this, httpClient, userStore, homeNavigationService);
     }
 
     public string Username

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Client.Views"
              xmlns:vms="clr-namespace:Client.ViewModels"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
@@ -37,7 +36,7 @@
             <TextBox Style="{StaticResource {x:Type TextBox}}"
                      Text="{Binding About}"
                      Height="75"
-                     Tag="О себе"/>
+                     Tag="О себе" />
         </StackPanel>
 
         <Grid Grid.Row="2">
@@ -46,15 +45,15 @@
                         Width="60"
                         Height="35"
                         Command="{Binding ExitCommand}">
-                <iconPacks:PackIconMaterialDesign Kind="ArrowBack"/>
-            </Button>
+                    <iconPacks:PackIconMaterialDesign Kind="ArrowBack" />
+                </Button>
 
-            <Button Style="{StaticResource WideButtonStyle}"
-                    Width="120"
-                    Height="35"
-                    Margin="10 0 0 0"
-                    Content="Log Out"
-                    Command="{Binding LogOutCommand}"/>
+                <Button Style="{StaticResource WideButtonStyle}"
+                        Width="120"
+                        Height="35"
+                        Margin="10 0 0 0"
+                        Content="Log Out"
+                        Command="{Binding LogOutCommand}" />
             </StackPanel>
         </Grid>
 

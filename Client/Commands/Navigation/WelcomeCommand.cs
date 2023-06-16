@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace Client.Commands;
+namespace Client.Commands.Navigation;
 
 public class WelcomeCommand : CommandBase
 {
@@ -33,9 +33,8 @@ public class WelcomeCommand : CommandBase
         }
         else
         {
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-                    "Bearer",
-                    _userStore.Token);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                _userStore.Token);
 
             var response = await _httpClient.PostAsync("/authentication/confirm", null);
 

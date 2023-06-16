@@ -7,14 +7,14 @@ using Client.Models;
 using Client.Services;
 using Client.ViewModels;
 
-namespace Client.Queries;
+namespace Client.Commands.Messages;
 
-public class LoadMessagesQuery : QueryBase
+public class LoadMessagesCommand : CommandBase
 {
     private readonly ChatViewModel _chatViewModel;
     private readonly HttpClient _httpClient;
 
-    public LoadMessagesQuery(ChatViewModel chatViewModel, HttpClient httpClient)
+    public LoadMessagesCommand(ChatViewModel chatViewModel, HttpClient httpClient)
     {
         _chatViewModel = chatViewModel;
         _httpClient = httpClient;
@@ -26,10 +26,8 @@ public class LoadMessagesQuery : QueryBase
             await MessageService.LoadLocalMessagesAsync(_chatViewModel.CurrentContact, CancellationToken.None);
 
         if (messages == null || messages.Count == 0)
-        {
             messages = await MessageService.SaveMessagesAsync(
                 _chatViewModel.CurrentContact, _httpClient, CancellationToken.None);
-        }
 
         if (messages != null)
             _chatViewModel.Messages = new ObservableCollection<MessageModel>(

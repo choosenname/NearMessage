@@ -1,9 +1,8 @@
-﻿using System.Threading;
-using System.Windows.Input;
-using Client.Commands;
+﻿using System.Windows.Input;
+using Client.Commands.Navigation;
+using Client.Commands.Users;
 using Client.Interfaces;
 using Client.Models;
-using Client.Queries;
 using Client.Services;
 using Client.Stores;
 
@@ -19,7 +18,7 @@ public class SettingsViewModel : ViewModelBase
     {
         _userStore = userStore;
         _informationModel = LoadEntityModelService.LoadEntity(_userStore.User.Id);
-        
+
         ExitCommand = new ExitCommand(this, homeNavigationService);
         LogOutCommand = new LogOutCommand(userStore, authenticationNavigationService);
     }

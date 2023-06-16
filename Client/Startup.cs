@@ -47,7 +47,8 @@ public class Startup
         services.AddSingleton<HomeViewModel>(s => new HomeViewModel(
             s.GetRequiredService<UserStore>(),
             s.GetRequiredService<HttpClient>(),
-            CreateSettingsNavigationService(s)));
+            CreateSettingsNavigationService(s),
+            CreateCreateGroupNavigationService(s)));
 
         services.AddTransient<SettingsViewModel>(CreateSettingsViewModel);
 
@@ -58,15 +59,15 @@ public class Startup
             CreateRegistrationNavigationService(s),
             CreateAuthenticationNavigationService(s)));
 
+        services.AddTransient<CreateGroupViewModel>(CreateCreateGroupViewModel);
+
         services.AddSingleton<MainViewModel>(s => new MainViewModel(
             s.GetRequiredService<NavigationStore>(),
             s.GetRequiredService<ModalNavigationStore>(),
             s.GetRequiredService<UserStore>()));
 
-        services.AddSingleton<MainWindow>(provider => new MainWindow
-        {
-            DataContext = provider.GetRequiredService<MainViewModel>()
-        });
+        services.AddSingleton<MainWindow>(provider => new MainWindow(
+            provider.GetRequiredService<MainViewModel>()));
 
         return services.BuildServiceProvider();
     }
@@ -106,6 +107,13 @@ public class Startup
             serviceProvider.GetRequiredService<WelcomeViewModel>);
     }
 
+    private static INavigationService CreateCreateGroupNavigationService(IServiceProvider serviceProvider)
+    {
+        return new ModalNavigationService<CreateGroupViewModel>(
+            serviceProvider.GetRequiredService<ModalNavigationStore>(),
+            serviceProvider.GetRequiredService<CreateGroupViewModel>);
+    }
+
     private static SettingsViewModel CreateSettingsViewModel(IServiceProvider serviceProvider)
     {
         var navigationService1 = new CompositeNavigationService(
@@ -120,5 +128,16 @@ public class Startup
             serviceProvider.GetRequiredService<UserStore>(),
             navigationService1,
             navigationService2);
+    }
+
+    private static CreateGroupViewModel CreateCreateGroupViewModel(IServiceProvider serviceProvider)
+    {
+        var navigationService = new CompositeNavigationService(
+            serviceProvider.GetRequiredService<CloseModalNavigationService>(),
+            CreateHomeNavigationService(serviceProvider));
+
+        return new CreateGroupViewModel(
+            serviceProvider.GetRequiredService<HttpClient>(),
+            navigationService);
     }
 }

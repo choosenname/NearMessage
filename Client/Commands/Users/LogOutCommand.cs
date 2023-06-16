@@ -3,7 +3,7 @@ using Client.Interfaces;
 using Client.Properties;
 using Client.Stores;
 
-namespace Client.Commands;
+namespace Client.Commands.Users;
 
 public class LogOutCommand : CommandBase
 {
@@ -18,8 +18,8 @@ public class LogOutCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        Settings.Default.Token = String.Empty;
-        _userStore.Token = String.Empty;
+        Settings.Default.Token = string.Empty;
+        _userStore.Token = string.Empty;
         _authenticationNavigationService.Navigate();
     }
 }

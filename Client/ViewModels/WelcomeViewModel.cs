@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows.Input;
 using Client.Commands;
+using Client.Commands.Navigation;
 using Client.Interfaces;
 using Client.Stores;
 

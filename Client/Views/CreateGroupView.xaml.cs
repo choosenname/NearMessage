@@ -13,15 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Client.Views;
-
-/// <summary>
-/// Interaction logic for WelcomeView.xaml
-/// </summary>
-public partial class WelcomeView : UserControl
+namespace Client.Views
 {
-    public WelcomeView()
+    /// <summary>
+    /// Interaction logic for CreateGroupView.xaml
+    /// </summary>
+    public partial class CreateGroupView : UserControl
     {
-        InitializeComponent();
+        public CreateGroupView()
+        {
+            InitializeComponent();
+        }
     }
 }

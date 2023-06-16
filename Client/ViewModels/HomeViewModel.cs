@@ -5,9 +5,12 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Client.Commands;
 using Client.Interfaces;
 using System.Windows;
+using Client.Commands.Croup;
+using Client.Commands.Messages;
+using Client.Commands.Navigation;
+using Client.Commands.Users;
 
 namespace Client.ViewModels;
 
@@ -21,29 +24,29 @@ public class HomeViewModel : ViewModelBase
     private string? _searchText;
     private ContactModel _selectedContact;
 
-    public HomeViewModel(UserStore userStore, HttpClient httpClient, INavigationService settingsNavigationService)
+    public HomeViewModel(UserStore userStore, HttpClient httpClient, 
+        INavigationService settingsNavigationService, INavigationService createGroupNavigationService)
     {
         _userStore = userStore;
         _httpClient = httpClient;
-        _selectedContact = new ContactModel(Guid.Empty, String.Empty, null);
+        _selectedContact = new ContactModel(Guid.Empty, string.Empty, null);
 
-        GetLastMessagesQuery = new GetLastMessagesQuery(httpClient, userStore);
-        GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
-        SearchUserQuery = new SearchUserQuery(this, httpClient);
+        GetLastMessagesCommand = new GetLastMessagesCommand(httpClient, userStore);
+        GetAllUsersCommand = new GetUsersCommand(this, httpClient, userStore);
+        SearchUserCommand = new SearchUserCommand(this, httpClient);
         SettingsNavigateCommand = new NavigateCommand(settingsNavigationService);
+        CreateGroupCommand = new NavigateCommand(createGroupNavigationService);
 
-        GetAllUsersQuery.Execute(null);
+        GetAllUsersCommand.Execute(null);
 
         Task.Run(GetLastMessages);
-
-        MessageBox.Show(Contacts[0].Username);
     }
 
     private async Task GetLastMessages()
     {
         while (true)
         {
-            GetLastMessagesQuery.Execute(null);
+            GetLastMessagesCommand.Execute(null);
             await Task.Delay(1000);
         }
     }
@@ -95,8 +98,9 @@ public class HomeViewModel : ViewModelBase
         base.Dispose();
     }
 
-    public ICommand GetAllUsersQuery { get; }
-    public ICommand SearchUserQuery { get; }
-    public ICommand GetLastMessagesQuery { get; }
+    public ICommand GetAllUsersCommand { get; }
+    public ICommand SearchUserCommand { get; }
+    public ICommand GetLastMessagesCommand { get; }
     public ICommand SettingsNavigateCommand { get; }
+    public ICommand CreateGroupCommand { get; }
 }
