@@ -19,6 +19,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="25" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -26,6 +27,7 @@
                     <ColumnDefinition Width="40" />
                     <ColumnDefinition Width="40" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0"
@@ -93,8 +95,13 @@
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
             </ListView>
+
+            <Button Style="{StaticResource {x:Type Button}}"
+                    Grid.Row="2"
+                    Margin="0">
+                <iconPacks:Modern Kind="Add" />
+            </Button>
         </Grid>
 
         <Frame Grid.Column="1"
