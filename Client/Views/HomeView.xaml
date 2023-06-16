@@ -5,10 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Client.ViewModels"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:converter="clr-namespace:Client.Converter"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:HomeViewModel}">
+    <UserControl.Resources>
+        <converter:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*" />
@@ -19,6 +24,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="25" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -26,6 +32,7 @@
                     <ColumnDefinition Width="40" />
                     <ColumnDefinition Width="40" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0"
@@ -34,22 +41,39 @@
                     <iconPacks:PackIconMaterialDesign Kind="Menu"
                                                       Width="30"
                                                       Height="15"
-                                                      RenderTransformOrigin="0.5,0.5">
-                    </iconPacks:PackIconMaterialDesign>
+                                                      RenderTransformOrigin="0.5,0.5" />
                 </Button>
 
-                <Button Grid.Column="1"
-                        Style="{StaticResource IconButtonStyle}"
-                        Command="{Binding SearchUserQuery}">
-                    <iconPacks:PackIconMaterialDesign Kind="Search"
-                                                      Width="40"
-                                                      Height="25"
-                                                      RenderTransformOrigin="0.5,0.5">
-                        <iconPacks:PackIconMaterialDesign.RenderTransform>
-                            <ScaleTransform ScaleX="-1" />
-                        </iconPacks:PackIconMaterialDesign.RenderTransform>
-                    </iconPacks:PackIconMaterialDesign>
-                </Button>
+                <Grid Grid.Column="1">
+
+                    <Button Visibility="{Binding IsSearching,
+                    Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Style="{StaticResource IconButtonStyle}"
+                            Command="{Binding CloseSearchCommand}">
+                        <iconPacks:PackIconMaterialDesign Kind="Close"
+                                                          Width="40"
+                                                          Height="25"
+                                                          RenderTransformOrigin="0.5,0.5">
+                            <iconPacks:PackIconMaterialDesign.RenderTransform>
+                                <ScaleTransform ScaleX="-1" />
+                            </iconPacks:PackIconMaterialDesign.RenderTransform>
+                        </iconPacks:PackIconMaterialDesign>
+                    </Button>
+
+                    <Button Visibility="{Binding IsSearching,
+                    Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                            Style="{StaticResource IconButtonStyle}"
+                            Command="{Binding SearchUserCommand}">
+                        <iconPacks:PackIconMaterialDesign Kind="Search"
+                                                          Width="40"
+                                                          Height="25"
+                                                          RenderTransformOrigin="0.5,0.5">
+                            <iconPacks:PackIconMaterialDesign.RenderTransform>
+                                <ScaleTransform ScaleX="-1" />
+                            </iconPacks:PackIconMaterialDesign.RenderTransform>
+                        </iconPacks:PackIconMaterialDesign>
+                    </Button>
+                </Grid>
 
                 <TextBox Grid.Column="2"
                          Tag="Search"
@@ -86,15 +110,20 @@
                                     <Label Content="{Binding Username}"
                                            Foreground="{DynamicResource ItemForegroundColor}"
                                            FontSize="13" />
-                                    <Label Content="{Binding ChatId}" />
                                 </StackPanel>
 
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
             </ListView>
+
+            <Button Style="{StaticResource {x:Type Button}}"
+                    Grid.Row="2"
+                    Margin="0"
+                    Command="{Binding CreateGroupCommand}">
+                <iconPacks:Modern Kind="Add" />
+            </Button>
         </Grid>
 
         <Frame Grid.Column="1"

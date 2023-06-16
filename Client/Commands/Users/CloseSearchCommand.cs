@@ -1,19 +1,16 @@
-﻿using Client.Commands;
-using Client.Models;
+﻿using Client.Models;
 using Client.Services;
 using Client.Stores;
 using Client.ViewModels;
-using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace Client.Queries;
+namespace Client.Commands.Users;
 
-public class GetUsersQuery : QueryBase
+public class CloseSearchCommand : CommandBase
 {
     private readonly HomeViewModel _homeViewModel;
 
@@ -21,8 +18,7 @@ public class GetUsersQuery : QueryBase
 
     private readonly UserStore _userStore;
 
-    public GetUsersQuery(HomeViewModel homeViewModel,
-        HttpClient httpClient, UserStore userStore)
+    public CloseSearchCommand(HomeViewModel homeViewModel, HttpClient httpClient, UserStore userStore)
     {
         _homeViewModel = homeViewModel;
         _httpClient = httpClient;
@@ -31,6 +27,8 @@ public class GetUsersQuery : QueryBase
 
     public override async void Execute(object? parameter)
     {
+        _homeViewModel.IsSearching = false;
+
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
             _userStore.Token);
 

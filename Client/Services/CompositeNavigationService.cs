@@ -14,9 +14,6 @@ public class CompositeNavigationService : INavigationService
 
     public void Navigate()
     {
-        foreach (var navigationService in _navigationServices)
-        {
-            navigationService.Navigate();
-        }
+        foreach (var navigationService in _navigationServices) navigationService.Navigate();
     }
 }

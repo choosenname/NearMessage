@@ -1,22 +1,19 @@
-﻿using Client.Commands;
-using Client.Models;
-using Client.Properties;
+﻿using Client.Models;
 using Client.Services;
 using Client.Stores;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading;
 
-namespace Client.Queries;
+namespace Client.Commands.Messages;
 
-public class GetLastMessagesQuery : QueryBase
+public class GetLastMessagesCommand : CommandBase
 {
     private readonly HttpClient _httpClient;
     private readonly UserStore _userStore;
 
-    public GetLastMessagesQuery(HttpClient httpClient, UserStore userStore)
+    public GetLastMessagesCommand(HttpClient httpClient, UserStore userStore)
     {
         _httpClient = httpClient;
         _userStore = userStore;
@@ -37,6 +34,6 @@ public class GetLastMessagesQuery : QueryBase
         var contacts = await response.Content
             .ReadAsAsync<IEnumerable<MessageModel>>();
 
-            SaveEntityModelService.SaveMessages(contacts);
+        SaveEntityModelService.SaveMessages(contacts);
     }
 }

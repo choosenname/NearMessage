@@ -21,7 +21,7 @@ public static class LoadEntityModelService
 
         var fileName = Path.Combine(directoryPath, userId.ToString());
 
-        if (!File.Exists(fileName)) return new(userId, null);
+        if (!File.Exists(fileName)) return new UserInformationModel(userId, null);
 
         var json = await File.ReadAllTextAsync(fileName, cancellationToken);
 

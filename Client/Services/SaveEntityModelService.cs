@@ -54,7 +54,6 @@ public class SaveEntityModelService
         {
             File.WriteAllText(filePath, json, encoding);
         }
-
     }
 
     public static async Task SaveEntityAsync(MessageModel message, CancellationToken cancellationToken)
@@ -71,8 +70,8 @@ public class SaveEntityModelService
 
         var filePath = Path.Combine(directoryPath, $"{message.Id}.json");
 
-        
-            await File.WriteAllTextAsync(filePath, json, encoding, cancellationToken);
+
+        await File.WriteAllTextAsync(filePath, json, encoding, cancellationToken);
     }
 
     public static async Task SaveEntityAsync(ContactModel contact, CancellationToken cancellationToken)
@@ -88,8 +87,8 @@ public class SaveEntityModelService
 
         var filePath = Path.Combine(directoryPath, $"{contact.Id}.json");
 
-            await File.WriteAllTextAsync(filePath, json, encoding, cancellationToken);
-        }
+        await File.WriteAllTextAsync(filePath, json, encoding, cancellationToken);
+    }
 
     public static async Task SaveEntityAsync(UserInformationModel contact, CancellationToken cancellationToken)
     {
@@ -109,20 +108,14 @@ public class SaveEntityModelService
 
     public static async Task SaveMessagesAsync(IEnumerable<MessageModel> messages, CancellationToken cancellationToken)
     {
-        foreach (var message in messages)
-        {
-            await SaveEntityAsync(message, cancellationToken);
-        }
+        foreach (var message in messages) await SaveEntityAsync(message, cancellationToken);
 
         OnMessagesSaved(EventArgs.Empty);
     }
 
     public static void SaveMessages(IEnumerable<MessageModel> messages)
     {
-        foreach (var message in messages)
-        {
-            SaveEntity(message);
-        }
+        foreach (var message in messages) SaveEntity(message);
 
         OnMessagesSaved(EventArgs.Empty);
     }

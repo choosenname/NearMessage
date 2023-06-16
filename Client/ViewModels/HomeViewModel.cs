@@ -1,13 +1,16 @@
 ﻿using System;
 using Client.Models;
-using Client.Queries;
 using Client.Stores;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Client.Commands;
 using Client.Interfaces;
+using System.Windows;
+using Client.Commands.Croup;
+using Client.Commands.Messages;
+using Client.Commands.Navigation;
+using Client.Commands.Users;
 
 namespace Client.ViewModels;
 
@@ -16,23 +19,27 @@ public class HomeViewModel : ViewModelBase
     private readonly HttpClient _httpClient;
     private readonly UserStore _userStore;
     private ChatViewModel? _chatViewModel;
+    private bool _isSearching;
 
     private ObservableCollection<ContactModel> _contacts = new();
     private string? _searchText;
     private ContactModel _selectedContact;
 
-    public HomeViewModel(UserStore userStore, HttpClient httpClient, INavigationService settingsNavigationService)
+    public HomeViewModel(UserStore userStore, HttpClient httpClient,
+        INavigationService settingsNavigationService, INavigationService createGroupNavigationService)
     {
         _userStore = userStore;
         _httpClient = httpClient;
-        _selectedContact = new ContactModel(Guid.Empty, String.Empty, null);
+        _selectedContact = new ContactModel(Guid.Empty, string.Empty, null);
 
-        GetLastMessagesQuery = new GetLastMessagesQuery(httpClient, userStore);
-        GetAllUsersQuery = new GetUsersQuery(this, httpClient, userStore);
-        SearchUserQuery = new SearchUserQuery(this, httpClient);
+        GetLastMessagesCommand = new GetLastMessagesCommand(httpClient, userStore);
+        GetAllUsersCommand = new GetUsersCommand(this, httpClient, userStore);
+        SearchUserCommand = new SearchUserCommand(this, httpClient);
         SettingsNavigateCommand = new NavigateCommand(settingsNavigationService);
+        CreateGroupCommand = new NavigateCommand(createGroupNavigationService);
+        CloseSearchCommand = new CloseSearchCommand(this, _httpClient, _userStore);
 
-        GetAllUsersQuery.Execute(null);
+        GetAllUsersCommand.Execute(null);
 
         Task.Run(GetLastMessages);
     }
@@ -41,7 +48,7 @@ public class HomeViewModel : ViewModelBase
     {
         while (true)
         {
-            GetLastMessagesQuery.Execute(null);
+            GetLastMessagesCommand.Execute(null);
             await Task.Delay(1000);
         }
     }
@@ -88,8 +95,25 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    public ICommand GetAllUsersQuery { get; }
-    public ICommand SearchUserQuery { get; }
-    public ICommand GetLastMessagesQuery { get; }
+    public bool IsSearching
+    {
+        get => _isSearching;
+        set
+        {
+            _isSearching = value;
+            OnPropertyChanged(nameof(IsSearching));
+        }
+    }
+
+    public override void Dispose()
+    {
+        base.Dispose();
+    }
+
+    public ICommand GetAllUsersCommand { get; }
+    public ICommand SearchUserCommand { get; }
+    public ICommand GetLastMessagesCommand { get; }
     public ICommand SettingsNavigateCommand { get; }
+    public ICommand CreateGroupCommand { get; }
+    public ICommand CloseSearchCommand { get; }
 }

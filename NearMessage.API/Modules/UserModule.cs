@@ -30,6 +30,6 @@ public class UserModule : CarterModule
                 cancellationToken)).SearchedUsers;
 
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
-        });
+        }).RequireAuthorization();
     }
 }

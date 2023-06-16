@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text;
 using Client.Interfaces;
 
-namespace Client.Commands;
+namespace Client.Commands.Users;
 
 public class RegistrationCommand : CommandBase
 {

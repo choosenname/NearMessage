@@ -6,7 +6,7 @@ using Client.ViewModels;
 using static System.String;
 using static Client.Services.SaveEntityModelService;
 
-namespace Client.Commands;
+namespace Client.Commands.Navigation;
 
 public class ExitCommand : CommandBase
 {
