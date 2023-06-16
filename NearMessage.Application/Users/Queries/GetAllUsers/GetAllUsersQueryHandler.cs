@@ -44,6 +44,20 @@ public sealed class GetAllUsersQueryHandler : IQueryHandler<GetAllUsersQuery, Us
             })
             .ToList();
 
+        var groupContacts = maybeSender.Value.UserGroups
+            ?.Select(ug =>
+            {
+                if (ug.Group != null)
+                    return new Contact(
+                        Guid.Empty,
+                        ug.Group.Name,
+                        ug.GroupId);
+                return null;
+            })
+            .ToList();
+
+        if (groupContacts != null) contacts?.AddRange(groupContacts);
+
         return new UsersResponse(Result.Success<IEnumerable<Contact>?>(contacts));
     }
 }
