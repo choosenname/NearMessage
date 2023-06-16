@@ -19,12 +19,13 @@ public class HomeViewModel : ViewModelBase
     private readonly HttpClient _httpClient;
     private readonly UserStore _userStore;
     private ChatViewModel? _chatViewModel;
+    private bool _isSearching;
 
     private ObservableCollection<ContactModel> _contacts = new();
     private string? _searchText;
     private ContactModel _selectedContact;
 
-    public HomeViewModel(UserStore userStore, HttpClient httpClient, 
+    public HomeViewModel(UserStore userStore, HttpClient httpClient,
         INavigationService settingsNavigationService, INavigationService createGroupNavigationService)
     {
         _userStore = userStore;
@@ -36,6 +37,7 @@ public class HomeViewModel : ViewModelBase
         SearchUserCommand = new SearchUserCommand(this, httpClient);
         SettingsNavigateCommand = new NavigateCommand(settingsNavigationService);
         CreateGroupCommand = new NavigateCommand(createGroupNavigationService);
+        CloseSearchCommand = new CloseSearchCommand(this, _httpClient, _userStore);
 
         GetAllUsersCommand.Execute(null);
 
@@ -93,6 +95,16 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
+    public bool IsSearching
+    {
+        get => _isSearching;
+        set
+        {
+            _isSearching = value;
+            OnPropertyChanged(nameof(IsSearching));
+        }
+    }
+
     public override void Dispose()
     {
         base.Dispose();
@@ -103,4 +115,5 @@ public class HomeViewModel : ViewModelBase
     public ICommand GetLastMessagesCommand { get; }
     public ICommand SettingsNavigateCommand { get; }
     public ICommand CreateGroupCommand { get; }
+    public ICommand CloseSearchCommand { get; }
 }
