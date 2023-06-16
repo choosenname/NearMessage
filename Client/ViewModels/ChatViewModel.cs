@@ -1,13 +1,11 @@
-﻿using Client.Commands;
-using Client.Models;
-using Client.Queries;
+﻿using Client.Models;
 using Client.Stores;
 using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Services;
 using System;
+using Client.Commands.Messages;
 
 namespace Client.ViewModels;
 
@@ -22,7 +20,7 @@ public class ChatViewModel : ViewModelBase
         UserStore = userStore;
         _homeViewModel = homeViewModel;
 
-        GetMessagesCommand = new LoadMessagesQuery(this, httpClient);
+        GetMessagesCommand = new LoadMessagesCommand(this, httpClient);
         SendMessageCommand = new SendMessageCommand(this, _homeViewModel.SelectedContact, httpClient);
         SendMediaCommand = new SendMediaCommand(httpClient, _homeViewModel.SelectedContact, this);
 
