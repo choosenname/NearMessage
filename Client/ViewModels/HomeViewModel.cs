@@ -88,6 +88,11 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
+    public override void Dispose()
+    {
+        base.Dispose();
+    }
+
     public ICommand GetAllUsersQuery { get; }
     public ICommand SearchUserQuery { get; }
     public ICommand GetLastMessagesQuery { get; }

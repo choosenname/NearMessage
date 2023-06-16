@@ -68,6 +68,13 @@ public class ChatViewModel : ViewModelBase
         }
     }
 
+    public override void Dispose()
+    {
+        SaveEntityModelService.MessagesSaved -= OnMessagesSaved;
+
+        base.Dispose();
+    }
+
     public ICommand SendMessageCommand { get; }
     public ICommand GetMessagesCommand { get; }
     public ICommand SendMediaCommand { get; }
