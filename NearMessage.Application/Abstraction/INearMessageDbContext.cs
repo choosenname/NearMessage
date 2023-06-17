@@ -13,7 +13,7 @@ public interface INearMessageDbContext
 
     public DbSet<Domain.Groups.Group> Groups { get; set; }
 
-    public DbSet<UserGroup> UserGroups { get; set; }
+    public DbSet<Domain.UserGroups.UserGroup> UserGroups { get; set; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

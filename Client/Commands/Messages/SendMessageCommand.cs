@@ -29,7 +29,13 @@ public class SendMessageCommand : CommandBase
         _contactReceiver.ChatId ??=
             await ChatService.CreateChatAsync(_httpClient, _contactReceiver, CancellationToken.None);
 
-        var message = new MessageModel(
+        if (_contactReceiver.Id == Guid.Empty)
+        {
+            _contactReceiver.Id =
+                await GroupService.CreateUserGroupAsync(_chatViewModel.CurrentContact.ChatId!.Value, _httpClient);
+        }
+
+        var message = new MediaModel(
             Guid.NewGuid(),
             _chatViewModel.MessageText,
             Guid.Empty,

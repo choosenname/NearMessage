@@ -3,4 +3,4 @@ using NearMessage.Domain.Messages;
 
 namespace NearMessage.Application.Messages.Queries.GetMessages;
 
-public sealed record MessagesResponse(Result<IEnumerable<Message>> Messages);
+public sealed record MessagesResponse(Result<IEnumerable<Media>> Messages);
