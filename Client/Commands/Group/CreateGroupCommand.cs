@@ -1,14 +1,9 @@
-﻿using Client.Models;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System;
+﻿using System.Net.Http;
+using Client.Interfaces;
 using Client.Services;
 using Client.ViewModels;
-using Client.Interfaces;
 
-namespace Client.Commands.Croup;
+namespace Client.Commands.Group;
 
 public class CreateGroupCommand : CommandBase
 {

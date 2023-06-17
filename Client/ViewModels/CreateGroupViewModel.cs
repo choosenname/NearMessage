@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 using System.Windows.Input;
-using Client.Commands.Croup;
+using Client.Commands.Group;
 using Client.Interfaces;
 
 namespace Client.ViewModels;

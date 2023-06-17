@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Interfaces;
 using System.Windows;
-using Client.Commands.Croup;
 using Client.Commands.Messages;
 using Client.Commands.Navigation;
 using Client.Commands.Users;
@@ -39,10 +38,23 @@ public class HomeViewModel : ViewModelBase
         CreateGroupCommand = new NavigateCommand(createGroupNavigationService);
         CloseSearchCommand = new CloseSearchCommand(this, _httpClient, _userStore);
 
-        GetAllUsersCommand.Execute(null);
 
         Task.Run(GetLastMessages);
+        Task.Run(UpdateUsers);
     }
+
+    private async Task UpdateUsers()
+    {
+        while (true)
+        {
+            if (!IsSearching)
+            {
+                GetAllUsersCommand.Execute(null);
+                await Task.Delay(5000);
+            }
+        }
+    }
+
 
     private async Task GetLastMessages()
     {
