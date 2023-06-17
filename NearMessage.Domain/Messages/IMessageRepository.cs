@@ -5,10 +5,10 @@ namespace NearMessage.Domain.Messages;
 
 public interface IMessageRepository
 {
-    Task<Result> SaveMessageAsync(Message message, CancellationToken cancellationToken);
+    Task<Result> SaveMessageAsync(Media message, CancellationToken cancellationToken);
 
-    Task<Result<IEnumerable<Message>>> GetMessagesAsync(Guid chatId, CancellationToken cancellationToken);
+    Task<Result<IEnumerable<Media>>> GetMessagesAsync(Guid chatId, CancellationToken cancellationToken);
 
-    Task<Maybe<IEnumerable<Message>>> GetLastMessagesAsync(Guid chatId, DateTime lastMessageDate,
+    Task<Maybe<IEnumerable<Media>>> GetLastMessagesAsync(Guid chatId, DateTime lastMessageDate,
         CancellationToken cancellationToken);
 }

@@ -15,36 +15,36 @@ public class MessageRepository : IMessageRepository
         _filePath = filePath;
     }
 
-    public async Task<Result<IEnumerable<Message>>> GetMessagesAsync(Guid chatId,
+    public async Task<Result<IEnumerable<Media>>> GetMessagesAsync(Guid chatId,
         CancellationToken cancellationToken)
     {
         var directoryPath = Path.Combine(_filePath, chatId.ToString());
         var fileNames = Directory.GetFiles(directoryPath);
 
-        List<Message> messages = new();
+        List<Media> messages = new();
 
         foreach (var fileName in fileNames)
         {
             var json = await File.ReadAllTextAsync(fileName, cancellationToken);
-            var message = JsonConvert.DeserializeObject<Message>(json);
+            var message = JsonConvert.DeserializeObject<Media>(json);
             if (message == null) continue;
 
             messages.Add(message);
         }
 
-        return Result.Success<IEnumerable<Message>>(messages);
+        return Result.Success<IEnumerable<Media>>(messages);
     }
 
-    public async Task<Maybe<IEnumerable<Message>>> GetLastMessagesAsync(Guid chatId,
+    public async Task<Maybe<IEnumerable<Media>>> GetLastMessagesAsync(Guid chatId,
         DateTime lastMessageDate, CancellationToken cancellationToken)
     {
         var directoryPath = Path.Combine(_filePath, chatId.ToString());
         var lastModified = Directory.GetLastWriteTime(directoryPath);
 
-        if (lastModified <= lastMessageDate) return Maybe<IEnumerable<Message>>.None;
+        if (lastModified <= lastMessageDate) return Maybe<IEnumerable<Media>>.None;
 
         var files = Directory.GetFiles(directoryPath);
-        var messages = new List<Message>();
+        var messages = new List<Media>();
 
         foreach (var file in files)
         {
@@ -53,17 +53,17 @@ public class MessageRepository : IMessageRepository
             if (creationTime > lastMessageDate)
             {
                 var json = await File.ReadAllTextAsync(file, cancellationToken);
-                var message = JsonConvert.DeserializeObject<Message>(json);
+                var message = JsonConvert.DeserializeObject<Media>(json);
                 if (message == null) continue;
 
                 messages.Add(message);
             }
         }
 
-        return Maybe<IEnumerable<Message>>.From(messages);
+        return Maybe<IEnumerable<Media>>.From(messages);
     }
 
-    public async Task<Result> SaveMessageAsync(Message message, CancellationToken cancellationToken)
+    public async Task<Result> SaveMessageAsync(Media message, CancellationToken cancellationToken)
     {
         var directoryPath = Path.Combine(_filePath, message.ReceiverChatId.ToString());
         Directory.CreateDirectory(directoryPath);

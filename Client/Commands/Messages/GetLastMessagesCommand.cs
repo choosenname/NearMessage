@@ -32,7 +32,7 @@ public class GetLastMessagesCommand : CommandBase
         if (!response.IsSuccessStatusCode) return;
 
         var contacts = await response.Content
-            .ReadAsAsync<IEnumerable<MessageModel>>();
+            .ReadAsAsync<IEnumerable<MediaModel>>();
 
         SaveEntityModelService.SaveMessages(contacts);
     }

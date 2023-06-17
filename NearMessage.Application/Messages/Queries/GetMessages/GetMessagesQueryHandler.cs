@@ -18,7 +18,7 @@ public class GetMessagesQueryHandler : IQueryHandler<GetMessagesQuery, MessagesR
         CancellationToken cancellationToken)
     {
         if (!request.Sender.ChatId.HasValue)
-            return new MessagesResponse(Result.Failure<IEnumerable<Message>>(
+            return new MessagesResponse(Result.Failure<IEnumerable<Media>>(
                 new Error("Chat not exist")));
 
         return new MessagesResponse(await _messageRepository.GetMessagesAsync(
