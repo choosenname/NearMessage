@@ -14,6 +14,7 @@ public class ChatViewModel : ViewModelBase
     private ObservableCollection<MediaModel>? _messages;
     private string _messageText = string.Empty;
     private readonly HomeViewModel _homeViewModel;
+    private MediaModel? _selectedMessage;
 
     public ChatViewModel(HomeViewModel homeViewModel, UserStore userStore, HttpClient httpClient)
     {
@@ -23,6 +24,8 @@ public class ChatViewModel : ViewModelBase
         GetMessagesCommand = new LoadMessagesCommand(this, httpClient);
         SendMessageCommand = new SendMessageCommand(this, _homeViewModel.SelectedContact, httpClient);
         SendMediaCommand = new SendMediaCommand(httpClient, _homeViewModel.SelectedContact, this);
+        SaveMediaCommand = new SaveMediaCommand(this);
+
 
         GetMessagesCommand.Execute(null);
 
@@ -73,8 +76,22 @@ public class ChatViewModel : ViewModelBase
         base.Dispose();
     }
 
+    public MediaModel? SelectedMessage
+    {
+        get => _selectedMessage;
+        set
+        {
+            _selectedMessage = value;
+    OnPropertyChanged(nameof(SelectedMessage));
+    SaveMediaCommand.Execute(null);
+        }
+    }
+
+
     public ICommand SendMessageCommand { get; }
     public ICommand GetMessagesCommand { get; }
     public ICommand SendMediaCommand { get; }
     public ICommand RefreshCommand { get; }
+    public ICommand SaveMediaCommand { get; }
+
 }

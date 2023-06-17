@@ -58,55 +58,77 @@
 
         </StackPanel>
 
-        <ScrollViewer Grid.Row="1"
-                      Visibility="{Binding Messages,
-            Converter={StaticResource InverseNullableToVisibilityConverter}}">
-            <ItemsControl ItemsSource="{Binding Messages}">
+        <ListView Grid.Row="1"
+                  Visibility="{Binding Messages,
+            Converter={StaticResource InverseNullableToVisibilityConverter}}"
+                  ItemsSource="{Binding Messages, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedMessage}"
+                  Background="Transparent">
 
-                <ItemsControl.Resources>
-                    <DataTemplate DataType="{x:Type model:MediaModel}">
-                        <Border Background="{DynamicResource ItemBackgroundColor}"
-                                Margin="0 5 0 0"
-                                CornerRadius="15"
-                                MinHeight="30"
-                                MinWidth="180">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
 
-                            <Border.HorizontalAlignment>
-                                <MultiBinding Converter="{StaticResource MessageAlignmentConverter}">
-                                    <Binding Path="Sender" />
-                                    <Binding Path="DataContext.UserStore.User.Id"
-                                             RelativeSource="{RelativeSource AncestorType=UserControl}" />
-                                </MultiBinding>
-                            </Border.HorizontalAlignment>
+            <ListView.Resources>
+                <DataTemplate DataType="{x:Type model:MediaModel}">
+                    <Border Background="{DynamicResource ItemBackgroundColor}"
+                            Margin="0 5 0 0"
+                            CornerRadius="15"
+                            MinHeight="30"
+                            MinWidth="180">
 
-                            <StackPanel Margin="5 0 0 0" VerticalAlignment="Stretch">
-                                <TextBlock Foreground="{DynamicResource ItemForegroundColor}"
-                                           FontSize="13"
-                                           Text="{Binding Content}" />
-                                
-                                <Button Visibility="{Binding FileName, 
+                        <Border.HorizontalAlignment>
+                            <MultiBinding Converter="{StaticResource MessageAlignmentConverter}">
+                                <Binding Path="Sender" />
+                                <Binding Path="DataContext.UserStore.User.Id"
+                                         RelativeSource="{RelativeSource AncestorType=UserControl}" />
+                            </MultiBinding>
+                        </Border.HorizontalAlignment>
+
+                        <Grid Margin="5 0 0 5" VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                Foreground="{DynamicResource ItemForegroundColor}"
+                                       FontSize="13"
+                                       Text="{Binding Content}" />
+
+                            <StackPanel Grid.Row="1"
+                                Visibility="{Binding FileName, 
                                     Converter={StaticResource InverseNullableToVisibilityConverter}}"
-                                    Style="{StaticResource IconButtonStyle}"
-                                        HorizontalAlignment="Left">
-                                    <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconMaterialDesign Kind="Save"
-                                                                          Width="20"
-                                                                          Height="20"
-                                                                          Margin="0"/>
-                                        <Label Content="{Binding FileName}"/>
-                                    </StackPanel>
-                                </Button>
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left">
 
-                                <Label Foreground="{DynamicResource MinorItemForegroundColor}"
-                                       HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                       Content="{Binding SendTime}"
-                                       FontSize="5" ContentStringFormat="HH:mm" />
+                                <iconPacks:PackIconMaterialDesign Kind="AttachFile"/>
+                                <Label Content="{Binding FileName}"/>
+
                             </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.Resources>
-            </ItemsControl>
-        </ScrollViewer>
+
+                            <Label Grid.Row="2"
+                                   Foreground="{DynamicResource MinorItemForegroundColor}"
+                                   HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                   Content="{Binding SendTime}"
+                                   FontSize="5" ContentStringFormat="HH:mm" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.Resources>
+
+        </ListView>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
