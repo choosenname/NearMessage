@@ -26,20 +26,20 @@ public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQ
         var maybeUserId = _jwtProvider.GetUserId(request.HttpContext.User);
 
         if (maybeUserId.HasNoValue)
-            return new LastMessagesResponse(Result.Failure<IEnumerable<Message>>
+            return new LastMessagesResponse(Result.Failure<IEnumerable<Media>>
                 (new Error("User don't recognized")));
 
         var maybeUser = await _userRepository.GetByIdAsync(maybeUserId.Value, cancellationToken);
 
         if (maybeUser.HasNoValue)
-            return new LastMessagesResponse(Result.Failure<IEnumerable<Message>>
+            return new LastMessagesResponse(Result.Failure<IEnumerable<Media>>
                 (new Error("User doesn't exist")));
 
         var receivedChats = maybeUser.Value.ReceivedChats;
-        var messages = new List<Message>();
+        var messages = new List<Media>();
 
         if (receivedChats == null)
-            return new LastMessagesResponse(Result.Success<IEnumerable<Message>>(messages));
+            return new LastMessagesResponse(Result.Success<IEnumerable<Media>>(messages));
 
         foreach (var receivedChat in receivedChats)
         {
@@ -55,7 +55,7 @@ public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQ
         var receivedGroups = maybeUser.Value.UserGroups;
 
         if (receivedGroups == null)
-            return new LastMessagesResponse(Result.Success<IEnumerable<Message>>(messages));
+            return new LastMessagesResponse(Result.Success<IEnumerable<Media>>(messages));
 
         foreach (var receivedGroup in receivedGroups)
         {
@@ -68,6 +68,6 @@ public sealed class GetLastMessagesQueryHandler : IQueryHandler<GetLastMessagesQ
             messages.AddRange(lastMessages.Value);
         }
 
-        return new LastMessagesResponse(Result.Success<IEnumerable<Message>>(messages));
+        return new LastMessagesResponse(Result.Success<IEnumerable<Media>>(messages));
     }
 }

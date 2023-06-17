@@ -35,7 +35,7 @@ public class MessageModule : CarterModule
             return result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Error);
         }).RequireAuthorization();
 
-        app.MapPost("/send", async (Message request, ISender sender,
+        app.MapPost("/send", async (Media request, ISender sender,
             HttpContext context, CancellationToken cancellationToken) =>
         {
             var result = await sender.Send(new SaveMessageCommand(request, context),

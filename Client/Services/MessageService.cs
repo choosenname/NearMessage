@@ -16,7 +16,7 @@ namespace Client.Services;
 
 public static class MessageService
 {
-    public static async Task<ObservableCollection<MessageModel>?> LoadLocalMessagesAsync(
+    public static async Task<ObservableCollection<MediaModel>?> LoadLocalMessagesAsync(
         ContactModel contact, CancellationToken cancellationToken)
     {
         if (contact?.ChatId == null)
@@ -30,12 +30,12 @@ public static class MessageService
 
         var fileNames = Directory.GetFiles(directoryPath);
 
-        ObservableCollection<MessageModel> messages = new();
+        ObservableCollection<MediaModel> messages = new();
 
         foreach (var fileName in fileNames)
         {
             var json = await File.ReadAllTextAsync(fileName, cancellationToken);
-            var message = JsonConvert.DeserializeObject<MessageModel>(json);
+            var message = JsonConvert.DeserializeObject<MediaModel>(json);
             if (message == null) continue;
 
             messages.Add(message);
@@ -44,7 +44,7 @@ public static class MessageService
         return messages;
     }
 
-    public static async Task<ObservableCollection<MessageModel>?> SaveMessagesAsync(
+    public static async Task<ObservableCollection<MediaModel>?> SaveMessagesAsync(
         ContactModel contact, HttpClient httpClient, CancellationToken cancellationToken)
     {
         var content = new StringContent(
@@ -55,7 +55,7 @@ public static class MessageService
 
         if (!response.IsSuccessStatusCode) return null;
         var messages = await response.Content
-            .ReadAsAsync<ObservableCollection<MessageModel>>(cancellationToken);
+            .ReadAsAsync<ObservableCollection<MediaModel>>(cancellationToken);
 
         if (!contact.ChatId.HasValue) return null;
 

@@ -13,7 +13,7 @@ public class UserGroupRepository : IUserGroupRepository
         _context = context;
     }
 
-    public async Task<Result<UserGroup>> AddUserAsync(UserGroup userGroup, CancellationToken cancellationToken)
+    public async Task<Result<UserGroup>> AddUserGroupAsync(UserGroup userGroup, CancellationToken cancellationToken)
     {
         await _context.UserGroups.AddAsync(userGroup, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);

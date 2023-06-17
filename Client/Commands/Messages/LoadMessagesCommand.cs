@@ -30,7 +30,7 @@ public class LoadMessagesCommand : CommandBase
                 _chatViewModel.CurrentContact, _httpClient, CancellationToken.None);
 
         if (messages != null)
-            _chatViewModel.Messages = new ObservableCollection<MessageModel>(
+            _chatViewModel.Messages = new ObservableCollection<MediaModel>(
                 messages.OrderBy(m => m.SendTime));
     }
 

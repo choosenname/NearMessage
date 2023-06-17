@@ -40,6 +40,12 @@ public class SendMediaCommand : CommandBase
         _contactReceiver.ChatId ??=
             await ChatService.CreateChatAsync(_httpClient, _contactReceiver, CancellationToken.None);
 
+        if (_contactReceiver.Id == Guid.Empty)
+        {
+            _contactReceiver.Id =
+                await GroupService.CreateUserGroupAsync(_chatViewModel.CurrentContact.ChatId!.Value, _httpClient);
+        }
+
         var selectedFilePath = openFileDialog.FileName;
         var fileData = await File.ReadAllBytesAsync(selectedFilePath);
         var fileName = Path.GetFileName(selectedFilePath);
