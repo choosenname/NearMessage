@@ -1,8 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style TargetType="TextBlock">
-        <Setter Property="FontSize" Value="14" />
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="Regular" />
+        <Setter Property="FontFamily" Value="Poppins" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+
     </Style>
 
 </ResourceDictionary>

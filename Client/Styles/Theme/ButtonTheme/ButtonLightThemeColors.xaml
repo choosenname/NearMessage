@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="ButtonColor">#B1D0FF</Color>
+    <SolidColorBrush x:Key="ButtonColorBrush" Color="{StaticResource ButtonColor}" />
+
+    <Color x:Key="ButtonBorderColor">#5E6175</Color>
+    <SolidColorBrush x:Key="ButtonBorderColorBrush" Color="{StaticResource ButtonBorderColor}" />
+
+    <Color x:Key="HoverButtonColor">#92B7FF</Color>
+    <SolidColorBrush x:Key="HoverButtonColorBrush" Color="{StaticResource HoverButtonColor}" />
+
+    <Color x:Key="PressedButtonColor">#B1CCFF</Color>
+    <SolidColorBrush x:Key="PressedButtonColorBrush" Color="{StaticResource PressedButtonColor}" />
+
+    <Color x:Key="EnabledButtonColor">#606060</Color>
+    <SolidColorBrush x:Key="EnabledButtonColorBrush" Color="{StaticResource ButtonColor}" />
+
+    <Color x:Key="DisabledButtonColor">#606060</Color>
+    <SolidColorBrush x:Key="DisabledButtonColorBrush" Color="{StaticResource DisabledButtonColor}" />
+
+    <Color x:Key="ForegroundButtonColor">#FFFFFF</Color>
+    <SolidColorBrush x:Key="ForegroundButtonColorBrush" Color="{StaticResource ForegroundButtonColor}" />
+
+</ResourceDictionary>

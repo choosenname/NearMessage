@@ -2,26 +2,115 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style TargetType="Button">
-        <Setter Property="Foreground" Value="{DynamicResource ItemForegroundColor}" />
-        <Setter Property="Background" Value="{DynamicResource ItemBackgroundColor}" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{StaticResource ButtonColorBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundButtonColorBrush}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="FontSize" Value="13" />
-        <Setter Property="Margin" Value="0 5 0 5" />
-    </Style>
-
-    <Style x:Key="WideButtonStyle" TargetType="Button"
-           BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Foreground" Value="{DynamicResource FilledItemForegroundColor}" />
-        <Setter Property="Background" Value="{DynamicResource MainColor}" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Height" Value="42" />
-        <Setter Property="Width" Value="200" />
+        <Setter Property="Width" Value="90" />
+        <Setter Property="FontFamily" Value="Poppins" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
 
                     <Grid>
-                        <Border x:Name="Border"
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="20" />
+
+                        <ContentPresenter
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                   Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            From="{StaticResource ButtonColor}" To="{StaticResource HoverButtonColor}"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            From="{StaticResource HoverButtonColor}" To="{StaticResource ButtonColor}"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            From="{StaticResource ButtonColor}"
+                                            To="{StaticResource DisabledButtonColor}" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="1" To="0.5" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            From="{StaticResource DisabledButtonColor}"
+                                            To="{StaticResource ButtonColor}" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="0.5" To="1" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            From="{StaticResource ButtonColor}"
+                                            To="{StaticResource PressedButtonColor}"
+                                            Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BackButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Content" Value="&lt;Back" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderColorBrush}" />
+        <Setter Property="Width" Value="89" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="border"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -34,31 +123,77 @@
                                           Margin="{TemplateBinding Padding}" />
                     </Grid>
                     <ControlTemplate.Triggers>
-
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="#A0A2DA" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            From="Transparent" To="{StaticResource HoverButtonColor}"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            From="{StaticResource HoverButtonColor}" To="Transparent"
+                                            Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
                         </Trigger>
-
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="Border" Property="Background" Value="#606060" />
-                            <Setter Property="Opacity" Value="0.5" />
-                        </Trigger>
-
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="#A0A8DA" />
-                        </Trigger>
-
                     </ControlTemplate.Triggers>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style x:Key="IconButtonStyle" TargetType="Button"
-           BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Foreground" Value="{DynamicResource MainColor}" />
+    <Style x:Key="PopupButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="250" />
+    </Style>
+
+
+    <Style x:Key="ToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="Transparent" SnapsToDevicePixels="True">
+                        <Viewbox Height="20" Width="20" Margin="0 6 0 0" Stretch="UniformToFill">
+                            <Canvas Height="512" Width="512">
+                                <Path x:Name="path1"
+                                      Data="m32 0h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
+                                      Fill="{DynamicResource PrimaryIconColor}" Margin="0 0 0 0" />
+                                <Path x:Name="path2"
+                                      Data="m32 128h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
+                                      Fill="{DynamicResource PrimaryIconColor}" Margin="0 20 0 0" />
+                                <Path x:Name="path3"
+                                      Data="m32 256h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
+                                      Fill="{DynamicResource PrimaryIconColor}" Margin="0 40 0 0" />
+                            </Canvas>
+                        </Viewbox>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="path1" Property="Fill" Value="Gray" />
+                            <Setter TargetName="path2" Property="Fill" Value="Gray" />
+                            <Setter TargetName="path3" Property="Fill" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 

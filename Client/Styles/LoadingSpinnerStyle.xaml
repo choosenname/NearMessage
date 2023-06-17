@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:loadingSpinnerControl="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl">
+
+    <Style TargetType="{x:Type loadingSpinnerControl:LoadingSpinner}">
+        <Setter Property="Color" Value="White" />
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Diameter" Value="45" />
+    </Style>
+
+</ResourceDictionary>

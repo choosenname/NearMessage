@@ -2,37 +2,46 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ButtonTheme/ButtonLightThemeColors.xaml" />
+        <ResourceDictionary Source="ButtonTheme/ButtonDarkThemeColors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Color x:Key="WindowBackgroundColor">White</Color>
+    <Color x:Key="WindowBackgroundColor">#1E1E1E</Color>
     <SolidColorBrush x:Key="WindowBackgroundColorBrush" Color="{StaticResource WindowBackgroundColor}" />
 
-    <Color x:Key="WindowTitleBarBackgroundColor">White</Color>
+    <Color x:Key="WindowTitleBarBackgroundColor">#303030</Color>
     <SolidColorBrush x:Key="WindowTitleBarBackgroundColorBrush" Color="{StaticResource WindowTitleBarBackgroundColor}" />
 
-    <Color x:Key="ColorWrap">#FCFCFC</Color>
+    <Color x:Key="ColorWrap">#252525</Color>
     <SolidColorBrush x:Key="ColorWrapBrush" Color="{StaticResource ColorWrap}" />
 
-    <Color x:Key="HeaderChatColor">#EEEEEE</Color>
+    <Color x:Key="HeaderChatColor">#262626</Color>
     <SolidColorBrush x:Key="HeaderChatColorBrush" Color="{StaticResource HeaderChatColor}" />
 
-    <Color x:Key="BottomChatPanelColor">#EEEEEE</Color>
+    <Color x:Key="BottomChatPanelColor">#262626</Color>
     <SolidColorBrush x:Key="BottomChatPanelColorBrush" Color="{StaticResource BottomChatPanelColor}" />
 
-    <Color x:Key="ChatTextBoxColor">#F5F5F5</Color>
+    <Color x:Key="ChatTextBoxColor">#1E1E1E</Color>
     <SolidColorBrush x:Key="ChatTextBoxColorBrush" Color="{StaticResource ChatTextBoxColor}" />
 
-    <Color x:Key="UsersListBackgroundColor">#EEEEEE</Color>
+    <Color x:Key="UsersListBackgroundColor">#262626</Color>
     <SolidColorBrush x:Key="UsersListBackgroundColorBrush" Color="{StaticResource UsersListBackgroundColor}" />
 
-    <Color x:Key="MenuBackgroundColor">#EEEEEE</Color>
+    <Color x:Key="MenuBackgroundColor">#262626</Color>
     <SolidColorBrush x:Key="MenuBackgroundColorColorBrush" Color="{StaticResource MenuBackgroundColor}" />
 
-    <Color x:Key="HoverPanelButtonColor">#EEEEEE</Color>
+    <Color x:Key="SettingsBackgroundColor">#262626</Color>
+    <SolidColorBrush x:Key="SettingsBackgroundColorColorBrush" Color="{StaticResource SettingsBackgroundColor}" />
+
+    <Color x:Key="EditProfileBackgroundColor">#262626</Color>
+    <SolidColorBrush x:Key="EditProfileBackgroundColorColorBrush" Color="{StaticResource EditProfileBackgroundColor}" />
+
+    <Color x:Key="EditUserNameBackgroundColor">#262626</Color>
+    <SolidColorBrush x:Key="EditUserNameBackgroundColorBrush" Color="{StaticResource EditUserNameBackgroundColor}" />
+
+    <Color x:Key="HoverPanelButtonColor">#252525</Color>
     <SolidColorBrush x:Key="HoverControlPanelButtonColorBrush" Color="{StaticResource HoverPanelButtonColor}" />
 
-    <Color x:Key="PressedPanelButtonColor">#EEEEEE</Color>
+    <Color x:Key="PressedPanelButtonColor">#151515</Color>
     <SolidColorBrush x:Key="PressedControlPanelButtonColorBrush" Color="{StaticResource PressedPanelButtonColor}" />
 
     <Color x:Key="HoverCloseButtonColor">#E81123</Color>
