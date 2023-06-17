@@ -2,7 +2,7 @@
 using NearMessage.Common.Abstractions.Messaging;
 using NearMessage.Common.Primitives.Result;
 
-namespace NearMessage.Application.Group.CreateGroup;
+namespace NearMessage.Application.Groups.Commands.CreateGroup;
 
 public sealed record CreateGroupCommand(
     String Name,

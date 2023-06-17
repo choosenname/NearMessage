@@ -46,10 +46,18 @@ public sealed class SearchUserQueryHandler : IQueryHandler<SearchUserQuery, Sear
         var groups = await _groupRepository.GetGroupsByUsernameAsync(request.Username, cancellationToken);
 
         var groupContacts = groups.Select(g =>
-            new Contact(
-                g.Id,
-                g.Name,
-                g.Id))
+                {
+                    var isGroupId = g.UserGroups?.Any(ug =>
+                        ug.UserId.Equals(maybeSenderId.Value)) ?? false;
+
+                    var groupId = isGroupId ? g.Id : Guid.Empty;
+
+                    return new Contact(
+                        groupId,
+                        g.Name,
+                        g.Id);
+                }
+            )
             .ToList();
 
         contacts.AddRange(groupContacts);

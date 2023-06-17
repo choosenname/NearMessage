@@ -2,12 +2,11 @@
 using NearMessage.Common.Abstractions.Messaging;
 using NearMessage.Common.Primitives.Errors;
 using NearMessage.Common.Primitives.Result;
-using NearMessage.Domain.Chats;
 using NearMessage.Domain.Groups;
 using NearMessage.Domain.Messages;
 using NearMessage.Domain.UserGroups;
 
-namespace NearMessage.Application.Group.CreateGroup;
+namespace NearMessage.Application.Groups.Commands.CreateGroup;
 
 public sealed record CreateGroupCommandHandler
     : ICommandHandler<CreateGroupCommand, Result<Domain.Groups.Group>>
@@ -47,7 +46,7 @@ public sealed record CreateGroupCommandHandler
             maybeUserId.Value,
             group.Id);
 
-        var userGroupResult = await _userGroupRepository.AddUserAsync(userGroup, cancellationToken);
+        var userGroupResult = await _userGroupRepository.AddUserGroupAsync(userGroup, cancellationToken);
 
         if (userGroupResult.IsFailure)
             Result.Failure<Domain.Groups.Group>(userGroupResult.Error);
