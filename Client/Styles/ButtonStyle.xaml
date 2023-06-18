@@ -172,13 +172,13 @@
                             Background="Transparent" SnapsToDevicePixels="True">
                         <Viewbox Height="20" Width="20" Margin="0 6 0 0" Stretch="UniformToFill">
                             <Canvas Height="512" Width="512">
-                                <Path x:Name="path1"
+                                <Path x:Name="path1" Style="{x:Null}"
                                       Data="m32 0h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
                                       Fill="{DynamicResource PrimaryIconColor}" Margin="0 0 0 0" />
-                                <Path x:Name="path2"
+                                <Path x:Name="path2" Style="{x:Null}"
                                       Data="m32 128h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
                                       Fill="{DynamicResource PrimaryIconColor}" Margin="0 20 0 0" />
-                                <Path x:Name="path3"
+                                <Path x:Name="path3" Style="{x:Null}"
                                       Data="m32 256h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
                                       Fill="{DynamicResource PrimaryIconColor}" Margin="0 40 0 0" />
                             </Canvas>

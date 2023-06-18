@@ -7,41 +7,45 @@
              xmlns:loadingSpinnerControl="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance vms:WelcomeViewModel}">
-    <Grid HorizontalAlignment="Center"
-          VerticalAlignment="Center">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="150" />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-        </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+    <Border Style="{StaticResource BorderWrapStyle}">
+        <Grid HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
 
-            <TextBlock Style="{StaticResource {x:Type TextBlock}}"
-                       FontSize="25"
-                       FontWeight="Bold"
-                       Text="Welcome"
-                       HorizontalAlignment="Center" />
+            <StackPanel Grid.Row="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
 
-            <TextBlock Style="{StaticResource {x:Type TextBlock}}"
-                       Text="Welcome in Near Message" />
-        </StackPanel>
+                <TextBlock Style="{StaticResource {x:Type TextBlock}}"
+                           FontSize="25"
+                           FontWeight="Bold"
+                           Text="Welcome"
+                           HorizontalAlignment="Center" />
 
-        <Grid Grid.Row="1">
-            <loadingSpinnerControl:LoadingSpinner
-                IsLoading="{Binding IsLoading}" />
+                <TextBlock Style="{StaticResource {x:Type TextBlock}}"
+                           Text="Welcome in Near Message" />
+            </StackPanel>
 
-            <Button Visibility="{Binding IsLoading,
+            <Grid Grid.Row="1">
+                <loadingSpinnerControl:LoadingSpinner
+                    IsLoading="{Binding IsLoading}" />
+
+                <Button
+                    Visibility="{Binding IsLoading,
                 Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                     Width="100"
                     Height="40"
                     Content="Next"
                     Command="{Binding WelcomeCommand}" />
-        </Grid>
+            </Grid>
 
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>

@@ -16,7 +16,7 @@ namespace Client.ViewModels;
 public class HomeViewModel : ViewModelBase
 {
     private readonly HttpClient _httpClient;
-    private readonly UserStore _userStore;
+    private UserStore _userStore;
     private ChatViewModel? _chatViewModel;
     private bool _isSearching;
 
@@ -25,7 +25,8 @@ public class HomeViewModel : ViewModelBase
     private ContactModel? _selectedContact;
 
     public HomeViewModel(UserStore userStore, HttpClient httpClient,
-        INavigationService settingsNavigationService, INavigationService createGroupNavigationService)
+        INavigationService settingsNavigationService, INavigationService createGroupNavigationService,
+        INavigationService authenticationNavigationService)
     {
         _userStore = userStore;
         _httpClient = httpClient;
@@ -36,6 +37,7 @@ public class HomeViewModel : ViewModelBase
         SettingsNavigateCommand = new NavigateCommand(settingsNavigationService);
         CreateGroupCommand = new NavigateCommand(createGroupNavigationService);
         CloseSearchCommand = new CloseSearchCommand(this, _httpClient, _userStore);
+        LogOutCommand = new LogOutCommand(userStore, authenticationNavigationService);
 
 
         Task.Run(GetLastMessages);
@@ -116,6 +118,16 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
+    public UserStore UserStore
+    {
+        get => _userStore;
+        set
+        {
+            _userStore = value;
+            OnPropertyChanged(nameof(UserStore));
+        } 
+    }
+
     public override void Dispose()
     {
         base.Dispose();
@@ -127,4 +139,5 @@ public class HomeViewModel : ViewModelBase
     public ICommand SettingsNavigateCommand { get; }
     public ICommand CreateGroupCommand { get; }
     public ICommand CloseSearchCommand { get; }
+    public ICommand LogOutCommand { get; }
 }

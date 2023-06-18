@@ -19,7 +19,7 @@
     <Color x:Key="DisabledButtonColor">#606060</Color>
     <SolidColorBrush x:Key="DisabledButtonColorBrush" Color="{StaticResource DisabledButtonColor}" />
 
-    <Color x:Key="ForegroundButtonColor">#FFFFFF</Color>
+    <Color x:Key="ForegroundButtonColor">White</Color>
     <SolidColorBrush x:Key="ForegroundButtonColorBrush" Color="{StaticResource ForegroundButtonColor}" />
 
 </ResourceDictionary>

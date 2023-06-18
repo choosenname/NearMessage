@@ -44,6 +44,9 @@
     <Color x:Key="PressedCloseButtonColor">#CC1123</Color>
     <SolidColorBrush x:Key="PressedCloseButtonColorBrush" Color="{StaticResource PressedCloseButtonColor}" />
 
+    <Color x:Key="SearchBackgroundColor">#EEEEEE</Color>
+    <SolidColorBrush x:Key="SearchBackgroundColorBrush" Color="{StaticResource SearchBackgroundColor}"/>
+
     <Color x:Key="ContrastColor">Black</Color>
     <SolidColorBrush x:Key="PathFillColorBrush" Color="{StaticResource ContrastColor}"/>
     <SolidColorBrush x:Key="ForegroundColorBrush" Color="{StaticResource ContrastColor}"/>
