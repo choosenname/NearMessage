@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Client.ViewModels"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:converter="clr-namespace:Client.Converter"
              mc:Ignorable="d"
              d:DesignHeight="450"
@@ -38,10 +37,7 @@
                 <Button Grid.Column="0"
                         Style="{StaticResource IconButtonStyle}"
                         Command="{Binding SettingsNavigateCommand}">
-                    <iconPacks:PackIconMaterialDesign Kind="Menu"
-                                                      Width="30"
-                                                      Height="15"
-                                                      RenderTransformOrigin="0.5,0.5" />
+                    <Path Data="{StaticResource Settings}"></Path>
                 </Button>
 
                 <Grid Grid.Column="1">
@@ -50,33 +46,22 @@
                     Converter={StaticResource BooleanToVisibilityConverter}}"
                             Style="{StaticResource IconButtonStyle}"
                             Command="{Binding CloseSearchCommand}">
-                        <iconPacks:PackIconMaterialDesign Kind="Close"
-                                                          Width="40"
-                                                          Height="25"
-                                                          RenderTransformOrigin="0.5,0.5">
-                            <iconPacks:PackIconMaterialDesign.RenderTransform>
-                                <ScaleTransform ScaleX="-1" />
-                            </iconPacks:PackIconMaterialDesign.RenderTransform>
-                        </iconPacks:PackIconMaterialDesign>
+
+                        <Path Data="{StaticResource Close}"/>
                     </Button>
 
                     <Button Visibility="{Binding IsSearching,
                     Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                             Style="{StaticResource IconButtonStyle}"
                             Command="{Binding SearchUserCommand}">
-                        <iconPacks:PackIconMaterialDesign Kind="Search"
-                                                          Width="40"
-                                                          Height="25"
-                                                          RenderTransformOrigin="0.5,0.5">
-                            <iconPacks:PackIconMaterialDesign.RenderTransform>
-                                <ScaleTransform ScaleX="-1" />
-                            </iconPacks:PackIconMaterialDesign.RenderTransform>
-                        </iconPacks:PackIconMaterialDesign>
+                        <Path Data="{StaticResource MoreVert}"></Path>
                     </Button>
                 </Grid>
 
                 <TextBox Grid.Column="2"
                          Tag="Search"
+                         Height="Auto"
+                         Width="Auto"
                          Text="{Binding SearchText}" />
             </Grid>
 
@@ -118,11 +103,11 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Style="{StaticResource {x:Type Button}}"
+            <Button Style="{x:Null}"
                     Grid.Row="2"
                     Margin="0"
                     Command="{Binding CreateGroupCommand}">
-                <iconPacks:Modern Kind="Add" />
+                <Path Data="{StaticResource Add}"/>
             </Button>
         </Grid>
 

@@ -3,7 +3,7 @@
 
     <Style TargetType="{x:Type TextBox}">
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorderBrushColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorderColorBrush}" />
         <Setter Property="Background" Value="{StaticResource TextBoxBackgroundColorBrush}" />
         <Setter Property="Foreground" Value="{StaticResource TextBoxForegroundColorBrush}" />
         <Setter Property="CaretBrush" Value="{StaticResource TextBoxCaretColorBrush}" />
@@ -68,7 +68,7 @@
                                                          Duration="0:0:0.2" />
                                         <ColorAnimation
                                             Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
-                                            From="{StaticResource TextBoxBorderColor}" To="{StaticResource HoverTextBoxBorderColor}" Duration="0:0:0.2" />
+                                            From="{StaticResource TextBoxBorderColor}" To="{StaticResource HoverBorderColor}" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -80,7 +80,7 @@
                                                          Duration="0:0:0.2" />
                                         <ColorAnimation
                                             Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
-                                            From="{StaticResource HoverTextBoxBorderColor}" To="{StaticResource TextBoxBorderColor}" Duration="0:0:0.2" />
+                                            From="{StaticResource HoverBorderColor}" To="{StaticResource TextBoxBorderColor}" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>

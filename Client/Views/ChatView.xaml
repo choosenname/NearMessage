@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Client.ViewModels"
              xmlns:converter="clr-namespace:Client.Converter"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:model="clr-namespace:Client.Models"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:ChatViewModel }"
@@ -19,7 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="55" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0"
@@ -29,21 +28,12 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="50" />
                 </Grid.ColumnDefinitions>
 
                 <Border Grid.Column="0" Height="38" Width="38"
                         CornerRadius="25" Background="White" />
 
                 <TextBlock Grid.Column="1" Text="{Binding CurrentContact.Username}" />
-
-                <Button Grid.Column="2"
-                        Style="{StaticResource IconButtonStyle}"
-                        Command="{Binding GetMessagesCommand}">
-                    <iconPacks:PackIconMaterialDesign Kind="Refresh"
-                                                      Width="15"
-                                                      Height="15" />
-                </Button>
             </Grid>
 
 
@@ -98,23 +88,23 @@
 
                         <Grid Margin="5 0 0 5" VerticalAlignment="Stretch">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="35" />
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0"
-                                Foreground="{DynamicResource ItemForegroundColor}"
+                                       Foreground="{DynamicResource ItemForegroundColor}"
                                        FontSize="13"
                                        Text="{Binding Content}" />
 
                             <StackPanel Grid.Row="1"
-                                Visibility="{Binding FileName, 
+                                        Visibility="{Binding FileName, 
                                     Converter={StaticResource InverseNullableToVisibilityConverter}}"
-                                Orientation="Horizontal"
-                                HorizontalAlignment="Left">
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Left">
 
-                                <iconPacks:PackIconMaterialDesign Kind="AttachFile"/>
-                                <Label Content="{Binding FileName}"/>
+                                <Path Data="{StaticResource SendFile}" />
+                                <Label Content="{Binding FileName}" />
 
                             </StackPanel>
 
@@ -130,33 +120,45 @@
 
         </ListView>
 
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="50" />
-            </Grid.ColumnDefinitions>
+        <Border Grid.Row="2"
+                CornerRadius="0, 0, 10, 0"
+                Background="{StaticResource BottomChatPanelColorBrush}">
 
-            <Button Grid.Column="0"
-                    Style="{StaticResource IconButtonStyle}"
-                    Command="{Binding SendMediaCommand}">
-                <iconPacks:PackIconMaterialDesign Kind="Attachment"
-                                                  Width="25"
-                                                  Height="25"
-                                                  RotationAngle="315" />
-            </Button>
+            <Border
+                Margin="8"
+                CornerRadius="5"
+                Background="{StaticResource ChatTextBoxColorBrush}">
 
-            <Button Grid.Column="2"
-                    Style="{StaticResource IconButtonStyle}"
-                    Command="{Binding SendMessageCommand}">
-                <iconPacks:PackIconMaterialDesign Kind="Send"
-                                                  Width="25"
-                                                  Height="25" />
-            </Button>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="1"
-                     Text="{Binding MessageText}" />
+                    <TextBox Grid.Column="0"
+                             Tag="Type something..."
+                             BorderThickness="0"
+                             FontSize="13"
+                             Width="Auto"
+                             HorizontalAlignment="Left"
+                             Text="{Binding MessageText, 
+                            UpdateSourceTrigger=PropertyChanged}" />
 
-        </Grid>
+                    <Button Grid.Column="1"
+                            Style="{StaticResource IconButtonStyle}"
+                            Command="{Binding SendMediaCommand}">
+                        <Path Data="{StaticResource SendFile}" />
+                    </Button>
+
+                    <Button Grid.Column="2"
+                            Style="{StaticResource IconButtonStyle}"
+                            Command="{Binding SendMessageCommand}">
+                        <Path Data="{StaticResource Send}" />
+                    </Button>
+
+                </Grid>
+            </Border>
+        </Border>
     </Grid>
 </UserControl>

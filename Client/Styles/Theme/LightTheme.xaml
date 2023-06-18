@@ -20,7 +20,7 @@
     <Color x:Key="BottomChatPanelColor">#EEEEEE</Color>
     <SolidColorBrush x:Key="BottomChatPanelColorBrush" Color="{StaticResource BottomChatPanelColor}" />
 
-    <Color x:Key="ChatTextBoxColor">#F5F5F5</Color>
+    <Color x:Key="ChatTextBoxColor">White</Color>
     <SolidColorBrush x:Key="ChatTextBoxColorBrush" Color="{StaticResource ChatTextBoxColor}" />
 
     <Color x:Key="UsersListBackgroundColor">#EEEEEE</Color>
@@ -29,8 +29,8 @@
     <Color x:Key="MenuBackgroundColor">#EEEEEE</Color>
     <SolidColorBrush x:Key="MenuBackgroundColorColorBrush" Color="{StaticResource MenuBackgroundColor}" />
 
-    <Color x:Key="HoverPanelButtonColor">#EEEEEE</Color>
-    <SolidColorBrush x:Key="HoverControlPanelButtonColorBrush" Color="{StaticResource HoverPanelButtonColor}" />
+    <Color x:Key="HoverColor">#EEEEEE</Color>
+    <SolidColorBrush x:Key="HoverControlPanelButtonColorBrush" Color="{StaticResource HoverColor}" />
 
     <Color x:Key="PressedPanelButtonColor">#EEEEEE</Color>
     <SolidColorBrush x:Key="PressedControlPanelButtonColorBrush" Color="{StaticResource PressedPanelButtonColor}" />
@@ -40,4 +40,10 @@
 
     <Color x:Key="PressedCloseButtonColor">#CC1123</Color>
     <SolidColorBrush x:Key="PressedCloseButtonColorBrush" Color="{StaticResource PressedCloseButtonColor}" />
+
+    <Color x:Key="ContrastColor">Black</Color>
+    <SolidColorBrush x:Key="PathFillColorBrush" Color="{StaticResource ContrastColor}"/>
+    <SolidColorBrush x:Key="ForegroundColorBrush" Color="{StaticResource ContrastColor}"/>
+
+    <Color x:Key="HoverBorderColor">Black</Color>
 </ResourceDictionary>

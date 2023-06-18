@@ -41,15 +41,13 @@
 
         <Grid Grid.Row="2">
             <StackPanel Orientation="Horizontal">
-                <Button Style="{StaticResource WideButtonStyle}"
-                        Width="60"
+                <Button Width="60"
                         Height="35"
                         Command="{Binding ExitCommand}">
                     <iconPacks:PackIconMaterialDesign Kind="ArrowBack" />
                 </Button>
 
-                <Button Style="{StaticResource WideButtonStyle}"
-                        Width="120"
+                <Button Width="120"
                         Height="35"
                         Margin="10 0 0 0"
                         Content="Log Out"

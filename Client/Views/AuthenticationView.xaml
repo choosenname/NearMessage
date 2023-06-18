@@ -26,18 +26,15 @@
                 Visibility="{Binding IsLoading,
                 Converter={StaticResource InverseBooleanToVisibilityConverter}}">
 
-                <TextBox Style="{StaticResource WideTextBoxStyle}"
-                         Tag="Enter Name"
+                <TextBox Tag="Enter Name"
                          Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBox Style="{StaticResource WideTextBoxStyle}"
-                         Tag="Enter Password"
+                <TextBox Tag="Enter Password"
                          Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
         </Grid>
 
-        <Button Style="{StaticResource WideButtonStyle}"
-                Command="{Binding AuthenticationCommand}"
+        <Button Command="{Binding AuthenticationCommand}"
                 Content="Authentication" />
 
         <TextBlock HorizontalAlignment="Center">
