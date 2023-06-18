@@ -9,11 +9,6 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:ChatViewModel }"
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <converter:MessageAlignmentConverter x:Key="MessageAlignmentConverter" />
-        <converter:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
-        <converter:InverseNullableToVisibilityConverter x:Key="InverseNullableToVisibilityConverter" />
-    </UserControl.Resources>
     <Grid Background="{DynamicResource PageBackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
