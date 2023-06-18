@@ -167,6 +167,7 @@
                 <Button Style="{x:Null}"
                         Grid.Row="2"
                         Margin="0"
+                        BorderThickness="0"
                         Command="{Binding CreateGroupCommand}"
                         Background="Transparent">
 
