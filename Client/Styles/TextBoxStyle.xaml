@@ -64,8 +64,6 @@
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetProperty="Height" From="44" To="45"
-                                                         Duration="0:0:0.2" />
                                         <ColorAnimation
                                             Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
                                             From="{StaticResource TextBoxBorderColor}" To="{StaticResource HoverBorderColor}" Duration="0:0:0.2" />
@@ -76,8 +74,6 @@
                             <Trigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetProperty="Height" From="45" To="44"
-                                                         Duration="0:0:0.2" />
                                         <ColorAnimation
                                             Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
                                             From="{StaticResource HoverBorderColor}" To="{StaticResource TextBoxBorderColor}" Duration="0:0:0.2" />
