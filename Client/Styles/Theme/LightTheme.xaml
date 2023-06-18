@@ -50,6 +50,7 @@
     <Color x:Key="ContrastColor">Black</Color>
     <SolidColorBrush x:Key="PathFillColorBrush" Color="{StaticResource ContrastColor}"/>
     <SolidColorBrush x:Key="ForegroundColorBrush" Color="{StaticResource ContrastColor}"/>
+    <SolidColorBrush x:Key="BackgroundContrastColorBrush" Color="{StaticResource ContrastColor}"/>
 
     <Color x:Key="HoverBorderColor">Black</Color>
 </ResourceDictionary>

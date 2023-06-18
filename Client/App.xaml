@@ -17,7 +17,6 @@
                 <ResourceDictionary Source="Styles/LoadingSpinnerStyle.xaml" />
                 <ResourceDictionary Source="Styles/Icons.xaml" />
                 <ResourceDictionary Source="Styles/PathStyle.xaml" />
-                <ResourceDictionary Source="Styles/CheckBoxStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">

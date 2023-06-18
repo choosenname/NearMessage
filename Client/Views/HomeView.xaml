@@ -16,7 +16,7 @@
                 <EventTrigger RoutedEvent="MouseDown">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="Menu" 
+                            <DoubleAnimation Storyboard.TargetName="Menu"
                                              Storyboard.TargetProperty="Width"
                                              To="0"
                                              Duration="0:0:0.1" />
@@ -118,7 +118,7 @@
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource ContrastColor}" />
+                                    <Setter Property="Background" Value="{StaticResource BackgroundContrastColorBrush}" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -235,53 +235,56 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" VerticalAlignment="Top">
+                        <Menu>
+                            <MenuItem
+                                Command="{Binding SettingsNavigateCommand}"
+                                Width="280"
+                                Height="50">
 
-                        <MenuItem
-                            Command="{Binding SettingsNavigateCommand}"
-                            Width="280"
-                            Height="50">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Left">
+                                        <Path Data="{StaticResource Settings}"
+                                              Width="18"
+                                              Height="18"
+                                              Fill="{StaticResource ForegroundColorBrush}" Stretch="Fill" />
 
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Left">
-                                    <Path Data="{StaticResource Settings}"
-                                          Width="18"
-                                          Height="18"
-                                          Fill="{StaticResource ForegroundColorBrush}" Stretch="Fill" />
+                                        <TextBlock Text="Settings" FontSize="14"
+                                                   Margin="10, 0, 0, 0"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </MenuItem.Header>
 
-                                    <TextBlock Text="Settings" FontSize="14"
-                                               Margin="10, 0, 0, 0"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
-                                </StackPanel>
-                            </MenuItem.Header>
+                            </MenuItem>
+                        </Menu>
 
-                        </MenuItem>
+                        <Menu>
+                            <MenuItem
+                                Command="{Binding LogOutCommand}"
+                                Width="280"
+                                Height="50">
 
-                        <MenuItem
-                            Command="{Binding LogOutCommand}"
-                            Width="280"
-                            Height="50">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Left">
+                                        <Path Data="{StaticResource Logout}"
+                                              Width="18"
+                                              Height="18"
+                                              Stroke="{StaticResource ForegroundColorBrush}"
+                                              StrokeThickness="1.5"
+                                              Fill="Transparent"
+                                              Stretch="Fill" />
 
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Left">
-                                    <Path Data="{StaticResource Logout}"
-                                          Width="18"
-                                          Height="18"
-                                          Stroke="{StaticResource ForegroundColorBrush}"
-                                          StrokeThickness="1.5"
-                                          Fill="Transparent" 
-                                          Stretch="Fill"/>
+                                        <TextBlock Text="Logout" FontSize="14"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="10, 0, 0, 0"
+                                                   VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </MenuItem.Header>
 
-                                    <TextBlock Text="Logout" FontSize="14"
-                                               HorizontalAlignment="Center"
-                                               Margin="10, 0, 0, 0"
-                                               VerticalAlignment="Center" />
-                                </StackPanel>
-                            </MenuItem.Header>
-
-                        </MenuItem>
+                            </MenuItem>
+                        </Menu>
 
                     </StackPanel>
                 </Grid>
