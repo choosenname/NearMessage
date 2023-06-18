@@ -44,26 +44,26 @@
                     <TextBox Tag="Enter Password"
                              Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0, 0, 0, 15" />
+
+                    <Button Command="{Binding AuthenticationCommand}"
+                            Content="Login"
+                            Margin="0, 0, 0, 15" />
+
+                    <TextBlock
+                        FontWeight="Medium"
+                        TextDecorations="Underline"
+                        HorizontalAlignment="Center">
+
+                        <Hyperlink
+                            Foreground="{StaticResource ForegroundColorBrush}"
+                            FontWeight="Bold"
+                            TextDecorations="None"
+                            Command="{Binding NavigateCommand}">
+                            Sing Up
+                        </Hyperlink>
+                    </TextBlock>
                 </StackPanel>
             </Grid>
-
-            <Button Command="{Binding AuthenticationCommand}"
-                    Content="Login"
-                    Margin="0, 0, 0, 15" />
-
-            <TextBlock
-                FontWeight="Medium"
-                TextDecorations="Underline"
-                HorizontalAlignment="Center">
-
-                <Hyperlink
-                    Foreground="{StaticResource ForegroundColorBrush}"
-                    FontWeight="Bold"
-                    TextDecorations="None"
-                    Command="{Binding NavigateCommand}">
-                    Sing Up
-                </Hyperlink>
-            </TextBlock>
         </StackPanel>
     </Border>
 </UserControl>

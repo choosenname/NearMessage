@@ -22,14 +22,13 @@ public class HomeViewModel : ViewModelBase
 
     private ObservableCollection<ContactModel> _contacts = new();
     private string? _searchText;
-    private ContactModel _selectedContact;
+    private ContactModel? _selectedContact;
 
     public HomeViewModel(UserStore userStore, HttpClient httpClient,
         INavigationService settingsNavigationService, INavigationService createGroupNavigationService)
     {
         _userStore = userStore;
         _httpClient = httpClient;
-        _selectedContact = new ContactModel(Guid.Empty, string.Empty, null);
 
         GetLastMessagesCommand = new GetLastMessagesCommand(httpClient, userStore);
         GetAllUsersCommand = new GetUsersCommand(this, httpClient, userStore);
@@ -85,7 +84,7 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    public ContactModel SelectedContact
+    public ContactModel? SelectedContact
     {
         get => _selectedContact;
         set

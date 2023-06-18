@@ -22,7 +22,11 @@
                 <RowDefinition Height="25" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0"
+                  x:Name="MainGrid"
+                  Background="{StaticResource UsersListBackgroundColorBrush}"
+                  Grid.Column="0">
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40" />
                     <ColumnDefinition Width="40" />
@@ -30,46 +34,70 @@
                     <ColumnDefinition Width="5" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0"
-                        Style="{StaticResource IconButtonStyle}"
-                        Command="{Binding SettingsNavigateCommand}">
-
-                    <Path Data="{StaticResource Settings}"/>
-                </Button>
+                <ToggleButton
+                    x:Name="ToggleMenuButton"
+                    Grid.Column="0"
+                    Style="{StaticResource ToggleButtonStyle}">
+                    <ToggleButton.Triggers>
+                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                            <BeginStoryboard>
+                                <Storyboard x:Name="ShowStackPanel">
+                                    <DoubleAnimation From="0" To="280" Duration="0:0:0.3"
+                                                     Storyboard.TargetName="Menu"
+                                                     Storyboard.TargetProperty="Width" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ToggleButton.Triggers>
+                </ToggleButton>
 
                 <Grid Grid.Column="1">
 
-                    <Button Visibility="{Binding IsSearching,
+                    <Button
+                        Visibility="{Binding IsSearching,
                     Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Style="{StaticResource IconButtonStyle}"
-                            Command="{Binding CloseSearchCommand}">
+                        Style="{StaticResource IconButtonStyle}"
+                        Command="{Binding CloseSearchCommand}">
 
-                        <Path Data="{StaticResource Close}"/>
+                        <Path Data="{StaticResource Close}" />
                     </Button>
 
-                    <Button Visibility="{Binding IsSearching,
+                    <Button
+                        Visibility="{Binding IsSearching,
                     Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                            Style="{StaticResource IconButtonStyle}"
-                            Command="{Binding SearchUserCommand}">
+                        Style="{StaticResource IconButtonStyle}"
+                        Command="{Binding SearchUserCommand}">
 
-                        <Path Data="{StaticResource Search}"/>
+                        <Path Data="{StaticResource Search}" />
                     </Button>
                 </Grid>
 
-                <TextBox Grid.Column="2"
-                         Tag="Search"
-                         Height="Auto"
-                         Width="Auto"
-                         Text="{Binding SearchText}" />
+                <TextBox Width="Auto"
+                         Height="32"
+                         Grid.Column="2"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Background="{StaticResource TextBoxBackgroundColorBrush}"
+                         BorderThickness="0"
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Tag="Search" />
             </Grid>
 
             <ListView Grid.Row="1"
+                      Background="Transparent"
+                      x:Name="UsersListView"
+                      BorderThickness="0"
                       ItemsSource="{Binding Contacts}"
                       SelectedItem="{Binding SelectedContact}">
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ContrastColor}"/>
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </ListView.ItemContainerStyle>
 
@@ -93,6 +121,9 @@
                                     <Label Content="{Binding Username}"
                                            Foreground="{DynamicResource ItemForegroundColor}"
                                            FontSize="13" />
+                                    <Label Content=""
+                                           Foreground="White"
+                                           FontSize="13" />
                                 </StackPanel>
 
                             </Grid>
@@ -107,9 +138,25 @@
                     Command="{Binding CreateGroupCommand}"
                     Background="Transparent">
 
-                <Path Data="{StaticResource Add}"/>
+                <Path Data="{StaticResource Add}" />
             </Button>
         </Grid>
+
+        <Border x:Name="BorderMessageSelectChat"
+                Grid.Column="1"
+                Height="32"
+                Width="210"
+                Background="{StaticResource ColorWrapBrush}"
+                CornerRadius="17"
+                Visibility="{Binding SelectedContact, Converter={StaticResource NullableToVisibilityConverter}}">
+
+            <TextBlock
+                x:Name="MessageSelectChat"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Text="Select a chat to start messaging" />
+
+        </Border>
 
         <Frame Grid.Column="1"
                Content="{Binding ChatViewModel}"

@@ -26,7 +26,7 @@
     <Color x:Key="ChatTextBoxColor">White</Color>
     <SolidColorBrush x:Key="ChatTextBoxColorBrush" Color="{StaticResource ChatTextBoxColor}" />
 
-    <Color x:Key="UsersListBackgroundColor">#EEEEEE</Color>
+    <Color x:Key="UsersListBackgroundColor">White</Color>
     <SolidColorBrush x:Key="UsersListBackgroundColorBrush" Color="{StaticResource UsersListBackgroundColor}" />
 
     <Color x:Key="MenuBackgroundColor">#EEEEEE</Color>
