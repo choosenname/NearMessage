@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Client.ViewModels"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:loadingSpinnerControl="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -106,54 +107,62 @@
                              Tag="Search" />
                 </Grid>
 
-                <ListView Grid.Row="1"
-                          Background="Transparent"
-                          x:Name="UsersListView"
-                          BorderThickness="0"
-                          ItemsSource="{Binding Contacts}"
-                          SelectedItem="{Binding SelectedContact}">
+                <Grid Grid.Row="1">
+                    <loadingSpinnerControl:LoadingSpinner
+                        IsLoading="{Binding IsLoading}" />
 
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource BackgroundContrastColorBrush}" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                    <ListView
+                        Visibility="{Binding IsLoading,
+                Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                        Background="Transparent"
+                        x:Name="UsersListView"
+                        BorderThickness="0"
+                        ItemsSource="{Binding Contacts}"
+                        SelectedItem="{Binding SelectedContact}">
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="Transparent"
-                                    Height="65">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background"
+                                                Value="{StaticResource BackgroundContrastColorBrush}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
 
-                                    <Border Grid.Column="0"
-                                            Width="40"
-                                            Height="40"
-                                            CornerRadius="25"
-                                            Background="White" />
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="Transparent"
+                                        Height="65">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <StackPanel Grid.Column="1" Margin="5, 5, 0, 0">
-                                        <Label Content="{Binding Username}"
-                                               Foreground="{DynamicResource ItemForegroundColor}"
-                                               FontSize="13" />
-                                        <Label Content=""
-                                               Foreground="White"
-                                               FontSize="13" />
-                                    </StackPanel>
+                                        <Border Grid.Column="0"
+                                                Width="40"
+                                                Height="40"
+                                                CornerRadius="25"
+                                                Background="White" />
 
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                        <StackPanel Grid.Column="1" Margin="5, 5, 0, 0">
+                                            <Label Content="{Binding Username}"
+                                                   Foreground="{DynamicResource ItemForegroundColor}"
+                                                   FontSize="13" />
+                                            <Label Content=""
+                                                   Foreground="White"
+                                                   FontSize="13" />
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
 
                 <Button Style="{x:Null}"
                         Grid.Row="2"

@@ -21,6 +21,7 @@ public class HomeViewModel : ViewModelBase
     private UserStore _userStore;
     private ChatViewModel? _chatViewModel;
     private bool _isSearching;
+    private bool _isLoading;
 
     private ObservableCollection<ContactModel> _contacts = new();
     private string? _searchText;
@@ -41,6 +42,9 @@ public class HomeViewModel : ViewModelBase
         CloseSearchCommand = new CloseSearchCommand(this, _httpClient, _userStore);
         LogOutCommand = new LogOutCommand(userStore, authenticationNavigationService);
 
+        IsLoading = true;
+        GetAllUsersCommand.Execute(null);
+
         Task.Run(GetLastMessages);
         Task.Run(UpdateUsers);
     }
@@ -51,8 +55,8 @@ public class HomeViewModel : ViewModelBase
         {
             if (!IsSearching)
             {
-                GetAllUsersCommand.Execute(null);
                 await Task.Delay(5000);
+                GetAllUsersCommand.Execute(null);
             }
         }
     }
@@ -132,6 +136,17 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set
+        {
+            _isLoading = value;
+            OnPropertyChanged(nameof(IsLoading));
+        }
+
+    }
+
     public override void Dispose()
     {
         base.Dispose();
@@ -144,4 +159,6 @@ public class HomeViewModel : ViewModelBase
     public ICommand CreateGroupCommand { get; }
     public ICommand CloseSearchCommand { get; }
     public ICommand LogOutCommand { get; }
+
+    
 }
