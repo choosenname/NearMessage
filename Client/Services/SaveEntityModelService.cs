@@ -52,7 +52,9 @@ public class SaveEntityModelService
 
         lock (_contactLock)
         {
-            File.WriteAllText(filePath, json, encoding);
+            using var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+            using var writer = new StreamWriter(fileStream, encoding);
+            writer.Write(json);
         }
     }
 

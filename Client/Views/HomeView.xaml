@@ -33,7 +33,8 @@
                 <Button Grid.Column="0"
                         Style="{StaticResource IconButtonStyle}"
                         Command="{Binding SettingsNavigateCommand}">
-                    <Path Data="{StaticResource Settings}"></Path>
+
+                    <Path Data="{StaticResource Settings}"/>
                 </Button>
 
                 <Grid Grid.Column="1">
@@ -50,7 +51,8 @@
                     Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                             Style="{StaticResource IconButtonStyle}"
                             Command="{Binding SearchUserCommand}">
-                        <Path Data="{StaticResource MoreVert}"></Path>
+
+                        <Path Data="{StaticResource Search}"/>
                     </Button>
                 </Grid>
 
@@ -102,7 +104,9 @@
             <Button Style="{x:Null}"
                     Grid.Row="2"
                     Margin="0"
-                    Command="{Binding CreateGroupCommand}">
+                    Command="{Binding CreateGroupCommand}"
+                    Background="Transparent">
+
                 <Path Data="{StaticResource Add}"/>
             </Button>
         </Grid>

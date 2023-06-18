@@ -14,19 +14,22 @@ public class WelcomeCommand : CommandBase
     private readonly INavigationService _authenticationNavigationService;
     private readonly HttpClient _httpClient;
     private readonly UserStore _userStore;
+    private readonly WelcomeViewModel _welcomeViewModel;
 
     public WelcomeCommand(HttpClient httpClient, UserStore userStore, INavigationService homeNavigationService,
-        INavigationService registrationNavigationService, INavigationService authenticationNavigationService)
+        INavigationService registrationNavigationService, INavigationService authenticationNavigationService, WelcomeViewModel welcomeViewModel)
     {
         _httpClient = httpClient;
         _userStore = userStore;
         _homeNavigationService = homeNavigationService;
         _registrationNavigationService = registrationNavigationService;
         _authenticationNavigationService = authenticationNavigationService;
+        _welcomeViewModel = welcomeViewModel;
     }
 
     public override async void Execute(object? parameter)
     {
+        _welcomeViewModel.IsLoading = true;
         if (string.IsNullOrEmpty(_userStore.Token))
         {
             _registrationNavigationService.Navigate();
@@ -43,5 +46,7 @@ public class WelcomeCommand : CommandBase
             else
                 _homeNavigationService.Navigate();
         }
+
+        _welcomeViewModel.IsLoading =false;
     }
 }

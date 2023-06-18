@@ -5,7 +5,8 @@
         <Setter Property="Height" Value="18"/>
         <Setter Property="Width" Value="18"/>
         <Setter Property="Stretch" Value="Fill"/>
-        <Setter Property="Fill" Value="{StaticResource PathFillColorBrush}"></Setter>
+        <Setter Property="Fill" Value="Transparent"/>
+        <Setter Property="Stroke" Value="{StaticResource PathFillColorBrush}"></Setter>
     </Style>
     
 </ResourceDictionary>
