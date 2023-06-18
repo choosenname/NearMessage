@@ -132,8 +132,13 @@ public class Startup
             serviceProvider.GetRequiredService<CloseModalNavigationService>(),
             CreateHomeNavigationService(serviceProvider));
 
+        var navigationService1 = new CompositeNavigationService(
+            serviceProvider.GetRequiredService<CloseModalNavigationService>(),
+            CreateHomeNavigationService(serviceProvider));
+
         return new CreateGroupViewModel(
             serviceProvider.GetRequiredService<HttpClient>(),
-            navigationService);
+            navigationService,
+            navigationService1);
     }
 }
