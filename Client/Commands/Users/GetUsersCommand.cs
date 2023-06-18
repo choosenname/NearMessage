@@ -38,7 +38,8 @@ public class GetUsersCommand : CommandBase
             .ReadAsAsync<ObservableCollection<ContactModel>>();
 
         _homeViewModel.Contacts = contacts;
+        _homeViewModel.IsLoading = false;
 
-        foreach (var contact in contacts) await SaveEntityModelService.SaveEntityAsync(contact, CancellationToken.None);
+        foreach (var contact in contacts) SaveEntityModelService.SaveEntity(contact);
     }
 }

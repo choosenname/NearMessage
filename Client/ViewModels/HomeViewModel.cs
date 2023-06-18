@@ -3,6 +3,7 @@ using Client.Models;
 using Client.Stores;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Interfaces;
@@ -10,26 +11,28 @@ using System.Windows;
 using Client.Commands.Messages;
 using Client.Commands.Navigation;
 using Client.Commands.Users;
+using Client.Services;
 
 namespace Client.ViewModels;
 
 public class HomeViewModel : ViewModelBase
 {
     private readonly HttpClient _httpClient;
-    private readonly UserStore _userStore;
+    private UserStore _userStore;
     private ChatViewModel? _chatViewModel;
     private bool _isSearching;
+    private bool _isLoading;
 
     private ObservableCollection<ContactModel> _contacts = new();
     private string? _searchText;
-    private ContactModel _selectedContact;
+    private ContactModel? _selectedContact;
 
     public HomeViewModel(UserStore userStore, HttpClient httpClient,
-        INavigationService settingsNavigationService, INavigationService createGroupNavigationService)
+        INavigationService settingsNavigationService, INavigationService createGroupNavigationService,
+        INavigationService authenticationNavigationService)
     {
         _userStore = userStore;
         _httpClient = httpClient;
-        _selectedContact = new ContactModel(Guid.Empty, string.Empty, null);
 
         GetLastMessagesCommand = new GetLastMessagesCommand(httpClient, userStore);
         GetAllUsersCommand = new GetUsersCommand(this, httpClient, userStore);
@@ -37,7 +40,10 @@ public class HomeViewModel : ViewModelBase
         SettingsNavigateCommand = new NavigateCommand(settingsNavigationService);
         CreateGroupCommand = new NavigateCommand(createGroupNavigationService);
         CloseSearchCommand = new CloseSearchCommand(this, _httpClient, _userStore);
+        LogOutCommand = new LogOutCommand(userStore, authenticationNavigationService);
 
+        IsLoading = true;
+        GetAllUsersCommand.Execute(null);
 
         Task.Run(GetLastMessages);
         Task.Run(UpdateUsers);
@@ -49,8 +55,8 @@ public class HomeViewModel : ViewModelBase
         {
             if (!IsSearching)
             {
-                GetAllUsersCommand.Execute(null);
                 await Task.Delay(5000);
+                GetAllUsersCommand.Execute(null);
             }
         }
     }
@@ -85,15 +91,18 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
-    public ContactModel SelectedContact
+    public ContactModel? SelectedContact
     {
         get => _selectedContact;
         set
         {
-            _selectedContact = value;
+            if (value == _selectedContact || value == null) return;
+
+                _selectedContact = value;
             OnPropertyChanged(nameof(SelectedContact));
 
-            ChatViewModel = new ChatViewModel(this, _userStore, _httpClient);
+            if(_selectedContact != null)
+                ChatViewModel = new ChatViewModel(this, _userStore, _httpClient);
         }
     }
 
@@ -117,6 +126,27 @@ public class HomeViewModel : ViewModelBase
         }
     }
 
+    public UserStore UserStore
+    {
+        get => _userStore;
+        set
+        {
+            _userStore = value;
+            OnPropertyChanged(nameof(UserStore));
+        }
+    }
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set
+        {
+            _isLoading = value;
+            OnPropertyChanged(nameof(IsLoading));
+        }
+
+    }
+
     public override void Dispose()
     {
         base.Dispose();
@@ -128,4 +158,7 @@ public class HomeViewModel : ViewModelBase
     public ICommand SettingsNavigateCommand { get; }
     public ICommand CreateGroupCommand { get; }
     public ICommand CloseSearchCommand { get; }
+    public ICommand LogOutCommand { get; }
+
+    
 }

@@ -3,7 +3,6 @@ using NearMessage.Common.Abstractions.Messaging;
 using NearMessage.Common.Primitives.Errors;
 using NearMessage.Common.Primitives.Result;
 using NearMessage.Domain.Chats;
-using NearMessage.Domain.Chats;
 
 namespace NearMessage.Application.Chats.Commands.CreateChat;
 

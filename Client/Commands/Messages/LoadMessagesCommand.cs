@@ -34,7 +34,7 @@ public class LoadMessagesCommand : CommandBase
                 messages.OrderBy(m => m.SendTime));
     }
 
-    public async void Execute(object? parameter, EventArgs e)
+    public void Execute(object? parameter, EventArgs e)
     {
         Execute(parameter);
     }

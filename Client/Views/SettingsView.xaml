@@ -17,7 +17,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0">
@@ -25,7 +25,7 @@
             <Border Width="75" Height="75"
                     CornerRadius="50"
                     HorizontalAlignment="Center"
-                    Background="White" />
+                    Background="{StaticResource ColorWrapBrush}" />
 
             <TextBlock Style="{StaticResource {x:Type TextBlock}}"
                        Text="{Binding UserStore.User.Username}"
@@ -39,23 +39,12 @@
                      Tag="О себе" />
         </StackPanel>
 
-        <Grid Grid.Row="2">
-            <StackPanel Orientation="Horizontal">
-                <Button Style="{StaticResource WideButtonStyle}"
-                        Width="60"
+        <Button Grid.Row="2" 
+                    Width="60"
                         Height="35"
                         Command="{Binding ExitCommand}">
-                    <iconPacks:PackIconMaterialDesign Kind="ArrowBack" />
-                </Button>
+            <Path Data="{StaticResource Back}"/>
+        </Button>
 
-                <Button Style="{StaticResource WideButtonStyle}"
-                        Width="120"
-                        Height="35"
-                        Margin="10 0 0 0"
-                        Content="Log Out"
-                        Command="{Binding LogOutCommand}" />
-            </StackPanel>
         </Grid>
-
-    </Grid>
 </UserControl>

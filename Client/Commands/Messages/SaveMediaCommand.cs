@@ -14,7 +14,7 @@ public class SaveMediaCommand : CommandBase
 
     public SaveMediaCommand(ChatViewModel chatViewModel)
     {
-_chatViewModel         = chatViewModel;
+        _chatViewModel = chatViewModel;
     }
 
     public override async void Execute(object? parameter)
@@ -23,22 +23,21 @@ _chatViewModel         = chatViewModel;
             || _chatViewModel.SelectedMessage?.FileName == null)
             return;
 
-var downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/Downloads";
-var filePath = Path.Combine(downloadsPath, _chatViewModel.SelectedMessage.FileName);
+        var downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/Downloads";
+        var filePath = Path.Combine(downloadsPath, _chatViewModel.SelectedMessage.FileName);
 
-if (!File.Exists(filePath))
-{
-    await File.WriteAllBytesAsync(filePath, _chatViewModel.SelectedMessage.FileData, CancellationToken.None);
-
+        if (!File.Exists(filePath))
+        {
+            await File.WriteAllBytesAsync(filePath, _chatViewModel.SelectedMessage.FileData, CancellationToken.None);
         }
 
-var startInfo = new ProcessStartInfo
-{
-    FileName = filePath,
-    UseShellExecute = true,
-    Verb = "open"
-};
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = filePath,
+            UseShellExecute = true,
+            Verb = "open"
+        };
 
-Process.Start(startInfo);
+        Process.Start(startInfo);
     }
 }

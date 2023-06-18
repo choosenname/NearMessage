@@ -22,8 +22,8 @@ public class ChatViewModel : ViewModelBase
         _homeViewModel = homeViewModel;
 
         GetMessagesCommand = new LoadMessagesCommand(this, httpClient);
-        SendMessageCommand = new SendMessageCommand(this, _homeViewModel.SelectedContact, httpClient);
-        SendMediaCommand = new SendMediaCommand(httpClient, _homeViewModel.SelectedContact, this);
+        SendMessageCommand = new SendMessageCommand(this, CurrentContact, httpClient);
+        SendMediaCommand = new SendMediaCommand(httpClient, CurrentContact, this);
         SaveMediaCommand = new SaveMediaCommand(this);
 
 
@@ -41,7 +41,7 @@ public class ChatViewModel : ViewModelBase
 
     public ContactModel CurrentContact
     {
-        get => _homeViewModel.SelectedContact;
+        get => _homeViewModel.SelectedContact!;
         set
         {
             _homeViewModel.SelectedContact = value;

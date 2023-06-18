@@ -13,18 +13,15 @@ public class SettingsViewModel : ViewModelBase
     private UserStore _userStore;
     private readonly UserInformationModel _informationModel;
 
-    public SettingsViewModel(UserStore userStore, INavigationService homeNavigationService,
-        INavigationService authenticationNavigationService)
+    public SettingsViewModel(UserStore userStore, INavigationService homeNavigationService)
     {
         _userStore = userStore;
         _informationModel = LoadEntityModelService.LoadEntity(_userStore.User.Id);
 
         ExitCommand = new ExitCommand(this, homeNavigationService);
-        LogOutCommand = new LogOutCommand(userStore, authenticationNavigationService);
     }
 
     public ICommand ExitCommand { get; }
-    public ICommand LogOutCommand { get; }
 
     public UserStore UserStore
     {
