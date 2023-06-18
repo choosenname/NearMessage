@@ -21,6 +21,7 @@
                  Background="{StaticResource WindowBackgroundColorBrush}"
                  TitleForeground="{StaticResource ForegroundColorBrush}"
                  WindowStartupLocation="CenterScreen"
+                 BorderBrush="{StaticResource WindowsBorderColorBrush}"
                  d:DataContext="{d:DesignInstance vms:MainViewModel}">
 
     <mah:MetroWindow.Resources>

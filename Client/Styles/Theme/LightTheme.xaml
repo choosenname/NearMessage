@@ -11,6 +11,9 @@
     <Color x:Key="WindowTitleBarBackgroundColor">White</Color>
     <SolidColorBrush x:Key="WindowTitleBarBackgroundColorBrush" Color="{StaticResource WindowTitleBarBackgroundColor}" />
 
+    <Color x:Key="WindowsBorderColor">Black</Color>
+    <SolidColorBrush x:Key="WindowsBorderColorBrush" Color="{StaticResource WindowsBorderColor}"/>
+
     <Color x:Key="ColorWrap">#FCFCFC</Color>
     <SolidColorBrush x:Key="ColorWrapBrush" Color="{StaticResource ColorWrap}" />
 
