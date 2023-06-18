@@ -3,6 +3,7 @@ using Client.Models;
 using Client.Stores;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Interfaces;
@@ -10,6 +11,7 @@ using System.Windows;
 using Client.Commands.Messages;
 using Client.Commands.Navigation;
 using Client.Commands.Users;
+using Client.Services;
 
 namespace Client.ViewModels;
 
@@ -38,7 +40,6 @@ public class HomeViewModel : ViewModelBase
         CreateGroupCommand = new NavigateCommand(createGroupNavigationService);
         CloseSearchCommand = new CloseSearchCommand(this, _httpClient, _userStore);
         LogOutCommand = new LogOutCommand(userStore, authenticationNavigationService);
-
 
         Task.Run(GetLastMessages);
         Task.Run(UpdateUsers);
@@ -91,10 +92,13 @@ public class HomeViewModel : ViewModelBase
         get => _selectedContact;
         set
         {
-            _selectedContact = value;
+            if (value == _selectedContact || value == null) return;
+
+                _selectedContact = value;
             OnPropertyChanged(nameof(SelectedContact));
 
-            ChatViewModel = new ChatViewModel(this, _userStore, _httpClient);
+            if(_selectedContact != null)
+                ChatViewModel = new ChatViewModel(this, _userStore, _httpClient);
         }
     }
 
@@ -125,7 +129,7 @@ public class HomeViewModel : ViewModelBase
         {
             _userStore = value;
             OnPropertyChanged(nameof(UserStore));
-        } 
+        }
     }
 
     public override void Dispose()
