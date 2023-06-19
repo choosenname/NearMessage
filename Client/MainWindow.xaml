@@ -1,44 +1,159 @@
-﻿<Window x:Class="Client.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vms="clr-namespace:Client.ViewModels"
-        xmlns:views="clr-namespace:Client.Views"
-        xmlns:modal="clr-namespace:ModalControl;assembly=ModalControl"
-        mc:Ignorable="d"
-        Height="450"
-        Width="800"
-        d:DataContext="{d:DesignInstance vms:MainViewModel}">
+﻿<mah:MetroWindow x:Class="Client.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:vms="clr-namespace:Client.ViewModels"
+                 xmlns:views="clr-namespace:Client.Views"
+                 xmlns:modal="clr-namespace:ModalControl;assembly=ModalControl"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 mc:Ignorable="d"
+                 Width="1100"
+                 Height="630"
+                 ShowTitleBar="False"
+                 ShowCloseButton="False"
+                 ShowMinButton="False"
+                 ShowMaxRestoreButton="False"
+                 WindowStyle="None"
+                 MinHeight="500"
+                 MinWidth="600"
+                 WindowTitleBrush="{StaticResource WindowTitleBarBackgroundColorBrush}"
+                 Background="{StaticResource WindowBackgroundColorBrush}"
+                 TitleForeground="{StaticResource ForegroundColorBrush}"
+                 WindowStartupLocation="CenterScreen"
+                 BorderBrush="{StaticResource WindowsBorderColorBrush}"
+                 d:DataContext="{d:DesignInstance vms:MainViewModel}">
+
+    <mah:MetroWindow.Resources>
+        <Style TargetType="Button" x:Key="ControlPanelButtonBase">
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Background" Value="{StaticResource WindowTitleBarBackgroundColorBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       Margin="{TemplateBinding Padding}"
+                                       FontSize="{TemplateBinding FontSize}" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background"
+                                        Value="{StaticResource HoverControlPanelButtonColorBrush}" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background"
+                                        Value="{StaticResource PressedControlPanelButtonColorBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="ControlPanelCloseButton">
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Background" Value="{StaticResource WindowTitleBarBackgroundColorBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ControlPanelCloseButtonBorder" BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       Margin="{TemplateBinding Padding}"
+                                       FontSize="{TemplateBinding FontSize}" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource HoverCloseButtonColorBrush}" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource PressedCloseButtonColorBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </mah:MetroWindow.Resources>
+
     <Grid>
-        <Grid.Resources>
-            <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
-                <views:RegistrationView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:AuthenticationViewModel}">
-                <views:AuthenticationView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:HomeViewModel}">
-                <views:HomeView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:ChatViewModel}">
-                <views:ChatView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
-                <views:SettingsView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:WelcomeViewModel}">
-                <views:WelcomeView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:CreateGroupViewModel}">
-                <views:CreateGroupView />
-            </DataTemplate>
-        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-        <modal:Modal Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
-            <ContentControl Content="{Binding CurrentModalViewModel}" />
-        </modal:Modal>
+        <Border Grid.Row="0"
+                Background="{StaticResource WindowTitleBarBackgroundColorBrush}"
+                MouseDown="Window_MouseDown" />
 
-        <ContentControl Content="{Binding CurrentViewModel}" />
+        <StackPanel
+            x:Name="ControlPanel"
+            Grid.Row="0"
+            Width="Auto"
+            Height="Auto"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right">
+
+            <Button
+                x:Name="MinimizeButton"
+                Width="50"
+                Content="—"
+                FontSize="9"
+                Foreground="White"
+                Style="{StaticResource ControlPanelButtonBase}"
+                Click="MinimizeButton_OnClick" />
+
+            <Button
+                x:Name="MaximizeButton"
+                Width="50"
+                FontFamily="Segoe MDL2 Assets"
+                Content="&#xE739;"
+                Foreground="White"
+                FontSize="9"
+                Style="{StaticResource ControlPanelButtonBase}"
+                Click="MaximizeRestoreButton_OnClick" />
+
+            <Button
+                x:Name="CloseButton"
+                Width="50"
+                FontFamily="Segoe MDL2 Assets"
+                Content="&#xE711;"
+                Foreground="White"
+                Style="{StaticResource ControlPanelCloseButton}"
+                Click="CloseButton_OnClick" />
+
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <modal:Modal Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
+                <ContentControl Content="{Binding CurrentModalViewModel}" />
+            </modal:Modal>
+
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
     </Grid>
-</Window>
+</mah:MetroWindow>

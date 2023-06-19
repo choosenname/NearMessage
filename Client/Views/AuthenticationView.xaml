@@ -13,37 +13,57 @@
     <UserControl.Resources>
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </UserControl.Resources>
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Border Style="{StaticResource BorderWrapStyle}">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
-        <TextBlock Text="Authentication"
-                   FontSize="30" />
+            <TextBlock Text="Authentication"
+                       FontSize="30" />
 
-        <Grid>
-            <custom:LoadingSpinner
-                IsLoading="{Binding IsLoading}" />
+            <Grid>
+                <custom:LoadingSpinner
+                    IsLoading="{Binding IsLoading}" />
 
-            <StackPanel
-                Visibility="{Binding IsLoading,
+                <StackPanel
+                    Visibility="{Binding IsLoading,
                 Converter={StaticResource InverseBooleanToVisibilityConverter}}">
 
-                <TextBox Style="{StaticResource WideTextBoxStyle}"
-                         Tag="Enter Name"
-                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock
+                        Text="Enter your Username"
+                        Opacity="0.5"
+                        Margin="0, 0, 0, 10" />
 
-                <TextBox Style="{StaticResource WideTextBoxStyle}"
-                         Tag="Enter Password"
-                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-        </Grid>
+                    <TextBox Tag="Enter Name"
+                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0, 0, 0, 10" />
 
-        <Button Style="{StaticResource WideButtonStyle}"
-                Command="{Binding AuthenticationCommand}"
-                Content="Authentication" />
+                    <TextBlock
+                        Text="Enter your Password"
+                        Opacity="0.5"
+                        Margin="0, 0, 0, 10" />
 
-        <TextBlock HorizontalAlignment="Center">
-            <Hyperlink Command="{Binding NavigateCommand}">
-                Registration
-            </Hyperlink>
-        </TextBlock>
-    </StackPanel>
+                    <TextBox Tag="Enter Password"
+                             Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0, 0, 0, 15" />
+
+                    <Button Command="{Binding AuthenticationCommand}"
+                            Content="Login"
+                            Margin="0, 0, 0, 15" />
+
+                    <TextBlock
+                        FontWeight="Medium"
+                        TextDecorations="Underline"
+                        HorizontalAlignment="Center">
+
+                        <Hyperlink
+                            Foreground="{StaticResource ForegroundColorBrush}"
+                            FontWeight="Bold"
+                            TextDecorations="None"
+                            Command="{Binding NavigateCommand}">
+                            Sing Up
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Border>
 </UserControl>

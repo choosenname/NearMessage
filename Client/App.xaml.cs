@@ -23,7 +23,7 @@ public partial class App : Application
         _serviceProvider = Client.Startup.Configure();
     }
 
-    protected override async void OnStartup(StartupEventArgs e)
+    protected override void OnStartup(StartupEventArgs e)
     {
         var navigation = _serviceProvider.GetRequiredService<INavigationService>();
         navigation.Navigate();

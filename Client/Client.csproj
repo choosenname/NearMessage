@@ -33,7 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Croup\" />
+    <Folder Include="Commands\Group\" />
+    <Folder Include="Commands\UserInformation\" />
   </ItemGroup>
 
 </Project>

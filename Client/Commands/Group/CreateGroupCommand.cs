@@ -1,14 +1,9 @@
-﻿using Client.Models;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System;
+﻿using System.Net.Http;
+using Client.Interfaces;
 using Client.Services;
 using Client.ViewModels;
-using Client.Interfaces;
 
-namespace Client.Commands.Croup;
+namespace Client.Commands.Group;
 
 public class CreateGroupCommand : CommandBase
 {
@@ -27,9 +22,9 @@ public class CreateGroupCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
-        if (_createGroupViewModel.GroupName != null)
-            await GroupService.CreateGroupAsync(_createGroupViewModel.GroupName, _httpClient);
+            if (_createGroupViewModel.GroupName != null)
+                await GroupService.CreateGroupAsync(_createGroupViewModel.GroupName, _httpClient);
 
-        _navigationService.Navigate();
+            _navigationService.Navigate();
     }
-}
+    }

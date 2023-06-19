@@ -17,7 +17,8 @@ public static class UserStoreSettingsService
                 Settings.Default.Password),
             Token = Settings.Default.Token,
             //Token = String.Empty,
-            LastResponseTime = Settings.Default.LastResponseTime
+            LastResponseTime = Settings.Default.LastResponseTime,
+            Theme = Settings.Default.Theme
         };
     }
 
@@ -28,6 +29,7 @@ public static class UserStoreSettingsService
         Settings.Default.Password = userStore.User.Password;
         Settings.Default.Token = userStore.Token;
         Settings.Default.LastResponseTime = userStore.LastResponseTime;
+        Settings.Default.Theme = userStore.Theme;
         Settings.Default.Save();
     }
 }

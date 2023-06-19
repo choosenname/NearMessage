@@ -8,6 +8,7 @@ using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Text;
+using System.Windows;
 using Client.Interfaces;
 
 namespace Client.Commands.Users;
@@ -48,6 +49,9 @@ public class RegistrationCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
+        try
+        {
+
         _registrationViewModel.IsLoading = true;
 
         _userStore.User = new UserModel(
@@ -72,5 +76,11 @@ public class RegistrationCommand : CommandBase
         }
 
         _registrationViewModel.IsLoading = false;
+
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show(e.Message);
+        }
     }
 }
