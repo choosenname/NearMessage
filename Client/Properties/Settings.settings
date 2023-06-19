@@ -29,5 +29,8 @@
     <Setting Name="UserInformationPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">ClientData\\UsersInformation</Value>
     </Setting>
+    <Setting Name="UserPhotoPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ClientData\\UsersInformation\\Photos</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -41,6 +41,7 @@ public class HomeViewModel : ViewModelBase
         CreateGroupCommand = new NavigateCommand(createGroupNavigationService);
         CloseSearchCommand = new CloseSearchCommand(this, _httpClient, _userStore);
         LogOutCommand = new LogOutCommand(userStore, authenticationNavigationService);
+        ChangeAvatarCommand = new ChangeAvatarCommand(userStore, this);
 
         IsLoading = true;
         GetAllUsersCommand.Execute(null);
@@ -147,6 +148,11 @@ public class HomeViewModel : ViewModelBase
 
     }
 
+    public string Avatar
+    {
+        get => _userStore.User.Avatar;
+        set => OnPropertyChanged(nameof(Avatar));
+    }
     public override void Dispose()
     {
         base.Dispose();
@@ -159,6 +165,5 @@ public class HomeViewModel : ViewModelBase
     public ICommand CreateGroupCommand { get; }
     public ICommand CloseSearchCommand { get; }
     public ICommand LogOutCommand { get; }
-
-    
+    public ICommand ChangeAvatarCommand { get; }
 }

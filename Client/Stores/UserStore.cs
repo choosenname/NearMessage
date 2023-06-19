@@ -1,5 +1,7 @@
 ﻿using Client.Models;
 using System;
+using System.IO;
+using Client.Properties;
 
 namespace Client.Stores;
 

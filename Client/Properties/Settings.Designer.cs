@@ -117,5 +117,14 @@ namespace Client.Properties {
                 return ((string)(this["UserInformationPath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ClientData\\\\UsersInformation\\\\Photos")]
+        public string UserPhotoPath {
+            get {
+                return ((string)(this["UserPhotoPath"]));
+            }
+        }
     }
 }

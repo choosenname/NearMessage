@@ -47,6 +47,7 @@
             <converter:MessageAlignmentConverter x:Key="MessageAlignmentConverter" />
             <converter:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
             <converter:InverseNullableToVisibilityConverter x:Key="InverseNullableToVisibilityConverter" />
+            <converter:StringToImageConverter x:Key="StringToImageConverter"/>
 
         </ResourceDictionary>
     </Application.Resources>
