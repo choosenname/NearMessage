@@ -258,7 +258,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" VerticalAlignment="Top">
-                        <Menu>
+                        <Menu Background="{StaticResource BottomChatPanelColorBrush}">
                             <MenuItem
                                 Command="{Binding SettingsNavigateCommand}"
                                 Width="280"
@@ -280,9 +280,7 @@
                                 </MenuItem.Header>
 
                             </MenuItem>
-                        </Menu>
 
-                        <Menu>
                             <MenuItem
                                 Command="{Binding LogOutCommand}"
                                 Width="280"

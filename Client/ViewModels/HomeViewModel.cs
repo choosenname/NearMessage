@@ -42,6 +42,7 @@ public class HomeViewModel : ViewModelBase
         CloseSearchCommand = new CloseSearchCommand(this, _httpClient, _userStore);
         LogOutCommand = new LogOutCommand(userStore, authenticationNavigationService);
         ChangeAvatarCommand = new ChangeAvatarCommand(userStore, this);
+        ChangeSelectedAvatarCommand = new ChangeSelectedAvatarCommand(this);
 
         IsLoading = true;
         GetAllUsersCommand.Execute(null);
@@ -166,4 +167,5 @@ public class HomeViewModel : ViewModelBase
     public ICommand CloseSearchCommand { get; }
     public ICommand LogOutCommand { get; }
     public ICommand ChangeAvatarCommand { get; }
+    public ICommand ChangeSelectedAvatarCommand { get; }
 }

@@ -22,9 +22,9 @@ public class CreateGroupCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
-        if (_createGroupViewModel.GroupName != null)
-            await GroupService.CreateGroupAsync(_createGroupViewModel.GroupName, _httpClient);
+            if (_createGroupViewModel.GroupName != null)
+                await GroupService.CreateGroupAsync(_createGroupViewModel.GroupName, _httpClient);
 
-        _navigationService.Navigate();
+            _navigationService.Navigate();
     }
-}
+    }

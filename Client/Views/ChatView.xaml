@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0"
-                Background="White">
+                Background="{StaticResource BottomChatPanelColorBrush}">
 
             <Grid HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
@@ -26,7 +26,16 @@
                 </Grid.ColumnDefinitions>
 
                 <Border Grid.Column="0" Height="38" Width="38"
-                        CornerRadius="25" Background="White" />
+                        CornerRadius="25">
+
+                    <Border.Background>
+                        <ImageBrush
+                            ImageSource="{Binding CurrentContact.Avatar,
+                                    Converter={StaticResource StringToImageConverter},
+                                    UpdateSourceTrigger=PropertyChanged}" />
+                    </Border.Background>
+
+                </Border>
 
                 <TextBlock Grid.Column="1" Text="{Binding CurrentContact.Username}" />
             </Grid>

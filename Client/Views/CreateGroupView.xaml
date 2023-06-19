@@ -7,7 +7,8 @@
              xmlns:vms="clr-namespace:Client.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance vms:CreateGroupViewModel }">
+             d:DataContext="{d:DesignInstance vms:CreateGroupViewModel }"
+             Background="{StaticResource ColorWrapBrush}">
 
     <Grid HorizontalAlignment="Center"
           VerticalAlignment="Center"

@@ -8,6 +8,7 @@ using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Text;
+using System.Windows;
 using Client.Interfaces;
 
 namespace Client.Commands.Users;
@@ -45,31 +46,38 @@ public class AuthenticationCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
-        _authenticationViewModel.IsLoading = true;
-
-        _userStore.User = new UserModel(
-            Guid.Empty,
-            _authenticationViewModel.Username,
-            _authenticationViewModel.Password);
-
-        var content = new StringContent(JsonConvert.SerializeObject(_userStore.User),
-            Encoding.UTF8, "application/json");
-
-        var response = await _httpClient.PostAsync("/authentication", content);
-
-        response.EnsureSuccessStatusCode();
-
-        if (response.IsSuccessStatusCode)
+        try
         {
-            var receivedData = await response.Content.ReadAsAsync<ReceivedData>();
+            _authenticationViewModel.IsLoading = true;
 
-            _userStore.Token = receivedData.Token.Trim('"');
-            _userStore.User.Id = receivedData.Id;
+            _userStore.User = new UserModel(
+                Guid.Empty,
+                _authenticationViewModel.Username,
+                _authenticationViewModel.Password);
 
-        _navigationService.Navigate();
+            var content = new StringContent(JsonConvert.SerializeObject(_userStore.User),
+                Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync("/authentication", content);
+
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var receivedData = await response.Content.ReadAsAsync<ReceivedData>();
+
+                _userStore.Token = receivedData.Token.Trim('"');
+                _userStore.User.Id = receivedData.Id;
+
+                _navigationService.Navigate();
+            }
+
+            _authenticationViewModel.IsLoading = false;
         }
-
-        _authenticationViewModel.IsLoading = false;
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 
     public record ReceivedData(string Token, Guid Id);
