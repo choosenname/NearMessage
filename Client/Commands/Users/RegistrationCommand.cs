@@ -52,35 +52,37 @@ public class RegistrationCommand : CommandBase
         try
         {
 
-        _registrationViewModel.IsLoading = true;
+            _registrationViewModel.IsLoading = true;
 
-        _userStore.User = new UserModel(
-            Guid.NewGuid(),
-            _registrationViewModel.Username,
-            _registrationViewModel.Password);
+            _userStore.User = new UserModel(
+                Guid.NewGuid(),
+                _registrationViewModel.Username,
+                _registrationViewModel.Password);
 
-        var content = new StringContent(JsonConvert.SerializeObject(_userStore.User),
-            Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(_userStore.User),
+                Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PostAsync("/registration", content);
+            var response = await _httpClient.PostAsync("/registration", content);
 
-        response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode();
 
-        if (response.IsSuccessStatusCode)
-        {
-            _userStore.Token = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                _userStore.Token = await response.Content.ReadAsStringAsync();
 
-            _userStore.Token = _userStore.Token.Trim('"');
+                _userStore.Token = _userStore.Token.Trim('"');
 
-            _navigationService.Navigate();
-        }
-
-        _registrationViewModel.IsLoading = false;
+                _navigationService.Navigate();
+            }
 
         }
         catch (Exception e)
         {
             MessageBox.Show(e.Message);
+        }
+        finally
+        {
+            _registrationViewModel.IsLoading = false;
         }
     }
 }

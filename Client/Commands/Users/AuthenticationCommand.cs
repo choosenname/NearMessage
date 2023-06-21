@@ -72,11 +72,14 @@ public class AuthenticationCommand : CommandBase
                 _navigationService.Navigate();
             }
 
-            _authenticationViewModel.IsLoading = false;
         }
         catch (Exception ex)
         {
             MessageBox.Show(ex.Message);
+        }
+        finally
+        {
+            _authenticationViewModel.IsLoading = false;
         }
     }
 
