@@ -61,7 +61,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ClientData\\\\Messages")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\ClientData\\\\Messages")]
         public string MessagesDataPath {
             get {
                 return ((string)(this["MessagesDataPath"]));
@@ -79,7 +79,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ClientData\\\\Users")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\ClientData\\\\Users")]
         public string UserDataPath {
             get {
                 return ((string)(this["UserDataPath"]));
@@ -111,7 +111,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ClientData\\\\UsersInformation")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\ClientData\\\\UsersInformation")]
         public string UserInformationPath {
             get {
                 return ((string)(this["UserInformationPath"]));
@@ -120,7 +120,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ClientData\\\\UsersInformation\\\\Photos")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\ClientData\\\\UsersInformation\\\\Photos")]
         public string UserPhotoPath {
             get {
                 return ((string)(this["UserPhotoPath"]));

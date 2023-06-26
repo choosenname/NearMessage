@@ -1,258 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Client.App" Collapsed="true">
-    <Position X="21.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
-      <FileName>App.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="25" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>MainWindow.xaml.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Startup" Collapsed="true">
-    <Position X="25" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Startup.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Properties.Settings" Collapsed="true">
-    <Position X="23.25" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QACAAAAAAAAAAEAAAQAAIAAAAAABAAACAAAAAAABAAA=</HashCode>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Commands.AuthenticationCommand" Collapsed="true">
-    <Position X="12.25" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAIFAAAAAAAgAAAAAABAAAAAAAAAA=</HashCode>
-      <FileName>Commands\AuthenticationCommand.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Commands.CommandBase" Collapsed="true">
-    <Position X="10" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
-      <FileName>Commands\CommandBase.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Client.Commands.RegistrationCommand" Collapsed="true">
-    <Position X="16.75" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAIFAgAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Commands\RegistrationCommand.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Commands.SendMediaCommand" Collapsed="true">
-    <Position X="19" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAABAAAAAAQAABAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
-      <FileName>Commands\SendMediaCommand.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Commands.SendMessageCommand" Collapsed="true">
-    <Position X="1" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAABAAAAAAQAABAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
-      <FileName>Commands\SendMessageCommand.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Converter.InverseNullableToVisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="26.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Converter\InverseNullableToVisibilityConverter.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Converter.InverseBooleanToVisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="23.25" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Converter\InverseBooleanToVisibilityConverter.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Converter.MessageAlignmentConverter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="21.5" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Converter\MessageAlignmentConverter.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Models.ContactModel" Collapsed="true">
-    <Position X="0.5" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
-      <FileName>Models\ContactModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Models.EntityModel" Collapsed="true">
-    <Position X="2.75" Y="6.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\EntityModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Models.MediaModel" Collapsed="true">
-    <Position X="2.75" Y="9.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
-      <FileName>Models\MediaModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Models.MessageModel" Collapsed="true">
-    <Position X="2.75" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAQAAAAAgAAAAAAAAAAAAAAAAAAABAAAAAAAAAIAAA=</HashCode>
-      <FileName>Models\MessageModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Models.UserModel" Collapsed="true">
-    <Position X="5" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
-      <FileName>Models\UserModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Queries.GetLastMessagesQuery" Collapsed="true">
-    <Position X="3.25" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAABAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Queries\GetLastMessagesQuery.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Queries.GetMessagesQuery" Collapsed="true">
-    <Position X="5.5" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAABAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
-      <FileName>Queries\GetMessagesQuery.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Queries.GetUsersQuery" Collapsed="true">
-    <Position X="7.75" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAAQAABAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Queries\GetUsersQuery.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Queries.SearchUserQuery" Collapsed="true">
-    <Position X="10" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAAQAABAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Queries\SearchUserQuery.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Services.NavigationService&lt;TViewModel&gt;" Collapsed="true">
-    <Position X="23.25" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAEAAAAA=</HashCode>
-      <FileName>Services\NavigationService.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Services.SaveEntityModelService" Collapsed="true">
-    <Position X="21.5" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Services\SaveEntityModelService.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Stores.NavigationStore" Collapsed="true">
-    <Position X="25" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAIEAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
-      <FileName>Stores\NavigationStore.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Client.Stores.UserStore" Collapsed="true">
-    <Position X="26.75" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAABAAA=</HashCode>
-      <FileName>Stores\UserStore.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Client.ViewModels.AuthenticationViewModel" Collapsed="true">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+    <Position X="24" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAQACAAAAAgAAAAACAAAAAAAAAgI=</HashCode>
       <FileName>ViewModels\AuthenticationViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Client.ViewModels.ChatViewModel" Collapsed="true">
-    <Position X="2.75" Y="4.75" Width="1.5" />
+    <Position X="22" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAEQAAAAABAAAAgAAAAAAAAAgAAIIAEAgAAQBAAAA=</HashCode>
+      <HashCode>IQAAEAAAACABAAAAgAAAAAAAAAgAAIAgEAgAAQBBCgA=</HashCode>
       <FileName>ViewModels\ChatViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Client.ViewModels.HomeViewModel" Collapsed="true">
-    <Position X="5" Y="4.75" Width="1.5" />
+  <Class Name="Client.ViewModels.CreateGroupViewModel">
+    <Position X="26.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAAAAAAACAAABAAABAEAgIEAAAAAAgAQCIAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAABAAACAAAAE=</HashCode>
+      <FileName>ViewModels\CreateGroupViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.ViewModels.HomeViewModel" Collapsed="true">
+    <Position X="22" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAwAAAACGhBCEAABQAAFAEAgIEAQAQQAAASCIAAAI=</HashCode>
       <FileName>ViewModels\HomeViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Client.ViewModels.MainViewModel" Collapsed="true">
-    <Position X="7.25" Y="4.75" Width="1.5" />
+  <Class Name="Client.ViewModels.MainViewModel">
+    <Position X="28.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAIEAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>IAAAAACAAAIAIEAAAAUAAAAAAgBAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>ViewModels\MainViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Client.ViewModels.RegistrationViewModel" Collapsed="true">
-    <Position X="9.5" Y="4.75" Width="1.5" />
+    <Position X="28.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAQAAAAAAAgAAAAQCAAAAAAAAAgI=</HashCode>
       <FileName>ViewModels\RegistrationViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Client.ViewModels.ViewModelBase" Collapsed="true">
-    <Position X="5" Y="3.5" Width="1.5" />
+  <Class Name="Client.ViewModels.SettingsViewModel" Collapsed="true">
+    <Position X="22" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAABEAEAABBAAAAAQgAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\SettingsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.ViewModels.ViewModelBase">
+    <Position X="25.25" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\ViewModelBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Client.Views.AuthenticationView" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="23.25" Y="0.5" Width="1.5" />
+  <Class Name="Client.ViewModels.WelcomeViewModel" Collapsed="true">
+    <Position X="28.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\AuthenticationView.xaml.cs</FileName>
+      <HashCode>AAABAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ViewModels\WelcomeViewModel.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Views.ChatView" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\ChatView.xaml.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Views.HomeView" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="21.5" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\HomeView.xaml.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Views.RegistrationView" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="26.75" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\RegistrationView.xaml.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
