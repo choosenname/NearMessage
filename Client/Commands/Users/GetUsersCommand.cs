@@ -27,6 +27,8 @@ public class GetUsersCommand : CommandBase
 
     public override async void Execute(object? parameter)
     {
+        if(_homeViewModel.IsSearching) return;
+
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
             _userStore.Token);
 
