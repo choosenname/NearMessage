@@ -72,7 +72,7 @@ Authentication:
       "ValidateIssuerSigningKey": true
     }
 ```
-By default it looks like this. But you can change this data and change the data in the token itself. 
+By default, it looks like this. But you can change this data and change the data in the token itself. 
 You can do this in the Infrastructure/Authentication/JwtProvider.cs file
 ```cs
 public string Generate(User user)
